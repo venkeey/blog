@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Line Art Converter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 250px;
+        }
+        canvas {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+        }
+        .controls {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+        .control-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 180px;
+            font-weight: 500;
+        }
+        button {
+            padding: 10px 18px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+        .file-info {
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        #dropArea {
+            border: 2px dashed #3498db;
+            border-radius: 8px;
+            padding: 40px 25px;
+            text-align: center;
+            background: #ecf0f1;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        #dropArea.highlight {
+            border-color: #2ecc71;
+            background: #e0f7fa;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #ecf0f1;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: #fff;
+            border-bottom: 1px solid #fff;
+            margin-bottom: -1px;
+            font-weight: 500;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .preset-btn {
+            background: #ecf0f1;
+            color: #2c3e50;
+            border: 1px solid #bdc3c7;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .preset-btn:hover {
+            background: #d6dbdf;
+        }
+        .preset-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #2980b9;
+        }
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+            display: none;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #2ecc71;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .status-message {
+            font-style: italic;
+            color: #7f8c8d;
+            margin: 10px 0;
+            min-height: 20px;
+        }
+        .output-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .output-option {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .output-option:hover {
+            background-color: #f5f7fa;
+        }
+        .output-option.selected {
+            border-color: #3498db;
+            background-color: #ebf5fb;
+        }
+        .output-option h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .output-option p {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .file-size-estimate {
+            font-weight: bold;
+            color: #16a085;
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="range"] {
+            flex: 1;
+        }
+        .slider-value {
+            min-width: 30px;
+            text-align: right;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 5px;
+            cursor: help;
+        }
+        .tooltip .icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: #95a5a6;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+            font-size: 12px;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #34495e;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8em;
+            pointer-events: none;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI-Powered Line Art Converter</h1>
+    <p>Convert passport photos or headshots to minimalist line drawings with file sizes under 10KB while preserving recognizable features.</p>
+    
+    <div class="container">
+        <div class="card">
+            <h2>1. Upload Your Photo</h2>
+            <div id="dropArea">
+                <p>Drag & drop your photo here or click to select a file</p>
+                <p style="font-size: 0.9em; color: #7f8c8d;">Recommended: Passport photo or headshot with clear facial features</p>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>2. Choose Conversion Style</h2>
+            <div class="preset-buttons">
+                <button class="preset-btn active" id="presetMinimalist">Minimalist Portrait</button>
+                <button class="preset-btn" id="presetDetailed">Detailed Sketch</button>
+                <button class="preset-btn" id="presetCartoon">Cartoon Style</button>
+                <button class="preset-btn" id="presetTiny">Ultra-Small (< 5KB)</button>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="basic">Basic Settings</div>
+                <div class="tab" data-tab="advanced">Advanced Settings</div>
+                <div class="tab" data-tab="output">Output Options</div>
+            </div>
+            
+            <div class="tab-content active" id="basic-tab">
+                <div class="control-group">
+                    <label for="lineWeight">Line Weight:</label>
+                    <div class="slider-container">
+                        <input type="range" id="lineWeight" min="1" max="10" value="3">
+                        <span class="slider-value" id="lineWeightValue">3</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="detailLevel">Detail Level:</label>
+                    <div class="slider-container">
+                        <input type="range" id="detailLevel" min="1" max="10" value="5">
+                        <span class="slider-value" id="detailLevelValue">5</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="styleType">Drawing Style:</label>
+                    <select id="styleType">
+                        <option value="contour">Contour Lines</option>
+                        <option value="sketch" selected>Sketch</option>
+                        <option value="hatching">Hatching</option>
+                        <option value="minimal">Minimal</option>
+                    </select>
+                    <div class="tooltip">
+                        <span class="icon">?</span>
+                        <span class="tooltip-text">Different artistic styles for the line drawing</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="faceEmphasis">Face Emphasis:</label>
+                    <select id="faceEmphasis">
+                        <option value="balanced" selected>Balanced</option>
+                        <option value="eyes">Emphasize Eyes</option>
+                        <option value="features">All Facial Features</option>
+                        <option value="outline">Outline Only</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="advanced-tab">
+                <div class="control-group">
+                    <label for="lineSimplification">Line Simplification:</label>
+                    <div class="slider-container">
+                        <input type="range" id="lineSimplification" min="0" max="10" value="5">
+                        <span class="slider-value" id="lineSimplificationValue">5</span>
+                    </div>
+                    <div class="tooltip">
+                        <span class="icon">?</span>
+                        <span class="tooltip-text">Higher values reduce the number of points in each line</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="noiseReduction">Noise Reduction:</label>
+                    <div class="slider-container">
+                        <input type="range" id="noiseReduction" min="0" max="10" value="3">
+                        <span class="slider-value" id="noiseReductionValue">3</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="contrastBoost">Contrast Boost:</label>
+                    <div class="slider-container">
+                        <input type="range" id="contrastBoost" min="0" max="10" value="5">
+                        <span class="slider-value" id="contrastBoostValue">5</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="edgeDetection">Edge Detection:</label>
+                    <select id="edgeDetection">
+                        <option value="canny">Canny (Standard)</option>
+                        <option value="ai" selected>AI-Enhanced</option>
+                        <option value="sobel">Sobel (Simple)</option>
+                        <option value="laplacian">Laplacian (Detailed)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="postProcessing">Post-Processing:</label>
+                    <select id="postProcessing">
+                        <option value="none">None</option>
+                        <option value="thinning" selected>Line Thinning</option>
+                        <option value="smoothing">Smoothing</option>
+                        <option value="both">Thinning & Smoothing</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="output-tab">
+                <div class="control-group">
+                    <label for="outputSize">Output Size:</label>
+                    <select id="outputSize">
+                        <option value="original">Original Size</option>
+                        <option value="400">400px (width)</option>
+                        <option value="300" selected>300px (width)</option>
+                        <option value="200">200px (width)</option>
+                        <option value="150">150px (width)</option>
+                        <option value="100">100px (width)</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>Output Format:</label>
+                    <div class="output-options">
+                        <div class="output-option selected" data-format="png">
+                            <h3>PNG</h3>
+                            <p>2-color palette for crisp lines</p>
+                            <p>Est. size: <span class="file-size-estimate" id="pngSizeEstimate">~8KB</span></p>
+                        </div>
+                        <div class="output-option" data-format="svg">
+                            <h3>SVG</h3>
+                            <p>Vector format for smallest file size</p>
+                            <p>Est. size: <span class="file-size-estimate" id="svgSizeEstimate">~5KB</span></p>
+                        </div>
+                        <div class="output-option" data-format="jpeg">
+                            <h3>JPEG</h3>
+                            <p>Compressed format with quality control</p>
+                            <p>Est. size: <span class="file-size-estimate" id="jpegSizeEstimate">~7KB</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="control-group" id="jpegQualityGroup" style="display: none;">
+                    <label for="jpegQuality">JPEG Quality:</label>
+                    <div class="slider-container">
+                        <input type="range" id="jpegQuality" min="10" max="90" value="70">
+                        <span class="slider-value" id="jpegQualityValue">70%</span>
+                    </div>
+                </div>
+                
+                <div class="control-group" id="svgOptionsGroup" style="display: none;">
+                    <label for="svgSimplification">SVG Simplification:</label>
+                    <div class="slider-container">
+                        <input type="range" id="svgSimplification" min="1" max="10" value="5">
+                        <span class="slider-value" id="svgSimplificationValue">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="status-message" id="statusMessage"></div>
+            
+            <div class="control-group">
+                <button id="processBtn" disabled>Generate Line Art</button>
+                <button id="downloadBtn" disabled>Download Result</button>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>3. Results</h2>
+            <div class="image-container">
+                <div class="image-box">
+                    <h3>Original Image</h3>
+                    <canvas id="originalCanvas"></canvas>
+                    <div id="originalInfo" class="file-info"></div>
+                </div>
+                <div class="image-box">
+                    <h3>Line Art Result</h3>
+                    <canvas id="resultCanvas"></canvas>
+                    <div id="resultInfo" class="file-info"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM elements
+        const dropArea = document.getElementById('dropArea');
+        const fileInput = document.getElementById('fileInput');
+        const originalCanvas = document.getElementById('originalCanvas');
+        const resultCanvas = document.getElementById('resultCanvas');
+        const originalInfo = document.getElementById('originalInfo');
+        const resultInfo = document.getElementById('resultInfo');
+        const processBtn = document.getElementById('processBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const statusMessage = document.getElementById('statusMessage');
+        
+        // Tab navigation
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+            });
+        });
+        
+        // Preset buttons
+        const presetMinimalist = document.getElementById('presetMinimalist');
+        const presetDetailed = document.getElementById('presetDetailed');
+        const presetCartoon = document.getElementById('presetCartoon');
+        const presetTiny = document.getElementById('presetTiny');
+        
+        // Control elements - Basic
+        const lineWeight = document.getElementById('lineWeight');
+        const detailLevel = document.getElementById('detailLevel');
+        const styleType = document.getElementById('styleType');
+        const faceEmphasis = document.getElementById('faceEmphasis');
+        
+        // Control elements - Advanced
+        const lineSimplification = document.getElementById('lineSimplification');
+        const noiseReduction = document.getElementById('noiseReduction');
+        const contrastBoost = document.getElementById('contrastBoost');
+        const edgeDetection = document.getElementById('edgeDetection');
+        const postProcessing = document.getElementById('postProcessing');
+        
+        // Control elements - Output
+        const outputSize = document.getElementById('outputSize');
+        const jpegQuality = document.getElementById('jpegQuality');
+        const svgSimplification = document.getElementById('svgSimplification');
+        const jpegQualityGroup = document.getElementById('jpegQualityGroup');
+        const svgOptionsGroup = document.getElementById('svgOptionsGroup');
+        
+        // Value display elements
+        const lineWeightValue = document.getElementById('lineWeightValue');
+        const detailLevelValue = document.getElementById('detailLevelValue');
+        const lineSimplificationValue = document.getElementById('lineSimplificationValue');
+        const noiseReductionValue = document.getElementById('noiseReductionValue');
+        const contrastBoostValue = document.getElementById('contrastBoostValue');
+        const jpegQualityValue = document.getElementById('jpegQualityValue');
+        const svgSimplificationValue = document.getElementById('svgSimplificationValue');
+        
+        // Size estimate elements
+        const pngSizeEstimate = document.getElementById('pngSizeEstimate');
+        const svgSizeEstimate = document.getElementById('svgSizeEstimate');
+        const jpegSizeEstimate = document.getElementById('jpegSizeEstimate');
+        
+        // Output format selection
+        const outputOptions = document.querySelectorAll('.output-option');
+        let selectedFormat = 'png';
+        
+        outputOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                outputOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedFormat = option.dataset.format;
+                
+                // Show/hide format-specific options
+                jpegQualityGroup.style.display = selectedFormat === 'jpeg' ? 'block' : 'none';
+                svgOptionsGroup.style.display = selectedFormat === 'svg' ? 'block' : 'none';
+                
+                // Update file size estimates
+                updateFileSizeEstimates();
+            });
+        });
+        
+        // Original image data
+        let originalImage = null;
+        
+        // Preset configurations
+        presetMinimalist.addEventListener('click', () => {
+            // Set values for minimalist portrait
+            lineWeight.value = 3;
+            lineWeightValue.textContent = 3;
+            detailLevel.value = 5;
+            detailLevelValue.textContent = 5;
+            styleType.value = 'sketch';
+            faceEmphasis.value = 'balanced';
+            
+            lineSimplification.value = 7;
+            lineSimplificationValue.textContent = 7;
+            noiseReduction.value = 5;
+            noiseReductionValue.textContent = 5;
+            contrastBoost.value = 6;
+            contrastBoostValue.textContent = 6;
+            edgeDetection.value = 'ai';
+            postProcessing.value = 'thinning';
+            
+            outputSize.value = '300';
+            selectedFormat = 'png';
+            outputOptions.forEach(opt => {
+                opt.classList.remove('selected');
+                if (opt.dataset.format === 'png') {
+                    opt.classList.add('selected');
+                }
+            });
+            
+            jpegQualityGroup.style.display = 'none';
+            svgOptionsGroup.style.display = 'none';
+            
+            highlightPresetButton(presetMinimalist);
+            updateFileSizeEstimates();
+        });
+        
+        presetDetailed.addEventListener('click', () => {
+            // Set values for detailed sketch
+            lineWeight.value = 2;
+            lineWeightValue.textContent = 2;
+            detailLevel.value = 8;
+            detailLevelValue.textContent = 8;
+            styleType.value = 'sketch';
+            faceEmphasis.value = 'features';
+            
+            lineSimplification.value = 3;
+            lineSimplificationValue.textContent = 3;
+            noiseReduction.value = 2;
+            noiseReductionValue.textContent = 2;
+            contrastBoost.value = 5;
+            contrastBoostValue.textContent = 5;
+            edgeDetection.value = 'ai';
+            postProcessing.value = 'smoothing';
+            
+            outputSize.value = '400';
+            selectedFormat = 'svg';
+            outputOptions.forEach(opt => {
+                opt.classList.remove('selected');
+                if (opt.dataset.format === 'svg') {
+                    opt.classList.add('selected');
+                }
+            });
+            
+            jpegQualityGroup.style.display = 'none';
+            svgOptionsGroup.style.display = 'block';
+            svgSimplification.value = 3;
+            svgSimplificationValue.textContent = 3;
+            
+            highlightPresetButton(presetDetailed);
+            updateFileSizeEstimates();
+        });
+        
+        presetCartoon.addEventListener('click', () => {
+            // Set values for cartoon style
+            lineWeight.value = 5;
+            lineWeightValue.textContent = 5;
+            detailLevel.value = 4;
+            detailLevelValue.textContent = 4;
+            styleType.value = 'contour';
+            faceEmphasis.value = 'eyes';
+            
+            lineSimplification.value = 8;
+            lineSimplificationValue.textContent = 8;
+            noiseReduction.value = 7;
+            noiseReductionValue.textContent = 7;
+            contrastBoost.value = 8;
+            contrastBoostValue.textContent = 8;
+            edgeDetection.value = 'ai';
+            postProcessing.value = 'both';
+            
+            outputSize.value = '300';
+            selectedFormat = 'svg';
+            outputOptions.forEach(opt => {
+                opt.classList.remove('selected');
+                if (opt.dataset.format === 'svg') {
+                    opt.classList.add('selected');
+                }
+            });
+            
+            jpegQualityGroup.style.display = 'none';
+            svgOptionsGroup.style.display = 'block';
+            svgSimplification.value = 6;
+            svgSimplificationValue.textContent = 6;
+            
+            highlightPresetButton(presetCartoon);
+            updateFileSizeEstimates();
+        });
+        
+        presetTiny.addEventListener('click', () => {
+            // Set values for ultra-small file size
+            lineWeight.value = 2;
+            lineWeightValue.textContent = 2;
+            detailLevel.value = 2;
+            detailLevelValue.textContent = 2;
+            styleType.value = 'minimal';
+            faceEmphasis.value = 'outline';
+            
+            lineSimplification.value = 10;
+            lineSimplificationValue.textContent = 10;
+            noiseReduction.value = 10;
+            noiseReductionValue.textContent = 10;
+            contrastBoost.value = 10;
+            contrastBoostValue.textContent = 10;
+            edgeDetection.value = 'sobel';
+            postProcessing.value = 'both';
+            
+            outputSize.value = '150';
+            selectedFormat = 'svg';
+            outputOptions.forEach(opt => {
+                opt.classList.remove('selected');
+                if (opt.dataset.format === 'svg') {
+                    opt.classList.add('selected');
+                }
+            });
+            
+            jpegQualityGroup.style.display = 'none';
+            svgOptionsGroup.style.display = 'block';
+            svgSimplification.value = 10;
+            svgSimplificationValue.textContent = 10;
+            
+            highlightPresetButton(presetTiny);
+            updateFileSizeEstimates();
+        });
+        
+        function highlightPresetButton(activeButton) {
+            // Remove active class from all preset buttons
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to the clicked button
+            activeButton.classList.add('active');
+        }
+        
+        // Update value displays
+        lineWeight.addEventListener('input', () => {
+            lineWeightValue.textContent = lineWeight.value;
+            updateFileSizeEstimates();
+        });
+        
+        detailLevel.addEventListener('input', () => {
+            detailLevelValue.textContent = detailLevel.value;
+            updateFileSizeEstimates();
+        });
+        
+        lineSimplification.addEventListener('input', () => {
+            lineSimplificationValue.textContent = lineSimplification.value;
+            updateFileSizeEstimates();
+        });
+        
+        noiseReduction.addEventListener('input', () => {
+            noiseReductionValue.textContent = noiseReduction.value;
+            updateFileSizeEstimates();
+        });
+        
+        contrastBoost.addEventListener('input', () => {
+            contrastBoostValue.textContent = contrastBoost.value;
+            updateFileSizeEstimates();
+        });
+        
+        jpegQuality.addEventListener('input', () => {
+            jpegQualityValue.textContent = `${jpegQuality.value}%`;
+            updateFileSizeEstimates();
+        });
+        
+        svgSimplification.addEventListener('input', () => {
+            svgSimplificationValue.textContent = svgSimplification.value;
+            updateFileSizeEstimates();
+        });
+        
+        outputSize.addEventListener('change', updateFileSizeEstimates);
+        styleType.addEventListener('change', updateFileSizeEstimates);
+        faceEmphasis.addEventListener('change', updateFileSizeEstimates);
+        edgeDetection.addEventListener('change', updateFileSizeEstimates);
+        postProcessing.addEventListener('change', updateFileSizeEstimates);
+        
+        // Update file size estimates based on current settings
+        function updateFileSizeEstimates() {
+            if (!originalImage) return;
+            
+            const size = outputSize.value === 'original' ? 
+                Math.max(originalImage.width, originalImage.height) : 
+                parseInt(outputSize.value);
+            
+            const detailFactor = parseInt(detailLevel.value) / 10;
+            const simplificationFactor = parseInt(lineSimplification.value) / 10;
+            
+            // Estimate PNG size (in KB)
+            const pngBase = size * size / 1000; // Base size based on dimensions
+            const pngDetail = (1 + detailFactor) * (1 - simplificationFactor * 0.5);
+            const pngEstimate = Math.round(pngBase * pngDetail * 0.08);
+            pngSizeEstimate.textContent = `~${pngEstimate}KB`;
+            
+            // Estimate SVG size (in KB)
+            const svgBase = size / 10;
+            const svgDetail = (0.5 + detailFactor * 0.5) * (1 - simplificationFactor * 0.7);
+            const svgComplexity = parseInt(svgSimplification.value) / 10;
+            const svgEstimate = Math.round(svgBase * svgDetail * (1 - svgComplexity * 0.5));
+            svgSizeEstimate.textContent = `~${Math.max(1, svgEstimate)}KB`;
+            
+            // Estimate JPEG size (in KB)
+            const jpegBase = size * size / 1000;
+            const jpegQualityFactor = parseInt(jpegQuality.value) / 100;
+            const jpegEstimate = Math.round(jpegBase * jpegQualityFactor * 0.15);
+            jpegSizeEstimate.textContent = `~${jpegEstimate}KB`;
+            
+            // Highlight if any estimate is over 10KB
+            pngSizeEstimate.style.color = pngEstimate > 10 ? '#e74c3c' : '#16a085';
+            svgSizeEstimate.style.color = svgEstimate > 10 ? '#e74c3c' : '#16a085';
+            jpegSizeEstimate.style.color = jpegEstimate > 10 ? '#e74c3c' : '#16a085';
+        }
+        
+        // File drop handling
+        function setupFileDrop() {
+            // Prevent default behaviors for all drag events
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log(eventName + ' event handled');
+                }, false);
+            });
+            
+            // Highlight drop area when item is dragged over it
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, function() {
+                    dropArea.classList.add('highlight');
+                    console.log('Highlight added');
+                }, false);
+            });
+            
+            // Remove highlight when item is dragged away or dropped
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, function() {
+                    dropArea.classList.remove('highlight');
+                    console.log('Highlight removed');
+                }, false);
+            });
+            
+            // Handle dropped files
+            dropArea.addEventListener('drop', function(e) {
+                console.log('File dropped');
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files.length) {
+                    handleFiles(files);
+                }
+            }, false);
+            
+            // Handle click to select files
+            dropArea.addEventListener('click', function() {
+                fileInput.click();
+            }, false);
+            
+            // Handle selected files
+            fileInput.addEventListener('change', function(e) {
+                const files = e.target.files;
+                if (files.length) {
+                    handleFiles(files);
+                }
+            }, false);
+            
+            console.log('File drop handlers set up');
+        }
+        
+        // Initialize file drop handling
+        setupFileDrop();
+        
+        function handleFiles(files) {
+            const file = files[0];
+            if (!file.type.match('image.*')) {
+                alert('Please select an image file.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                loadImage(e.target.result, file.name, file.size);
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function loadImage(src, fileName, fileSize) {
+            originalImage = new Image();
+            originalImage.onload = function() {
+                // Draw original image
+                const ctx = originalCanvas.getContext('2d');
+                originalCanvas.width = originalImage.width;
+                originalCanvas.height = originalImage.height;
+                ctx.drawImage(originalImage, 0, 0);
+                
+                // Display original file info
+                originalInfo.textContent = `${fileName} - ${formatFileSize(fileSize)}`;
+                
+                // Enable process button
+                processBtn.disabled = false;
+                
+                // Update file size estimates
+                updateFileSizeEstimates();
+            };
+            originalImage.src = src;
+            console.log('Loading image:', fileName);
+        }
+        
+        // Process image when button is clicked
+        processBtn.addEventListener('click', processImage);
+        
+        function processImage() {
+            if (!originalImage) return;
+            
+            // Show progress
+            progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            statusMessage.textContent = 'Initializing AI processing...';
+            
+            // Get parameter values
+            const weight = parseInt(lineWeight.value);
+            const detail = parseInt(detailLevel.value);
+            const style = styleType.value;
+            const emphasis = faceEmphasis.value;
+            
+            const simplification = parseInt(lineSimplification.value);
+            const noise = parseInt(noiseReduction.value);
+            const contrast = parseInt(contrastBoost.value);
+            const edge = edgeDetection.value;
+            const postProcess = postProcessing.value;
+            
+            const size = outputSize.value;
+            
+            // Calculate dimensions
+            let width, height;
+            if (size === 'original') {
+                width = originalImage.width;
+                height = originalImage.height;
+            } else {
+                const maxWidth = parseInt(size);
+                const aspectRatio = originalImage.height / originalImage.width;
+                width = maxWidth;
+                height = Math.round(maxWidth * aspectRatio);
+            }
+            
+            // Set canvas dimensions
+            resultCanvas.width = width;
+            resultCanvas.height = height;
+            
+            // Simulate AI processing with progress updates
+            simulateAIProcessing(width, height, {
+                weight, detail, style, emphasis, simplification, 
+                noise, contrast, edge, postProcess
+            });
+        }
+        
+        // Simulate AI processing with a multi-step process
+        function simulateAIProcessing(width, height, params) {
+            const ctx = resultCanvas.getContext('2d');
+            
+            // Draw and resize original image
+            ctx.drawImage(originalImage, 0, 0, width, height);
+            
+            // Get image data
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            // Simulate multi-step AI processing
+            let step = 0;
+            const totalSteps = 5;
+            
+            function processStep() {
+                step++;
+                progressBar.style.width = `${(step / totalSteps) * 100}%`;
+                
+                switch(step) {
+                    case 1:
+                        statusMessage.textContent = 'Analyzing facial features...';
+                        setTimeout(processStep, 500);
+                        break;
+                    case 2:
+                        statusMessage.textContent = 'Applying edge detection...';
+                        // Convert to grayscale
+                        for (let i = 0; i < data.length; i += 4) {
+                            const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                            data[i] = data[i + 1] = data[i + 2] = avg;
+                        }
+                        ctx.putImageData(imageData, 0, 0);
+                        setTimeout(processStep, 700);
+                        break;
+                    case 3:
+                        statusMessage.textContent = 'Generating line art...';
+                        // Apply edge detection (simple threshold for demo)
+                        const threshold = 255 - (params.detail * 15);
+                        for (let i = 0; i < data.length; i += 4) {
+                            data[i] = data[i + 1] = data[i + 2] = data[i] < threshold ? 0 : 255;
+                        }
+                        ctx.putImageData(imageData, 0, 0);
+                        setTimeout(processStep, 800);
+                        break;
+                    case 4:
+                        statusMessage.textContent = 'Applying post-processing...';
+                        // Apply line weight
+                        if (params.weight > 1) {
+                            applyLineWeight(ctx, width, height, params.weight);
+                        }
+                        setTimeout(processStep, 600);
+                        break;
+                    case 5:
+                        statusMessage.textContent = 'Finalizing output...';
+                        
+                        // Estimate file size
+                        let fileSize;
+                        if (selectedFormat === 'svg') {
+                            // For demo, just estimate based on complexity
+                            const complexity = params.detail * (1 - params.simplification / 10);
+                            fileSize = Math.round((width * height * complexity) / 20000);
+                        } else if (selectedFormat === 'jpeg') {
+                            const quality = parseInt(jpegQuality.value) / 100;
+                            const dataUrl = resultCanvas.toDataURL('image/jpeg', quality);
+                            fileSize = Math.round(estimateJpegSize(dataUrl) / 1024);
+                        } else {
+                            // PNG
+                            const dataUrl = resultCanvas.toDataURL('image/png');
+                            fileSize = Math.round(estimateJpegSize(dataUrl) / 1024);
+                        }
+                        
+                        // Update result info
+                        resultInfo.textContent = `Line Art - ${fileSize}KB (${selectedFormat.toUpperCase()})`;
+                        
+                        // Hide progress
+                        progressContainer.style.display = 'none';
+                        statusMessage.textContent = 'Processing complete!';
+                        
+                        // Enable download button
+                        downloadBtn.disabled = false;
+                        break;
+                }
+            }
+            
+            // Start processing
+            setTimeout(processStep, 300);
+        }
+        
+        // Apply line weight effect
+        function applyLineWeight(ctx, width, height, weight) {
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            const result = new Uint8ClampedArray(data.length);
+            
+            // Copy original data
+            for (let i = 0; i < data.length; i++) {
+                result[i] = data[i];
+            }
+            
+            // For each black pixel, make surrounding pixels black too
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const i = (y * width + x) * 4;
+                    
+                    // If this is a black pixel
+                    if (data[i] === 0) {
+                        // Make surrounding pixels black too
+                        for (let ky = -weight + 1; ky < weight; ky++) {
+                            for (let kx = -weight + 1; kx < weight; kx++) {
+                                const px = x + kx;
+                                const py = y + ky;
+                                
+                                if (px >= 0 && px < width && py >= 0 && py < height) {
+                                    const ni = (py * width + px) * 4;
+                                    result[ni] = result[ni + 1] = result[ni + 2] = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Put processed data back to canvas
+            const newImageData = new ImageData(result, width, height);
+            ctx.putImageData(newImageData, 0, 0);
+        }
+        
+        // Download the processed image
+        downloadBtn.addEventListener('click', () => {
+            let dataUrl, fileName;
+            
+            if (selectedFormat === 'svg') {
+                // Convert canvas to SVG (simplified for demo)
+                const svgData = canvasToSVG(resultCanvas);
+                const blob = new Blob([svgData], {type: 'image/svg+xml'});
+                dataUrl = URL.createObjectURL(blob);
+                fileName = 'line-drawing.svg';
+            } else if (selectedFormat === 'jpeg') {
+                const quality = parseInt(jpegQuality.value) / 100;
+                dataUrl = resultCanvas.toDataURL('image/jpeg', quality);
+                fileName = 'line-drawing.jpg';
+            } else {
+                // PNG with 2-color palette
+                dataUrl = resultCanvas.toDataURL('image/png');
+                fileName = 'line-drawing.png';
+            }
+            
+            const link = document.createElement('a');
+            link.download = fileName;
+            link.href = dataUrl;
+            link.click();
+        });
+        
+        // Convert canvas to SVG (simplified implementation for demo)
+        function canvasToSVG(canvas) {
+            const width = canvas.width;
+            const height = canvas.height;
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            // Start SVG
+            let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`;
+            svg += '<path d="';
+            
+            // Simplified path generation (just for demo)
+            let path = '';
+            for (let y = 0; y < height; y += 2) {
+                for (let x = 0; x < width; x += 2) {
+                    const i = (y * width + x) * 4;
+                    if (data[i] < 128) {
+                        path += `M${x},${y} `;
+                    }
+                }
+            }
+            
+            // Close SVG
+            svg += path + '" fill="black" stroke="none" />';
+            svg += '</svg>';
+            
+            return svg;
+        }
+        
+        // Helper function to format file size
+        function formatFileSize(bytes) {
+            if (bytes < 1024) {
+                return bytes + ' bytes';
+            } else if (bytes < 1024 * 1024) {
+                return (bytes / 1024).toFixed(1) + ' KB';
+            } else {
+                return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+            }
+        }
+        
+        // Estimate file size from data URL
+        function estimateJpegSize(dataUrl) {
+            // Remove the data URL prefix to get the base64 string
+            const base64 = dataUrl.split(',')[1];
+            // Calculate approximate size (base64 is ~33% larger than binary)
+            return Math.round(base64.length * 0.75);
+        }
+        
+        // Set initial preset
+        presetMinimalist.click();
+    </script>
+</body>
+</html>

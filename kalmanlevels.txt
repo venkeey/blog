@@ -1,0 +1,161 @@
+// This work is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International  
+// https://creativecommons.org/licenses/by-nc-sa/4.0/
+// © BigBeluga - Modified for Multi-Timeframe
+
+//@version=5
+indicator("Kalman Level MTF", overlay = true, max_labels_count = 500, max_boxes_count = 500)
+
+// ＩＮＰＵＴＳ ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――{
+int short_len = input.int(50, "Short Length")
+int long_len = input.int(150, "Long Length")
+bool show_3m = input.bool(true, "3m", inline="tf1")
+bool show_7m = input.bool(true, "7m", inline="tf1")
+bool show_21m = input.bool(true, "21m", inline="tf1")
+bool show_45m = input.bool(true, "45m", inline="tf2")
+bool show_75m = input.bool(true, "75m", inline="tf2")
+bool show_4h = input.bool(true, "4h", inline="tf2")
+bool show_1D = input.bool(true, "1D", inline="tf3")
+bool show_1W = input.bool(true, "1W", inline="tf3")
+bool show_1M = input.bool(true, "1M", inline="tf3")
+bool show_3M = input.bool(true, "3M", inline="tf3")
+
+// Multi-timeframe colors
+color_3m = #ff00ff // 3-minute
+color_7m = #dbc1df // 7-minute  
+color_21m = #66bb6a // 21-minute
+color_45m = #26c6da // 45-minute
+color_75m = #3179f5 // 75-minute
+color_4h = #9575cd // 4-hour
+color_1D = #e1652f // 1-day
+color_1W = #f06292 // 1-week
+color_1M = #880e4f // 1-month
+color_3M = #4a148c // 3-month
+
+// }
+
+// ＣＡＬＣＵＬＡＴＩＯＮＳ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――{
+
+// Kalman filter function
+kalman_filter(src, length, R = 0.01, Q = 0.1) =>
+    var float estimate = na
+    var float error_est = 1.0
+    var float error_meas = R * (length)
+    var float kalman_gain = 0.0
+    var float prediction = na
+    
+    if na(estimate)
+        estimate := src[1]
+
+    prediction := estimate
+    kalman_gain := error_est / (error_est + error_meas)
+    estimate := prediction + kalman_gain * (src - prediction)
+    error_est := (1 - kalman_gain) * error_est  + Q / (length)
+    estimate
+
+// Multi-timeframe Kalman calculations
+[short_3m, long_3m, trend_3m] = request.security(syminfo.tickerid, "3", [kalman_filter(close, short_len), kalman_filter(close, long_len), kalman_filter(close, short_len) > kalman_filter(close, long_len)])
+[short_7m, long_7m, trend_7m] = request.security(syminfo.tickerid, "7", [kalman_filter(close, short_len), kalman_filter(close, long_len), kalman_filter(close, short_len) > kalman_filter(close, long_len)])
+[short_21m, long_21m, trend_21m] = request.security(syminfo.tickerid, "21", [kalman_filter(close, short_len), kalman_filter(close, long_len), kalman_filter(close, short_len) > kalman_filter(close, long_len)])
+[short_45m, long_45m, trend_45m] = request.security(syminfo.tickerid, "45", [kalman_filter(close, short_len), kalman_filter(close, long_len), kalman_filter(close, short_len) > kalman_filter(close, long_len)])
+[short_75m, long_75m, trend_75m] = request.security(syminfo.tickerid, "75", [kalman_filter(close, short_len), kalman_filter(close, long_len), kalman_filter(close, short_len) > kalman_filter(close, long_len)])
+[short_4h, long_4h, trend_4h] = request.security(syminfo.tickerid, "240", [kalman_filter(close, short_len), kalman_filter(close, long_len), kalman_filter(close, short_len) > kalman_filter(close, long_len)])
+[short_1D, long_1D, trend_1D] = request.security(syminfo.tickerid, "1D", [kalman_filter(close, short_len), kalman_filter(close, long_len), kalman_filter(close, short_len) > kalman_filter(close, long_len)])
+[short_1W, long_1W, trend_1W] = request.security(syminfo.tickerid, "1W", [kalman_filter(close, short_len), kalman_filter(close, long_len), kalman_filter(close, short_len) > kalman_filter(close, long_len)])
+[short_1M, long_1M, trend_1M] = request.security(syminfo.tickerid, "1M", [kalman_filter(close, short_len), kalman_filter(close, long_len), kalman_filter(close, short_len) > kalman_filter(close, long_len)])
+[short_3M, long_3M, trend_3M] = request.security(syminfo.tickerid, "3M", [kalman_filter(close, short_len), kalman_filter(close, long_len), kalman_filter(close, short_len) > kalman_filter(close, long_len)])
+
+// }
+
+// ＰＬＯＴ ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――{
+
+// Short Kalman plots - Uptrend (small circles)
+plot(show_3m and trend_3m ? short_3m : na, "3m Short Up", color=color_3m, style=plot.style_circles, linewidth=1)
+plot(show_7m and trend_7m ? short_7m : na, "7m Short Up", color=color_7m, style=plot.style_circles, linewidth=1)
+plot(show_21m and trend_21m ? short_21m : na, "21m Short Up", color=color_21m, style=plot.style_circles, linewidth=1)
+plot(show_45m and trend_45m ? short_45m : na, "45m Short Up", color=color_45m, style=plot.style_circles, linewidth=1)
+plot(show_75m and trend_75m ? short_75m : na, "75m Short Up", color=color_75m, style=plot.style_circles, linewidth=1)
+plot(show_4h and trend_4h ? short_4h : na, "4h Short Up", color=color_4h, style=plot.style_circles, linewidth=1)
+plot(show_1D and trend_1D ? short_1D : na, "1D Short Up", color=color_1D, style=plot.style_circles, linewidth=1)
+plot(show_1W and trend_1W ? short_1W : na, "1W Short Up", color=color_1W, style=plot.style_circles, linewidth=1)
+plot(show_1M and trend_1M ? short_1M : na, "1M Short Up", color=color_1M, style=plot.style_circles, linewidth=1)
+plot(show_3M and trend_3M ? short_3M : na, "3M Short Up", color=color_3M, style=plot.style_circles, linewidth=1)
+
+// Short Kalman plots - Downtrend (large circles)
+plot(show_3m and not trend_3m ? short_3m : na, "3m Short Dn", color=color_3m, style=plot.style_circles, linewidth=3)
+plot(show_7m and not trend_7m ? short_7m : na, "7m Short Dn", color=color_7m, style=plot.style_circles, linewidth=3)
+plot(show_21m and not trend_21m ? short_21m : na, "21m Short Dn", color=color_21m, style=plot.style_circles, linewidth=3)
+plot(show_45m and not trend_45m ? short_45m : na, "45m Short Dn", color=color_45m, style=plot.style_circles, linewidth=3)
+plot(show_75m and not trend_75m ? short_75m : na, "75m Short Dn", color=color_75m, style=plot.style_circles, linewidth=3)
+plot(show_4h and not trend_4h ? short_4h : na, "4h Short Dn", color=color_4h, style=plot.style_circles, linewidth=3)
+plot(show_1D and not trend_1D ? short_1D : na, "1D Short Dn", color=color_1D, style=plot.style_circles, linewidth=3)
+plot(show_1W and not trend_1W ? short_1W : na, "1W Short Dn", color=color_1W, style=plot.style_circles, linewidth=3)
+plot(show_1M and not trend_1M ? short_1M : na, "1M Short Dn", color=color_1M, style=plot.style_circles, linewidth=3)
+plot(show_3M and not trend_3M ? short_3M : na, "3M Short Dn", color=color_3M, style=plot.style_circles, linewidth=3)
+
+// Long Kalman plots - Uptrend (medium circles)
+plot(show_3m and trend_3m ? long_3m : na, "3m Long Up", color=color_3m, style=plot.style_circles, linewidth=2)
+plot(show_7m and trend_7m ? long_7m : na, "7m Long Up", color=color_7m, style=plot.style_circles, linewidth=2)
+plot(show_21m and trend_21m ? long_21m : na, "21m Long Up", color=color_21m, style=plot.style_circles, linewidth=2)
+plot(show_45m and trend_45m ? long_45m : na, "45m Long Up", color=color_45m, style=plot.style_circles, linewidth=2)
+plot(show_75m and trend_75m ? long_75m : na, "75m Long Up", color=color_75m, style=plot.style_circles, linewidth=2)
+plot(show_4h and trend_4h ? long_4h : na, "4h Long Up", color=color_4h, style=plot.style_circles, linewidth=2)
+plot(show_1D and trend_1D ? long_1D : na, "1D Long Up", color=color_1D, style=plot.style_circles, linewidth=2)
+plot(show_1W and trend_1W ? long_1W : na, "1W Long Up", color=color_1W, style=plot.style_circles, linewidth=2)
+plot(show_1M and trend_1M ? long_1M : na, "1M Long Up", color=color_1M, style=plot.style_circles, linewidth=2)
+plot(show_3M and trend_3M ? long_3M : na, "3M Long Up", color=color_3M, style=plot.style_circles, linewidth=2)
+
+// Long Kalman plots - Downtrend (extra large circles)
+plot(show_3m and not trend_3m ? long_3m : na, "3m Long Dn", color=color_3m, style=plot.style_circles, linewidth=4)
+plot(show_7m and not trend_7m ? long_7m : na, "7m Long Dn", color=color_7m, style=plot.style_circles, linewidth=4)
+plot(show_21m and not trend_21m ? long_21m : na, "21m Long Dn", color=color_21m, style=plot.style_circles, linewidth=4)
+plot(show_45m and not trend_45m ? long_45m : na, "45m Long Dn", color=color_45m, style=plot.style_circles, linewidth=4)
+plot(show_75m and not trend_75m ? long_75m : na, "75m Long Dn", color=color_75m, style=plot.style_circles, linewidth=4)
+plot(show_4h and not trend_4h ? long_4h : na, "4h Long Dn", color=color_4h, style=plot.style_circles, linewidth=4)
+plot(show_1D and not trend_1D ? long_1D : na, "1D Long Dn", color=color_1D, style=plot.style_circles, linewidth=4)
+plot(show_1W and not trend_1W ? long_1W : na, "1W Long Dn", color=color_1W, style=plot.style_circles, linewidth=4)
+plot(show_1M and not trend_1M ? long_1M : na, "1M Long Dn", color=color_1M, style=plot.style_circles, linewidth=4)
+plot(show_3M and not trend_3M ? long_3M : na, "3M Long Dn", color=color_3M, style=plot.style_circles, linewidth=4)
+
+// Trend change labels
+if show_3m and trend_3m and not trend_3m[1]
+    label.new(bar_index, short_3m, "3m🡹", color=color(na), textcolor=color_3m, style=label.style_label_up, size=size.small)
+if show_3m and trend_3m[1] and not trend_3m
+    label.new(bar_index, short_3m, "3m🢃", color=color(na), textcolor=color_3m, style=label.style_label_down, size=size.small)
+if show_7m and trend_7m and not trend_7m[1]
+    label.new(bar_index, short_7m, "7m🡹", color=color(na), textcolor=color_7m, style=label.style_label_up, size=size.small)
+if show_7m and trend_7m[1] and not trend_7m
+    label.new(bar_index, short_7m, "7m🢃", color=color(na), textcolor=color_7m, style=label.style_label_down, size=size.small)
+if show_21m and trend_21m and not trend_21m[1]
+    label.new(bar_index, short_21m, "21m🡹", color=color(na), textcolor=color_21m, style=label.style_label_up, size=size.small)
+if show_21m and trend_21m[1] and not trend_21m
+    label.new(bar_index, short_21m, "21m🢃", color=color(na), textcolor=color_21m, style=label.style_label_down, size=size.small)
+if show_45m and trend_45m and not trend_45m[1]
+    label.new(bar_index, short_45m, "45m🡹", color=color(na), textcolor=color_45m, style=label.style_label_up, size=size.small)
+if show_45m and trend_45m[1] and not trend_45m
+    label.new(bar_index, short_45m, "45m🢃", color=color(na), textcolor=color_45m, style=label.style_label_down, size=size.small)
+if show_75m and trend_75m and not trend_75m[1]
+    label.new(bar_index, short_75m, "75m🡹", color=color(na), textcolor=color_75m, style=label.style_label_up, size=size.small)
+if show_75m and trend_75m[1] and not trend_75m
+    label.new(bar_index, short_75m, "75m🢃", color=color(na), textcolor=color_75m, style=label.style_label_down, size=size.small)
+if show_4h and trend_4h and not trend_4h[1]
+    label.new(bar_index, short_4h, "4h🡹", color=color(na), textcolor=color_4h, style=label.style_label_up, size=size.small)
+if show_4h and trend_4h[1] and not trend_4h
+    label.new(bar_index, short_4h, "4h🢃", color=color(na), textcolor=color_4h, style=label.style_label_down, size=size.small)
+if show_1D and trend_1D and not trend_1D[1]
+    label.new(bar_index, short_1D, "1D🡹", color=color(na), textcolor=color_1D, style=label.style_label_up, size=size.small)
+if show_1D and trend_1D[1] and not trend_1D
+    label.new(bar_index, short_1D, "1D🢃", color=color(na), textcolor=color_1D, style=label.style_label_down, size=size.small)
+if show_1W and trend_1W and not trend_1W[1]
+    label.new(bar_index, short_1W, "1W🡹", color=color(na), textcolor=color_1W, style=label.style_label_up, size=size.small)
+if show_1W and trend_1W[1] and not trend_1W
+    label.new(bar_index, short_1W, "1W🢃", color=color(na), textcolor=color_1W, style=label.style_label_down, size=size.small)
+if show_1M and trend_1M and not trend_1M[1]
+    label.new(bar_index, short_1M, "1M🡹", color=color(na), textcolor=color_1M, style=label.style_label_up, size=size.small)
+if show_1M and trend_1M[1] and not trend_1M
+    label.new(bar_index, short_1M, "1M🢃", color=color(na), textcolor=color_1M, style=label.style_label_down, size=size.small)
+if show_3M and trend_3M and not trend_3M[1]
+    label.new(bar_index, short_3M, "3M🡹", color=color(na), textcolor=color_3M, style=label.style_label_up, size=size.small)
+if show_3M and trend_3M[1] and not trend_3M
+    label.new(bar_index, short_3M, "3M🢃", color=color(na), textcolor=color_3M, style=label.style_label_down, size=size.small)
+
+// }

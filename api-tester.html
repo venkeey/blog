@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Tester - Postman Alternative</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-section h3 {
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .method-url-row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .method-select {
+            width: 120px;
+        }
+
+        .url-input {
+            width: 100%;
+        }
+
+        .headers-section {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+        }
+
+        .header-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .header-row input {
+            flex: 1;
+        }
+
+        .header-row button {
+            padding: 8px 12px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .header-row button:hover {
+            background: #dc2626;
+        }
+
+        .add-header-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-header-btn:hover {
+            background: #059669;
+        }
+
+        .body-section {
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+        }
+
+        .body-type-selector {
+            margin-bottom: 15px;
+        }
+
+        .body-type-selector label {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .body-type-selector input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .json-editor {
+            font-family: 'Courier New', monospace;
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: transform 0.2s ease;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .send-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .response-section {
+            margin-top: 30px;
+            background: #1e293b;
+            color: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .response-header {
+            background: #334155;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .response-header h3 {
+            margin: 0;
+            color: white;
+        }
+
+        .clear-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .clear-btn:hover {
+            background: #dc2626;
+        }
+
+        .response-content {
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .response-status {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .status-success {
+            background: #065f46;
+            color: #d1fae5;
+        }
+
+        .status-error {
+            background: #7f1d1d;
+            color: #fecaca;
+        }
+
+        .response-headers {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #334155;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .response-body {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #6b7280;
+        }
+
+        .spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #4f46e5;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #7f1d1d;
+            color: #fecaca;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            background: #065f46;
+            color: #d1fae5;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 API Tester</h1>
+            <p>A Postman-like tool for testing REST APIs</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Request Configuration -->
+            <div class="form-section">
+                <h3>Request Configuration</h3>
+                <div class="form-group">
+                    <div class="method-url-row">
+                        <select id="method" class="method-select">
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="PATCH">PATCH</option>
+                            <option value="DELETE">DELETE</option>
+                            <option value="OPTIONS">OPTIONS</option>
+                        </select>
+                        <input type="url" id="url" class="url-input" placeholder="Enter API URL (e.g., http://localhost:8000/api/watchlist/test)" value="http://localhost:8000/api/watchlist/test">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Headers Section -->
+            <div class="form-section headers-section">
+                <h3>Headers</h3>
+                <div id="headers-container">
+                    <div class="header-row">
+                        <input type="text" placeholder="Header name (e.g., Authorization)" value="Authorization">
+                        <input type="text" placeholder="Header value (e.g., Bearer your-token)" value="Bearer your-token-here">
+                        <button onclick="removeHeader(this)">Remove</button>
+                    </div>
+                    <div class="header-row">
+                        <input type="text" placeholder="Header name (e.g., Content-Type)" value="Content-Type">
+                        <input type="text" placeholder="Header value" value="application/json">
+                        <button onclick="removeHeader(this)">Remove</button>
+                    </div>
+                </div>
+                <button class="add-header-btn" onclick="addHeader()">+ Add Header</button>
+            </div>
+
+            <!-- Request Body Section -->
+            <div class="form-section body-section">
+                <h3>Request Body</h3>
+                <div class="body-type-selector">
+                    <label>
+                        <input type="radio" name="bodyType" value="none" checked> None
+                    </label>
+                    <label>
+                        <input type="radio" name="bodyType" value="json"> JSON
+                    </label>
+                    <label>
+                        <input type="radio" name="bodyType" value="form"> Form Data
+                    </label>
+                </div>
+                <div id="body-content" style="display: none;">
+                    <div class="form-group">
+                        <textarea id="requestBody" class="json-editor" placeholder='Enter JSON body (e.g., {"key": "value"})'></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Send Button -->
+            <button id="sendBtn" class="send-btn" onclick="sendRequest()">Send Request</button>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Sending request...</p>
+            </div>
+
+            <!-- Response Section -->
+            <div id="responseSection" class="response-section" style="display: none;">
+                <div class="response-header">
+                    <h3>Response</h3>
+                    <button class="clear-btn" onclick="clearResponse()">Clear</button>
+                </div>
+                <div class="response-content" id="responseContent">
+                    <!-- Response content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentRequest = null;
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up body type change listener
+            document.querySelectorAll('input[name="bodyType"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const bodyContent = document.getElementById('body-content');
+                    if (this.value === 'none') {
+                        bodyContent.style.display = 'none';
+                    } else {
+                        bodyContent.style.display = 'block';
+                    }
+                });
+            });
+
+            // Set up URL input listener for auto-detection
+            document.getElementById('url').addEventListener('input', function() {
+                // Auto-detect if it's a watchlist endpoint and set method to GET
+                if (this.value.includes('watchlist') && this.value.includes('test')) {
+                    document.getElementById('method').value = 'GET';
+                }
+            });
+        });
+
+        // Add new header row
+        function addHeader() {
+            const container = document.getElementById('headers-container');
+            const headerRow = document.createElement('div');
+            headerRow.className = 'header-row';
+            headerRow.innerHTML = `
+                <input type="text" placeholder="Header name">
+                <input type="text" placeholder="Header value">
+                <button onclick="removeHeader(this)">Remove</button>
+            `;
+            container.appendChild(headerRow);
+        }
+
+        // Remove header row
+        function removeHeader(button) {
+            button.parentElement.remove();
+        }
+
+        // Get headers from form
+        function getHeaders() {
+            const headers = {};
+            const headerRows = document.querySelectorAll('.header-row');
+            
+            headerRows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                const key = inputs[0].value.trim();
+                const value = inputs[1].value.trim();
+                
+                if (key && value) {
+                    headers[key] = value;
+                }
+            });
+            
+            return headers;
+        }
+
+        // Get request body
+        function getRequestBody() {
+            const bodyType = document.querySelector('input[name="bodyType"]:checked').value;
+            
+            if (bodyType === 'none') {
+                return null;
+            } else if (bodyType === 'json') {
+                const bodyText = document.getElementById('requestBody').value.trim();
+                if (!bodyText) return null;
+                
+                try {
+                    return JSON.parse(bodyText);
+                } catch (e) {
+                    throw new Error('Invalid JSON in request body');
+                }
+            } else if (bodyType === 'form') {
+                // For form data, you would implement FormData handling here
+                return null;
+            }
+        }
+
+        // Send the API request
+        async function sendRequest() {
+            const method = document.getElementById('method').value;
+            const url = document.getElementById('url').value.trim();
+            const sendBtn = document.getElementById('sendBtn');
+            const loading = document.getElementById('loading');
+            const responseSection = document.getElementById('responseSection');
+
+            // Validate URL
+            if (!url) {
+                showError('Please enter a valid URL');
+                return;
+            }
+
+            // Show loading state
+            sendBtn.disabled = true;
+            loading.style.display = 'block';
+            responseSection.style.display = 'none';
+
+            try {
+                // Get headers and body
+                const headers = getHeaders();
+                const body = getRequestBody();
+
+                // Prepare fetch options
+                const options = {
+                    method: method,
+                    headers: headers,
+                    mode: 'cors'
+                };
+
+                // Add body for non-GET requests
+                if (method !== 'GET' && body !== null) {
+                    if (typeof body === 'object') {
+                        options.body = JSON.stringify(body);
+                        if (!headers['Content-Type']) {
+                            options.headers['Content-Type'] = 'application/json';
+                        }
+                    } else {
+                        options.body = body;
+                    }
+                }
+
+                // Store current request for cancellation
+                currentRequest = new AbortController();
+                options.signal = currentRequest.signal;
+
+                // Make the request
+                const startTime = Date.now();
+                const response = await fetch(url, options);
+                const endTime = Date.now();
+
+                // Parse response
+                let responseData;
+                const contentType = response.headers.get('content-type');
+                
+                if (contentType && contentType.includes('application/json')) {
+                    responseData = await response.json();
+                } else {
+                    responseData = await response.text();
+                }
+
+                // Display response
+                displayResponse(response, responseData, endTime - startTime);
+
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    showError('Request was cancelled');
+                } else {
+                    showError(`Request failed: ${error.message}`);
+                }
+            } finally {
+                // Reset UI state
+                sendBtn.disabled = false;
+                loading.style.display = 'none';
+                currentRequest = null;
+            }
+        }
+
+        // Display the response
+        function displayResponse(response, data, duration) {
+            const responseSection = document.getElementById('responseSection');
+            const responseContent = document.getElementById('responseContent');
+            
+            // Create status indicator
+            const statusClass = response.ok ? 'status-success' : 'status-error';
+            const statusText = response.ok ? 'Success' : 'Error';
+            
+            // Format headers
+            const headers = {};
+            response.headers.forEach((value, key) => {
+                headers[key] = value;
+            });
+
+            // Format response body
+            let formattedData;
+            if (typeof data === 'object') {
+                formattedData = JSON.stringify(data, null, 2);
+            } else {
+                formattedData = data;
+            }
+
+            // Build response HTML
+            responseContent.innerHTML = `
+                <div class="response-status ${statusClass}">
+                    Status: ${response.status} ${response.statusText} (${duration}ms)
+                </div>
+                
+                <div class="response-headers">
+                    <strong>Response Headers:</strong><br>
+                    ${Object.entries(headers).map(([key, value]) => `${key}: ${value}`).join('<br>')}
+                </div>
+                
+                <div class="response-body">${formattedData}</div>
+            `;
+
+            responseSection.style.display = 'block';
+        }
+
+        // Show error message
+        function showError(message) {
+            const responseSection = document.getElementById('responseSection');
+            const responseContent = document.getElementById('responseContent');
+            
+            responseContent.innerHTML = `
+                <div class="error-message">
+                    <strong>Error:</strong> ${message}
+                </div>
+            `;
+            
+            responseSection.style.display = 'block';
+        }
+
+        // Clear response
+        function clearResponse() {
+            document.getElementById('responseSection').style.display = 'none';
+            document.getElementById('responseContent').innerHTML = '';
+        }
+
+        // Cancel current request
+        function cancelRequest() {
+            if (currentRequest) {
+                currentRequest.abort();
+            }
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+Enter to send request
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                sendRequest();
+            }
+            
+            // Escape to cancel request
+            if (e.key === 'Escape') {
+                cancelRequest();
+            }
+        });
+    </script>
+</body>
+</html> 

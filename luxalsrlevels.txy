@@ -1,0 +1,558 @@
+// This work is based on Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0/
+// © LuxAlgo - Modified by Venky - Enhanced Version
+//@version=5
+
+indicator("Multi-TF Venky LA SR Enhanced", "Multi-TF Venky LA SR Enhanced", true, max_labels_count = 500, max_bars_back = 5000)
+
+//------------------------------------------------------------------------------
+// Settings
+//-----------------------------------------------------------------------------{
+
+// Multi-timeframe colors
+color_3m = #ff00ff // 3-minute
+color_7m = #dbc1df // 7-minute  
+color_21m = #66bb6a // 21-minute
+color_45m = #26c6da // 45-minute
+color_75m = #3179f5 // 75-minute
+color_4h = #9575cd // 4-hour
+color_1D = #e1652f // 1-day
+color_1W = #f06292 // 1-week
+color_1M = #880e4f // 1-month
+color_3M = #4a148c // 3-month
+
+// Timeframe selection checkboxes
+show_3m = input.bool(false, '3m', group='Timeframes', inline='tf1')
+show_7m = input.bool(false, '7m', group='Timeframes', inline='tf1')
+show_21m = input.bool(true, '21m', group='Timeframes', inline='tf1')
+show_45m = input.bool(false, '45m', group='Timeframes', inline='tf1')
+show_75m = input.bool(false, '75m', group='Timeframes', inline='tf1')
+
+show_4h = input.bool(true, '4h', group='Timeframes', inline='tf2')
+show_1D = input.bool(true, '1D', group='Timeframes', inline='tf2')
+show_1W = input.bool(false, '1W', group='Timeframes', inline='tf2')
+show_1M = input.bool(false, '1M', group='Timeframes', inline='tf2')
+show_3M = input.bool(false, '3M', group='Timeframes', inline='tf2')
+
+// Display settings
+show_sr = input.bool(true, 'Support & Resistance Levels', group='Display Settings')
+show_risk = input.bool(true, 'Momentum Risk Levels', group='Display Settings')
+show_labels = input.bool(false, 'Show Labels', group='Display Settings')
+line_style = input.string('Step Line', 'Line Style', options=['Circles', 'Step Line', 'Step Line w/ Diamonds'], group='Display Settings')
+
+// --- Enhanced Display Settings ---
+bool show_trend_styling = input.bool(true, "Trend-Based Styling", group="Enhanced Display")
+bool show_level_strength = input.bool(true, "Level Strength Indicators", group="Enhanced Display")
+bool show_confluence_zones = input.bool(true, "Confluence Zones", group="Enhanced Display")
+bool show_break_detection = input.bool(true, "Break Detection", group="Enhanced Display")
+bool show_volume_confirmation = input.bool(false, "Volume Confirmation", group="Enhanced Display")
+
+// --- Trend Detection Settings ---
+int trend_length = input.int(14, "Trend Detection Length", minval=1, group="Trend Settings")
+float trend_threshold = input.float(0.5, "Trend Strength Threshold", minval=0.1, maxval=2.0, step=0.1, group="Trend Settings")
+
+// --- Level Strength Settings ---
+int strength_lookback = input.int(20, "Strength Lookback Period", minval=5, group="Level Strength")
+float strength_threshold = input.float(3.0, "Strength Threshold", minval=1.0, maxval=10.0, step=0.5, group="Level Strength")
+
+// --- Confluence Settings ---
+float confluence_tolerance = input.float(0.1, "Confluence Tolerance (%)", minval=0.01, maxval=1.0, step=0.01, group="Confluence Settings")
+
+// --- Break Detection Settings ---
+int break_confirmation_bars = input.int(3, "Break Confirmation Bars", minval=1, maxval=10, group="Break Detection")
+float break_threshold = input.float(0.5, "Break Threshold (%)", minval=0.1, maxval=2.0, step=0.1, group="Break Detection")
+
+// --- Volume Settings ---
+int volume_length = input.int(20, "Volume Average Length", minval=5, group="Volume Settings")
+float volume_threshold = input.float(1.5, "Volume Threshold Multiplier", minval=1.0, maxval=5.0, step=0.1, group="Volume Settings")
+
+// --- Alert Settings ---
+bool enable_enhanced_alerts = input.bool(true, "Enable Enhanced Alerts", group="Enhanced Alerts")
+bool alert_level_breaks = input.bool(true, "Alert on Level Breaks", group="Enhanced Alerts")
+bool alert_confluence = input.bool(true, "Alert on Confluence", group="Enhanced Alerts")
+bool alert_volume_confirmation = input.bool(false, "Alert on Volume Confirmation", group="Enhanced Alerts")
+
+//-----------------------------------------------------------------------------}
+// User Defined Types
+//-----------------------------------------------------------------------------{
+
+type bar
+    float o = open
+    float h = high
+    float l = low
+    float c = close
+    int   i = bar_index
+
+type trb 
+    int   bSC
+    float bSH
+    float bSL
+    int   sSC
+    float sSH
+    float sSL
+
+type level_info
+    float price
+    int strength
+    string tf
+    color tf_color
+    bool is_confluence
+
+//-----------------------------------------------------------------------------}
+// Variables
+//-----------------------------------------------------------------------------{
+
+noC = #00000000
+rdC = #f23645
+gnC = #089981
+whC = #ffffff
+blC = #2962ff
+
+// Plot style function
+get_plot_style(style_str) =>
+    switch style_str
+        'Circles' => plot.style_circles
+        'Step Line' => plot.style_steplinebr
+        'Step Line w/ Diamonds' => plot.style_steplinebr
+
+plot_style = get_plot_style(line_style)
+
+// --- Enhanced Functions ---
+
+// Advanced trend detection
+get_enhanced_trend(tf, length, threshold) =>
+    request.security(syminfo.tickerid, tf, ta.ema(close, length) > ta.ema(close, length)[1] and math.abs(ta.ema(close, length) - ta.ema(close, length)[1]) > threshold * ta.atr(length))
+
+// Level strength calculation
+get_level_strength(level, lookback, threshold) =>
+    touches = 0
+    for i = 0 to lookback
+        if math.abs(high[i] - level) <= threshold or math.abs(low[i] - level) <= threshold
+            touches += 1
+    touches
+
+// Break detection
+is_level_broken(level, is_resistance, confirmation_bars, threshold) =>
+    broken = false
+    if is_resistance
+        broken := close > level * (1 + threshold / 100)
+        for i = 1 to confirmation_bars
+            if close[i] <= level * (1 + threshold / 100)
+                broken := false
+    else
+        broken := close < level * (1 - threshold / 100)
+        for i = 1 to confirmation_bars
+            if close[i] >= level * (1 - threshold / 100)
+                broken := false
+    broken
+
+// Volume confirmation
+is_volume_confirmed(length, threshold) =>
+    avg_volume = ta.sma(volume, length)
+    volume > avg_volume * threshold
+
+//-----------------------------------------------------------------------------}
+// Multi-timeframe calculation function
+//-----------------------------------------------------------------------------{
+
+// Calculate support/resistance and risk levels
+calc_levels() =>
+    bar b = bar.new()
+    var trb S = trb.new()
+    
+    // Momentum phase calculation
+    con = b.c < b.c[4]
+    
+    if con
+        S.bSC := S.bSC == 9 ? 1 : S.bSC + 1
+        S.sSC := 0
+    else
+        S.sSC := S.sSC == 9 ? 1 : S.sSC + 1
+        S.bSC := 0
+    
+    pbS = (b.l <= b.l[3] and b.l <= b.l[2]) or (b.l[1] <= b.l[3] and b.l[1] <= b.l[2])
+    bC8 = S.bSC[1] == 8 and S.sSC == 1
+    
+    // Resistance calculation
+    sR = ta.highest(9)
+    bSR = 0.0
+    bSR := S.bSC == 9 or bC8 ? sR : b.c > bSR[1] ? 0 : bSR[1]
+    
+    // Bullish momentum variables
+    if S.bSC == 1
+        S.bSL := b.l
+    
+    if S.bSC > 0
+        S.bSL := math.min(b.l, S.bSL)
+        if b.l == S.bSL
+            S.bSH := b.h
+    
+    // Bullish risk calculation
+    bSD = 0.0
+    bSD := S.bSC == 9 ? 2 * S.bSL - S.bSH : b.c < bSD[1] or S.sSC == 9 ? 0 : bSD[1]
+    
+    psS = (b.h >= b.h[3] and b.h >= b.h[2]) or (b.h[1] >= b.h[3] and b.h[1] >= b.h[2])
+    sC8 = S.sSC[1] == 8 and S.bSC == 1
+    
+    // Support calculation
+    sS = ta.lowest(9)
+    sSS = 0.0
+    sSS := S.sSC == 9 or sC8 ? sS : b.c < sSS[1] ? 0 : sSS[1]
+    
+    // Bearish momentum variables
+    if S.sSC == 1
+        S.sSH := b.h
+    
+    if S.sSC > 0
+        S.sSH := math.max(b.h, S.sSH)
+        if b.h == S.sSH
+            S.sSL := b.l
+    
+    // Bearish risk calculation
+    sSD = 0.0
+    sSD := S.sSC == 9 ? 2 * S.sSH - S.sSL : b.c > sSD[1] or S.bSC == 9 ? 0 : sSD[1]
+    
+    [bSR, sSS, bSD, sSD]
+
+//-----------------------------------------------------------------------------}
+// Multi-timeframe data requests
+//-----------------------------------------------------------------------------{
+
+// Get levels from all timeframes
+[sr_resistance_3m, sr_support_3m, risk_bullish_3m, risk_bearish_3m] = request.security(syminfo.tickerid, '3', calc_levels())
+[sr_resistance_7m, sr_support_7m, risk_bullish_7m, risk_bearish_7m] = request.security(syminfo.tickerid, '7', calc_levels())
+[sr_resistance_21m, sr_support_21m, risk_bullish_21m, risk_bearish_21m] = request.security(syminfo.tickerid, '21', calc_levels())
+[sr_resistance_45m, sr_support_45m, risk_bullish_45m, risk_bearish_45m] = request.security(syminfo.tickerid, '45', calc_levels())
+[sr_resistance_75m, sr_support_75m, risk_bullish_75m, risk_bearish_75m] = request.security(syminfo.tickerid, '75', calc_levels())
+[sr_resistance_4h, sr_support_4h, risk_bullish_4h, risk_bearish_4h] = request.security(syminfo.tickerid, '240', calc_levels())
+[sr_resistance_1D, sr_support_1D, risk_bullish_1D, risk_bearish_1D] = request.security(syminfo.tickerid, '1D', calc_levels())
+[sr_resistance_1W, sr_support_1W, risk_bullish_1W, risk_bearish_1W] = request.security(syminfo.tickerid, '1W', calc_levels())
+[sr_resistance_1M, sr_support_1M, risk_bullish_1M, risk_bearish_1M] = request.security(syminfo.tickerid, '1M', calc_levels())
+[sr_resistance_3M, sr_support_3M, risk_bullish_3M, risk_bearish_3M] = request.security(syminfo.tickerid, '3M', calc_levels())
+
+//-----------------------------------------------------------------------------}
+// Confluence Detection Function
+//-----------------------------------------------------------------------------{
+
+// Confluence detection
+is_confluence_level(price, tolerance) =>
+    confluence_count = 0
+    if math.abs(sr_resistance_3m - price) <= price * tolerance / 100
+        confluence_count += 1
+    if math.abs(sr_resistance_7m - price) <= price * tolerance / 100
+        confluence_count += 1
+    if math.abs(sr_resistance_21m - price) <= price * tolerance / 100
+        confluence_count += 1
+    if math.abs(sr_resistance_45m - price) <= price * tolerance / 100
+        confluence_count += 1
+    if math.abs(sr_resistance_75m - price) <= price * tolerance / 100
+        confluence_count += 1
+    if math.abs(sr_resistance_4h - price) <= price * tolerance / 100
+        confluence_count += 1
+    if math.abs(sr_resistance_1D - price) <= price * tolerance / 100
+        confluence_count += 1
+    confluence_count >= 2
+
+//-----------------------------------------------------------------------------}
+// Enhanced Trend Detection
+//-----------------------------------------------------------------------------{
+
+// Get enhanced trends for all timeframes
+trend_3m = get_enhanced_trend('3', trend_length, trend_threshold)
+trend_7m = get_enhanced_trend('7', trend_length, trend_threshold)
+trend_21m = get_enhanced_trend('21', trend_length, trend_threshold)
+trend_45m = get_enhanced_trend('45', trend_length, trend_threshold)
+trend_75m = get_enhanced_trend('75', trend_length, trend_threshold)
+trend_4h = get_enhanced_trend('240', trend_length, trend_threshold)
+trend_1D = get_enhanced_trend('1D', trend_length, trend_threshold)
+trend_1W = get_enhanced_trend('1W', trend_length, trend_threshold)
+trend_1M = get_enhanced_trend('1M', trend_length, trend_threshold)
+trend_3M = get_enhanced_trend('3M', trend_length, trend_threshold)
+
+//-----------------------------------------------------------------------------}
+// Enhanced Plotting Functions
+//-----------------------------------------------------------------------------{
+
+// Function to get trend-based styling
+get_trend_styling(trend, base_transparency, base_width) =>
+    if show_trend_styling
+        if trend
+            [base_transparency + 20, base_width - 1] // Uptrend: more transparent, thinner
+        else
+            [base_transparency - 20, base_width + 1] // Downtrend: less transparent, thicker
+    else
+        [base_transparency, base_width]
+
+// Function to get level strength styling
+get_strength_styling(level, lookback, threshold) =>
+    if show_level_strength
+        strength = get_level_strength(level, lookback, threshold)
+        if strength >= strength_threshold
+            [0, 3] // Strong level: opaque, thick
+        else if strength >= strength_threshold / 2
+            [30, 2] // Medium level: semi-transparent, medium
+        else
+            [60, 1] // Weak level: very transparent, thin
+    else
+        [50, 2] // Default styling
+
+//-----------------------------------------------------------------------------}
+// Plot all enabled timeframes with enhancements
+//-----------------------------------------------------------------------------{
+
+// 3m plots with enhanced styling
+[trans_3m, width_3m] = get_trend_styling(trend_3m, 50, 2)
+[strength_trans_3m, strength_width_3m] = get_strength_styling(sr_resistance_3m, strength_lookback, strength_threshold)
+
+resistance_plot_3m = plot(show_3m and show_sr and sr_resistance_3m > 0 ? sr_resistance_3m : na, "Resistance 3m", color.new(color_3m, trans_3m), strength_width_3m, plot_style)
+support_plot_3m = plot(show_3m and show_sr and sr_support_3m > 0 ? sr_support_3m : na, "Support 3m", color.new(color_3m, trans_3m), strength_width_3m, plot_style)
+bullish_risk_plot_3m = plot(show_3m and show_risk and risk_bullish_3m > 0 ? risk_bullish_3m : na, "Bullish Risk 3m", color.new(color_3m, 30), 1, plot.style_circles)
+bearish_risk_plot_3m = plot(show_3m and show_risk and risk_bearish_3m > 0 ? risk_bearish_3m : na, "Bearish Risk 3m", color.new(color_3m, 30), 1, plot.style_circles)
+
+// 7m plots with enhanced styling
+[trans_7m, width_7m] = get_trend_styling(trend_7m, 50, 2)
+[strength_trans_7m, strength_width_7m] = get_strength_styling(sr_resistance_7m, strength_lookback, strength_threshold)
+
+resistance_plot_7m = plot(show_7m and show_sr and sr_resistance_7m > 0 ? sr_resistance_7m : na, "Resistance 7m", color.new(color_7m, trans_7m), strength_width_7m, plot_style)
+support_plot_7m = plot(show_7m and show_sr and sr_support_7m > 0 ? sr_support_7m : na, "Support 7m", color.new(color_7m, trans_7m), strength_width_7m, plot_style)
+bullish_risk_plot_7m = plot(show_7m and show_risk and risk_bullish_7m > 0 ? risk_bullish_7m : na, "Bullish Risk 7m", color.new(color_7m, 30), 1, plot.style_circles)
+bearish_risk_plot_7m = plot(show_7m and show_risk and risk_bearish_7m > 0 ? risk_bearish_7m : na, "Bearish Risk 7m", color.new(color_7m, 30), 1, plot.style_circles)
+
+// 21m plots with enhanced styling
+[trans_21m, width_21m] = get_trend_styling(trend_21m, 50, 2)
+[strength_trans_21m, strength_width_21m] = get_strength_styling(sr_resistance_21m, strength_lookback, strength_threshold)
+
+resistance_plot_21m = plot(show_21m and show_sr and sr_resistance_21m > 0 ? sr_resistance_21m : na, "Resistance 21m", color.new(color_21m, trans_21m), strength_width_21m, plot_style)
+support_plot_21m = plot(show_21m and show_sr and sr_support_21m > 0 ? sr_support_21m : na, "Support 21m", color.new(color_21m, trans_21m), strength_width_21m, plot_style)
+bullish_risk_plot_21m = plot(show_21m and show_risk and risk_bullish_21m > 0 ? risk_bullish_21m : na, "Bullish Risk 21m", color.new(color_21m, 30), 1, plot.style_circles)
+bearish_risk_plot_21m = plot(show_21m and show_risk and risk_bearish_21m > 0 ? risk_bearish_21m : na, "Bearish Risk 21m", color.new(color_21m, 30), 1, plot.style_circles)
+
+// 45m plots with enhanced styling
+[trans_45m, width_45m] = get_trend_styling(trend_45m, 50, 2)
+[strength_trans_45m, strength_width_45m] = get_strength_styling(sr_resistance_45m, strength_lookback, strength_threshold)
+
+resistance_plot_45m = plot(show_45m and show_sr and sr_resistance_45m > 0 ? sr_resistance_45m : na, "Resistance 45m", color.new(color_45m, trans_45m), strength_width_45m, plot_style)
+support_plot_45m = plot(show_45m and show_sr and sr_support_45m > 0 ? sr_support_45m : na, "Support 45m", color.new(color_45m, trans_45m), strength_width_45m, plot_style)
+bullish_risk_plot_45m = plot(show_45m and show_risk and risk_bullish_45m > 0 ? risk_bullish_45m : na, "Bullish Risk 45m", color.new(color_45m, 30), 1, plot.style_circles)
+bearish_risk_plot_45m = plot(show_45m and show_risk and risk_bearish_45m > 0 ? risk_bearish_45m : na, "Bearish Risk 45m", color.new(color_45m, 30), 1, plot.style_circles)
+
+// 75m plots with enhanced styling
+[trans_75m, width_75m] = get_trend_styling(trend_75m, 50, 2)
+[strength_trans_75m, strength_width_75m] = get_strength_styling(sr_resistance_75m, strength_lookback, strength_threshold)
+
+resistance_plot_75m = plot(show_75m and show_sr and sr_resistance_75m > 0 ? sr_resistance_75m : na, "Resistance 75m", color.new(color_75m, trans_75m), strength_width_75m, plot_style)
+support_plot_75m = plot(show_75m and show_sr and sr_support_75m > 0 ? sr_support_75m : na, "Support 75m", color.new(color_75m, trans_75m), strength_width_75m, plot_style)
+bullish_risk_plot_75m = plot(show_75m and show_risk and risk_bullish_75m > 0 ? risk_bullish_75m : na, "Bullish Risk 75m", color.new(color_75m, 30), 1, plot.style_circles)
+bearish_risk_plot_75m = plot(show_75m and show_risk and risk_bearish_75m > 0 ? risk_bearish_75m : na, "Bearish Risk 75m", color.new(color_75m, 30), 1, plot.style_circles)
+
+// 4h plots with enhanced styling
+[trans_4h, width_4h] = get_trend_styling(trend_4h, 50, 2)
+[strength_trans_4h, strength_width_4h] = get_strength_styling(sr_resistance_4h, strength_lookback, strength_threshold)
+
+resistance_plot_4h = plot(show_4h and show_sr and sr_resistance_4h > 0 ? sr_resistance_4h : na, "Resistance 4h", color.new(color_4h, trans_4h), strength_width_4h, plot_style)
+support_plot_4h = plot(show_4h and show_sr and sr_support_4h > 0 ? sr_support_4h : na, "Support 4h", color.new(color_4h, trans_4h), strength_width_4h, plot_style)
+bullish_risk_plot_4h = plot(show_4h and show_risk and risk_bullish_4h > 0 ? risk_bullish_4h : na, "Bullish Risk 4h", color.new(color_4h, 30), 1, plot.style_circles)
+bearish_risk_plot_4h = plot(show_4h and show_risk and risk_bearish_4h > 0 ? risk_bearish_4h : na, "Bearish Risk 4h", color.new(color_4h, 30), 1, plot.style_circles)
+
+// 1D plots with enhanced styling
+[trans_1D, width_1D] = get_trend_styling(trend_1D, 50, 2)
+[strength_trans_1D, strength_width_1D] = get_strength_styling(sr_resistance_1D, strength_lookback, strength_threshold)
+
+resistance_plot_1D = plot(show_1D and show_sr and sr_resistance_1D > 0 ? sr_resistance_1D : na, "Resistance 1D", color.new(color_1D, trans_1D), strength_width_1D, plot_style)
+support_plot_1D = plot(show_1D and show_sr and sr_support_1D > 0 ? sr_support_1D : na, "Support 1D", color.new(color_1D, trans_1D), strength_width_1D, plot_style)
+bullish_risk_plot_1D = plot(show_1D and show_risk and risk_bullish_1D > 0 ? risk_bullish_1D : na, "Bullish Risk 1D", color.new(color_1D, 30), 1, plot.style_circles)
+bearish_risk_plot_1D = plot(show_1D and show_risk and risk_bearish_1D > 0 ? risk_bearish_1D : na, "Bearish Risk 1D", color.new(color_1D, 30), 1, plot.style_circles)
+
+// 1W plots with enhanced styling
+[trans_1W, width_1W] = get_trend_styling(trend_1W, 50, 2)
+[strength_trans_1W, strength_width_1W] = get_strength_styling(sr_resistance_1W, strength_lookback, strength_threshold)
+
+resistance_plot_1W = plot(show_1W and show_sr and sr_resistance_1W > 0 ? sr_resistance_1W : na, "Resistance 1W", color.new(color_1W, trans_1W), strength_width_1W, plot_style)
+support_plot_1W = plot(show_1W and show_sr and sr_support_1W > 0 ? sr_support_1W : na, "Support 1W", color.new(color_1W, trans_1W), strength_width_1W, plot_style)
+bullish_risk_plot_1W = plot(show_1W and show_risk and risk_bullish_1W > 0 ? risk_bullish_1W : na, "Bullish Risk 1W", color.new(color_1W, 30), 1, plot.style_circles)
+bearish_risk_plot_1W = plot(show_1W and show_risk and risk_bearish_1W > 0 ? risk_bearish_1W : na, "Bearish Risk 1W", color.new(color_1W, 30), 1, plot.style_circles)
+
+// 1M plots with enhanced styling
+[trans_1M, width_1M] = get_trend_styling(trend_1M, 50, 2)
+[strength_trans_1M, strength_width_1M] = get_strength_styling(sr_resistance_1M, strength_lookback, strength_threshold)
+
+resistance_plot_1M = plot(show_1M and show_sr and sr_resistance_1M > 0 ? sr_resistance_1M : na, "Resistance 1M", color.new(color_1M, trans_1M), strength_width_1M, plot_style)
+support_plot_1M = plot(show_1M and show_sr and sr_support_1M > 0 ? sr_support_1M : na, "Support 1M", color.new(color_1M, trans_1M), strength_width_1M, plot_style)
+bullish_risk_plot_1M = plot(show_1M and show_risk and risk_bullish_1M > 0 ? risk_bullish_1M : na, "Bullish Risk 1M", color.new(color_1M, 30), 1, plot.style_circles)
+bearish_risk_plot_1M = plot(show_1M and show_risk and risk_bearish_1M > 0 ? risk_bearish_1M : na, "Bearish Risk 1M", color.new(color_1M, 30), 1, plot.style_circles)
+
+// 3M plots with enhanced styling
+[trans_3M, width_3M] = get_trend_styling(trend_3M, 50, 2)
+[strength_trans_3M, strength_width_3M] = get_strength_styling(sr_resistance_3M, strength_lookback, strength_threshold)
+
+resistance_plot_3M = plot(show_3M and show_sr and sr_resistance_3M > 0 ? sr_resistance_3M : na, "Resistance 3M", color.new(color_3M, trans_3M), strength_width_3M, plot_style)
+support_plot_3M = plot(show_3M and show_sr and sr_support_3M > 0 ? sr_support_3M : na, "Support 3M", color.new(color_3M, trans_3M), strength_width_3M, plot_style)
+bullish_risk_plot_3M = plot(show_3M and show_risk and risk_bullish_3M > 0 ? risk_bullish_3M : na, "Bullish Risk 3M", color.new(color_3M, 30), 1, plot.style_circles)
+bearish_risk_plot_3M = plot(show_3M and show_risk and risk_bearish_3M > 0 ? risk_bearish_3M : na, "Bearish Risk 3M", color.new(color_3M, 30), 1, plot.style_circles)
+
+//-----------------------------------------------------------------------------}
+// Confluence Zones
+//-----------------------------------------------------------------------------{
+
+// Calculate confluence zones
+confluence_resistance = show_confluence_zones ? (sr_resistance_3m + sr_resistance_7m + sr_resistance_21m + sr_resistance_4h + sr_resistance_1D) / 5 : na
+confluence_support = show_confluence_zones ? (sr_support_3m + sr_support_7m + sr_support_21m + sr_support_4h + sr_support_1D) / 5 : na
+
+// Plot confluence zones
+plot(confluence_resistance > 0 ? confluence_resistance : na, "Confluence Resistance", color.new(color.yellow, 20), 4, plot.style_steplinebr)
+plot(confluence_support > 0 ? confluence_support : na, "Confluence Support", color.new(color.yellow, 20), 4, plot.style_steplinebr)
+
+//-----------------------------------------------------------------------------}
+// Break Detection
+//-----------------------------------------------------------------------------{
+
+// Calculate break conditions
+break_3m_resistance = show_break_detection and is_level_broken(sr_resistance_3m, true, break_confirmation_bars, break_threshold) ? close : na
+break_21m_resistance = show_break_detection and is_level_broken(sr_resistance_21m, true, break_confirmation_bars, break_threshold) ? close : na
+break_4h_resistance = show_break_detection and is_level_broken(sr_resistance_4h, true, break_confirmation_bars, break_threshold) ? close : na
+break_1D_resistance = show_break_detection and is_level_broken(sr_resistance_1D, true, break_confirmation_bars, break_threshold) ? close : na
+
+break_3m_support = show_break_detection and is_level_broken(sr_support_3m, false, break_confirmation_bars, break_threshold) ? close : na
+break_21m_support = show_break_detection and is_level_broken(sr_support_21m, false, break_confirmation_bars, break_threshold) ? close : na
+break_4h_support = show_break_detection and is_level_broken(sr_support_4h, false, break_confirmation_bars, break_threshold) ? close : na
+break_1D_support = show_break_detection and is_level_broken(sr_support_1D, false, break_confirmation_bars, break_threshold) ? close : na
+
+// Plot break detections
+plot(break_3m_resistance, "3m Resistance Break", color.new(color.red, 0), 3, plot.style_circles)
+plot(break_21m_resistance, "21m Resistance Break", color.new(color.red, 0), 3, plot.style_circles)
+plot(break_4h_resistance, "4h Resistance Break", color.new(color.red, 0), 3, plot.style_circles)
+plot(break_1D_resistance, "1D Resistance Break", color.new(color.red, 0), 3, plot.style_circles)
+
+plot(break_3m_support, "3m Support Break", color.new(color.green, 0), 3, plot.style_circles)
+plot(break_21m_support, "21m Support Break", color.new(color.green, 0), 3, plot.style_circles)
+plot(break_4h_support, "4h Support Break", color.new(color.green, 0), 3, plot.style_circles)
+plot(break_1D_support, "1D Support Break", color.new(color.green, 0), 3, plot.style_circles)
+
+//-----------------------------------------------------------------------------}
+// Volume Confirmation
+//-----------------------------------------------------------------------------{
+
+// Calculate volume confirmation
+volume_confirmed = show_volume_confirmation and is_volume_confirmed(volume_length, volume_threshold) ? high : na
+
+// Plot volume confirmation
+plot(volume_confirmed, "Volume Confirmation", color.new(color.orange, 0), 2, plot.style_circles)
+
+//-----------------------------------------------------------------------------}
+// Enhanced Labels
+//-----------------------------------------------------------------------------{
+
+// Function to create enhanced labels
+create_enhanced_labels(resistance, support, tf_name, tf_color) =>
+    if show_labels
+        // Resistance level labels with strength
+        if resistance > 0 and resistance != resistance[1]
+            strength = get_level_strength(resistance, strength_lookback, strength_threshold)
+            confluence = is_confluence_level(resistance, confluence_tolerance)
+            label_text = "R: " + str.tostring(resistance, format.mintick) + " [" + tf_name + "]"
+            if strength >= strength_threshold
+                label_text += " 💪"
+            if confluence
+                label_text += " ⭐"
+            
+            label.new(bar_index, resistance, label_text, xloc.bar_index, yloc.price, confluence ? color.new(color.yellow, 80) : color.new(rdC, 80), label.style_label_down, color.white, size.small)
+        
+        // Support level labels with strength
+        if support > 0 and support != support[1]
+            strength = get_level_strength(support, strength_lookback, strength_threshold)
+            confluence = is_confluence_level(support, confluence_tolerance)
+            label_text = "S: " + str.tostring(support, format.mintick) + " [" + tf_name + "]"
+            if strength >= strength_threshold
+                label_text += " 💪"
+            if confluence
+                label_text += " ⭐"
+            
+            label.new(bar_index, support, label_text, xloc.bar_index, yloc.price, confluence ? color.new(color.yellow, 80) : color.new(gnC, 80), label.style_label_up, color.white, size.small)
+
+// Create enhanced labels for all enabled timeframes
+if show_3m
+    create_enhanced_labels(sr_resistance_3m, sr_support_3m, "3m", color_3m)
+if show_7m
+    create_enhanced_labels(sr_resistance_7m, sr_support_7m, "7m", color_7m)
+if show_21m
+    create_enhanced_labels(sr_resistance_21m, sr_support_21m, "21m", color_21m)
+if show_45m
+    create_enhanced_labels(sr_resistance_45m, sr_support_45m, "45m", color_45m)
+if show_75m
+    create_enhanced_labels(sr_resistance_75m, sr_support_75m, "75m", color_75m)
+if show_4h
+    create_enhanced_labels(sr_resistance_4h, sr_support_4h, "4h", color_4h)
+if show_1D
+    create_enhanced_labels(sr_resistance_1D, sr_support_1D, "1D", color_1D)
+if show_1W
+    create_enhanced_labels(sr_resistance_1W, sr_support_1W, "1W", color_1W)
+if show_1M
+    create_enhanced_labels(sr_resistance_1M, sr_support_1M, "1M", color_1M)
+if show_3M
+    create_enhanced_labels(sr_resistance_3M, sr_support_3M, "3M", color_3M)
+
+//-----------------------------------------------------------------------------}
+// Enhanced Alerts
+//-----------------------------------------------------------------------------{
+
+// Function to detect enhanced level crosses
+cross_enhanced_level(price, level, tf_name) =>
+    (level > price and level < price[1]) or (level < price and level > price[1])
+
+// Create enhanced alerts for all enabled timeframes
+create_enhanced_alerts(resistance, support, bullish_risk, bearish_risk, tf_name) =>
+    if enable_enhanced_alerts
+        // Level break alerts
+        if alert_level_breaks
+            if cross_enhanced_level(close, resistance) and show_sr and resistance > 0
+                strength = get_level_strength(resistance, strength_lookback, strength_threshold)
+                confluence = is_confluence_level(resistance, confluence_tolerance)
+                alert_text = syminfo.ticker + " [" + tf_name + "] breaking resistance: " + str.tostring(resistance, format.mintick)
+                if strength >= strength_threshold
+                    alert_text += " (Strong Level)"
+                if confluence
+                    alert_text += " (Confluence Zone)"
+                alert(alert_text)
+            
+            if cross_enhanced_level(close, support) and show_sr and support > 0
+                strength = get_level_strength(support, strength_lookback, strength_threshold)
+                confluence = is_confluence_level(support, confluence_tolerance)
+                alert_text = syminfo.ticker + " [" + tf_name + "] breaking support: " + str.tostring(support, format.mintick)
+                if strength >= strength_threshold
+                    alert_text += " (Strong Level)"
+                if confluence
+                    alert_text += " (Confluence Zone)"
+                alert(alert_text)
+        
+        // Confluence alerts
+        if alert_confluence
+            if is_confluence_level(close, confluence_tolerance)
+                alert(syminfo.ticker + " [" + tf_name + "] approaching confluence zone at: " + str.tostring(close, format.mintick))
+        
+        // Volume confirmation alerts
+        if alert_volume_confirmation and show_volume_confirmation
+            if is_volume_confirmed(volume_length, volume_threshold)
+                alert(syminfo.ticker + " [" + tf_name + "] volume confirmation at: " + str.tostring(close, format.mintick))
+
+// Apply enhanced alerts to all enabled timeframes
+if show_3m
+    create_enhanced_alerts(sr_resistance_3m, sr_support_3m, risk_bullish_3m, risk_bearish_3m, "3m")
+if show_7m
+    create_enhanced_alerts(sr_resistance_7m, sr_support_7m, risk_bullish_7m, risk_bearish_7m, "7m")
+if show_21m
+    create_enhanced_alerts(sr_resistance_21m, sr_support_21m, risk_bullish_21m, risk_bearish_21m, "21m")
+if show_45m
+    create_enhanced_alerts(sr_resistance_45m, sr_support_45m, risk_bullish_45m, risk_bearish_45m, "45m")
+if show_75m
+    create_enhanced_alerts(sr_resistance_75m, sr_support_75m, risk_bullish_75m, risk_bearish_75m, "75m")
+if show_4h
+    create_enhanced_alerts(sr_resistance_4h, sr_support_4h, risk_bullish_4h, risk_bearish_4h, "4h")
+if show_1D
+    create_enhanced_alerts(sr_resistance_1D, sr_support_1D, risk_bullish_1D, risk_bearish_1D, "1D")
+if show_1W
+    create_enhanced_alerts(sr_resistance_1W, sr_support_1W, risk_bullish_1W, risk_bearish_1W, "1W")
+if show_1M
+    create_enhanced_alerts(sr_resistance_1M, sr_support_1M, risk_bullish_1M, risk_bearish_1M, "1M")
+if show_3M
+    create_enhanced_alerts(sr_resistance_3M, sr_support_3M, risk_bullish_3M, risk_bearish_3M, "3M")
+
+//-----------------------------------------------------------------------------}

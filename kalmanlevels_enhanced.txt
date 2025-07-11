@@ -1,0 +1,436 @@
+// This work is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International  
+// https://creativecommons.org/licenses/by-nc-sa/4.0/
+// © BigBeluga - Modified for Multi-Timeframe - Enhanced Version
+
+//@version=5
+indicator("Kalman Level MTF Enhanced", overlay = true, max_labels_count = 500, max_boxes_count = 500)
+
+// ＩＮＰＵＴＳ ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――{
+// Kalman Filter Parameters
+int short_len = input.int(50, "Short Length", minval=1, maxval=500)
+int long_len = input.int(150, "Long Length", minval=1, maxval=500)
+float kalman_R = input.float(0.01, "Kalman R (Measurement Noise)", minval=0.001, maxval=1.0, step=0.001)
+float kalman_Q = input.float(0.1, "Kalman Q (Process Noise)", minval=0.001, maxval=1.0, step=0.001)
+
+// Timeframe Selection
+bool show_3m = input.bool(true, "3m", inline="tf1")
+bool show_7m = input.bool(true, "7m", inline="tf1")
+bool show_21m = input.bool(true, "21m", inline="tf1")
+bool show_45m = input.bool(true, "45m", inline="tf2")
+bool show_75m = input.bool(true, "75m", inline="tf2")
+bool show_4h = input.bool(true, "4h", inline="tf2")
+bool show_1D = input.bool(true, "1D", inline="tf3")
+bool show_1W = input.bool(true, "1W", inline="tf3")
+bool show_1M = input.bool(true, "1M", inline="tf3")
+bool show_3M = input.bool(true, "3M", inline="tf3")
+
+// Display Options
+bool show_labels = input.bool(true, "Show Trend Change Labels")
+bool show_support_resistance = input.bool(true, "Show Support/Resistance Zones")
+bool show_momentum = input.bool(false, "Show Momentum Indicator")
+label_size = input.string("small", "Label Size", options=["small", "normal", "large", "xlarge"])
+
+// --- Dynamic Channel Settings ---
+float channelAtrMult = input.float(2.0, "Channel ATR Multiplier", minval=0.1, step=0.1, tooltip="Multiplier for ATR to define channel width.")
+bool show_channels = input.bool(true, "Show Dynamic Channel")
+
+// Alert Settings
+bool enable_alerts = input.bool(false, "Enable Alerts")
+bool alert_trend_changes = input.bool(true, "Alert on Trend Changes", inline="alerts")
+bool alert_crossovers = input.bool(false, "Alert on Crossovers", inline="alerts")
+bool alert_momentum = input.bool(false, "Alert on Momentum", inline="alerts")
+
+// Multi-timeframe colors
+color_3m = #ff00ff // 3-minute
+color_7m = #dbc1df // 7-minute  
+color_21m = #66bb6a // 21-minute
+color_45m = #26c6da // 45-minute
+color_75m = #3179f5 // 75-minute
+color_4h = #9575cd // 4-hour
+color_1D = #e1652f // 1-day
+color_1W = #f06292 // 1-week
+color_1M = #880e4f // 1-month
+color_3M = #4a148c // 3-month
+
+// }
+
+// ＣＡＬＣＵＬＡＴＩＯＮＳ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――{
+
+// Enhanced Kalman filter function with customizable parameters
+kalman_filter(src, length, R, Q) =>
+    var float estimate = na
+    var float error_est = 1.0
+    var float error_meas = R * length
+    var float kalman_gain = 0.0
+    var float prediction = na
+    
+    if na(estimate)
+        estimate := src[1]
+
+    prediction := estimate
+    kalman_gain := error_est / (error_est + error_meas)
+    estimate := prediction + kalman_gain * (src - prediction)
+    error_est := (1 - kalman_gain) * error_est + Q / length
+    estimate
+
+// Momentum calculation
+momentum(src, length) =>
+    (src - src[length]) / src[length] * 100
+
+// Support/Resistance calculation
+get_support_resistance(short_val, long_val, trend) =>
+    support = math.min(short_val, long_val)
+    resistance = math.max(short_val, long_val)
+    [support, resistance]
+
+get_kalman_data(src, short_len, long_len, R, Q) =>
+    short_k = kalman_filter(src, short_len, R, Q)
+    long_k = kalman_filter(src, long_len, R, Q)
+    trend = short_k > long_k
+    mom = momentum(src, short_len)
+    [short_k, long_k, trend, mom]
+
+// Multi-timeframe Kalman calculations with enhanced data
+[short_3m, long_3m, trend_3m, mom_3m] = request.security(syminfo.tickerid, "3", get_kalman_data(close, short_len, long_len, kalman_R, kalman_Q))
+[short_7m, long_7m, trend_7m, mom_7m] = request.security(syminfo.tickerid, "7", get_kalman_data(close, short_len, long_len, kalman_R, kalman_Q))
+[short_21m, long_21m, trend_21m, mom_21m] = request.security(syminfo.tickerid, "21", get_kalman_data(close, short_len, long_len, kalman_R, kalman_Q))
+[short_45m, long_45m, trend_45m, mom_45m] = request.security(syminfo.tickerid, "45", get_kalman_data(close, short_len, long_len, kalman_R, kalman_Q))
+[short_75m, long_75m, trend_75m, mom_75m] = request.security(syminfo.tickerid, "75", get_kalman_data(close, short_len, long_len, kalman_R, kalman_Q))
+[short_4h, long_4h, trend_4h, mom_4h] = request.security(syminfo.tickerid, "240", get_kalman_data(close, short_len, long_len, kalman_R, kalman_Q))
+[short_1D, long_1D, trend_1D, mom_1D] = request.security(syminfo.tickerid, "1D", get_kalman_data(close, short_len, long_len, kalman_R, kalman_Q))
+[short_1W, long_1W, trend_1W, mom_1W] = request.security(syminfo.tickerid, "1W", get_kalman_data(close, short_len, long_len, kalman_R, kalman_Q))
+[short_1M, long_1M, trend_1M, mom_1M] = request.security(syminfo.tickerid, "1M", get_kalman_data(close, short_len, long_len, kalman_R, kalman_Q))
+[short_3M, long_3M, trend_3M, mom_3M] = request.security(syminfo.tickerid, "3M", get_kalman_data(close, short_len, long_len, kalman_R, kalman_Q))
+
+// }
+
+// ＰＬＯＴ ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――{
+
+// Short Kalman plots - Uptrend (small circles)
+plot(show_3m and trend_3m ? short_3m : na, "3m Short Up", color=color_3m, style=plot.style_circles, linewidth=1)
+plot(show_7m and trend_7m ? short_7m : na, "7m Short Up", color=color_7m, style=plot.style_circles, linewidth=1)
+plot(show_21m and trend_21m ? short_21m : na, "21m Short Up", color=color_21m, style=plot.style_circles, linewidth=1)
+plot(show_45m and trend_45m ? short_45m : na, "45m Short Up", color=color_45m, style=plot.style_circles, linewidth=1)
+plot(show_75m and trend_75m ? short_75m : na, "75m Short Up", color=color_75m, style=plot.style_circles, linewidth=1)
+plot(show_4h and trend_4h ? short_4h : na, "4h Short Up", color=color_4h, style=plot.style_circles, linewidth=1)
+plot(show_1D and trend_1D ? short_1D : na, "1D Short Up", color=color_1D, style=plot.style_circles, linewidth=1)
+plot(show_1W and trend_1W ? short_1W : na, "1W Short Up", color=color_1W, style=plot.style_circles, linewidth=1)
+plot(show_1M and trend_1M ? short_1M : na, "1M Short Up", color=color_1M, style=plot.style_circles, linewidth=1)
+plot(show_3M and trend_3M ? short_3M : na, "3M Short Up", color=color_3M, style=plot.style_circles, linewidth=1)
+
+// Short Kalman plots - Downtrend (large circles)
+plot(show_3m and not trend_3m ? short_3m : na, "3m Short Dn", color=color_3m, style=plot.style_circles, linewidth=3)
+plot(show_7m and not trend_7m ? short_7m : na, "7m Short Dn", color=color_7m, style=plot.style_circles, linewidth=3)
+plot(show_21m and not trend_21m ? short_21m : na, "21m Short Dn", color=color_21m, style=plot.style_circles, linewidth=3)
+plot(show_45m and not trend_45m ? short_45m : na, "45m Short Dn", color=color_45m, style=plot.style_circles, linewidth=3)
+plot(show_75m and not trend_75m ? short_75m : na, "75m Short Dn", color=color_75m, style=plot.style_circles, linewidth=3)
+plot(show_4h and not trend_4h ? short_4h : na, "4h Short Dn", color=color_4h, style=plot.style_circles, linewidth=3)
+plot(show_1D and not trend_1D ? short_1D : na, "1D Short Dn", color=color_1D, style=plot.style_circles, linewidth=3)
+plot(show_1W and not trend_1W ? short_1W : na, "1W Short Dn", color=color_1W, style=plot.style_circles, linewidth=3)
+plot(show_1M and not trend_1M ? short_1M : na, "1M Short Dn", color=color_1M, style=plot.style_circles, linewidth=3)
+plot(show_3M and not trend_3M ? short_3M : na, "3M Short Dn", color=color_3M, style=plot.style_circles, linewidth=3)
+
+// Long Kalman plots - Uptrend (medium circles)
+plot(show_3m and trend_3m ? long_3m : na, "3m Long Up", color=color_3m, style=plot.style_circles, linewidth=2)
+plot(show_7m and trend_7m ? long_7m : na, "7m Long Up", color=color_7m, style=plot.style_circles, linewidth=2)
+plot(show_21m and trend_21m ? long_21m : na, "21m Long Up", color=color_21m, style=plot.style_circles, linewidth=2)
+plot(show_45m and trend_45m ? long_45m : na, "45m Long Up", color=color_45m, style=plot.style_circles, linewidth=2)
+plot(show_75m and trend_75m ? long_75m : na, "75m Long Up", color=color_75m, style=plot.style_circles, linewidth=2)
+plot(show_4h and trend_4h ? long_4h : na, "4h Long Up", color=color_4h, style=plot.style_circles, linewidth=2)
+plot(show_1D and trend_1D ? long_1D : na, "1D Long Up", color=color_1D, style=plot.style_circles, linewidth=2)
+plot(show_1W and trend_1W ? long_1W : na, "1W Long Up", color=color_1W, style=plot.style_circles, linewidth=2)
+plot(show_1M and trend_1M ? long_1M : na, "1M Long Up", color=color_1M, style=plot.style_circles, linewidth=2)
+plot(show_3M and trend_3M ? long_3M : na, "3M Long Up", color=color_3M, style=plot.style_circles, linewidth=2)
+
+// Long Kalman plots - Downtrend (extra large circles)
+plot(show_3m and not trend_3m ? long_3m : na, "3m Long Dn", color=color_3m, style=plot.style_circles, linewidth=4)
+plot(show_7m and not trend_7m ? long_7m : na, "7m Long Dn", color=color_7m, style=plot.style_circles, linewidth=4)
+plot(show_21m and not trend_21m ? long_21m : na, "21m Long Dn", color=color_21m, style=plot.style_circles, linewidth=4)
+plot(show_45m and not trend_45m ? long_45m : na, "45m Long Dn", color=color_45m, style=plot.style_circles, linewidth=4)
+plot(show_75m and not trend_75m ? long_75m : na, "75m Long Dn", color=color_75m, style=plot.style_circles, linewidth=4)
+plot(show_4h and not trend_4h ? long_4h : na, "4h Long Dn", color=color_4h, style=plot.style_circles, linewidth=4)
+plot(show_1D and not trend_1D ? long_1D : na, "1D Long Dn", color=color_1D, style=plot.style_circles, linewidth=4)
+plot(show_1W and not trend_1W ? long_1W : na, "1W Long Dn", color=color_1W, style=plot.style_circles, linewidth=4)
+plot(show_1M and not trend_1M ? long_1M : na, "1M Long Dn", color=color_1M, style=plot.style_circles, linewidth=4)
+plot(show_3M and not trend_3M ? long_3M : na, "3M Long Dn", color=color_3M, style=plot.style_circles, linewidth=4)
+
+// Support/Resistance Zones
+if show_support_resistance
+    [sup_3m, res_3m] = get_support_resistance(short_3m, long_3m, trend_3m)
+    [sup_7m, res_7m] = get_support_resistance(short_7m, long_7m, trend_7m)
+    [sup_21m, res_21m] = get_support_resistance(short_21m, long_21m, trend_21m)
+    [sup_45m, res_45m] = get_support_resistance(short_45m, long_45m, trend_45m)
+    [sup_75m, res_75m] = get_support_resistance(short_75m, long_75m, trend_75m)
+    [sup_4h, res_4h] = get_support_resistance(short_4h, long_4h, trend_4h)
+    [sup_1D, res_1D] = get_support_resistance(short_1D, long_1D, trend_1D)
+    [sup_1W, res_1W] = get_support_resistance(short_1W, long_1W, trend_1W)
+    [sup_1M, res_1M] = get_support_resistance(short_1M, long_1M, trend_1M)
+    [sup_3M, res_3M] = get_support_resistance(short_3M, long_3M, trend_3M)
+
+// --- Dynamic Channel Calculation and Plotting ---
+// Only for the current chart timeframe
+atr_val = ta.atr(short_len)
+channel_width = atr_val * channelAtrMult
+upper_channel = short_3m + channel_width
+lower_channel = short_3m - channel_width
+
+plot(show_channels ? upper_channel : na, "Upper Channel", color=color.new(color_3m, 0), linewidth=1, style=plot.style_line)
+plot(show_channels ? lower_channel : na, "Lower Channel", color=color.new(color_3m, 0), linewidth=1, style=plot.style_line)
+
+// }
+
+// ＡＬＥＲＴＳ ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――{
+
+// Alert conditions
+if enable_alerts
+    // Trend change alerts
+    if alert_trend_changes
+        if (show_3m and trend_3m and not trend_3m[1]) or (show_7m and trend_7m and not trend_7m[1]) or (show_21m and trend_21m and not trend_21m[1])
+            alert("Short-term uptrend detected", alert.freq_once_per_bar)
+        if (show_3m and trend_3m[1] and not trend_3m) or (show_7m and trend_7m[1] and not trend_7m) or (show_21m and trend_21m[1] and not trend_21m)
+            alert("Short-term downtrend detected", alert.freq_once_per_bar)
+        if (show_1D and trend_1D and not trend_1D[1]) or (show_1W and trend_1W and not trend_1W[1]) or (show_1M and trend_1M and not trend_1M[1])
+            alert("Long-term uptrend detected", alert.freq_once_per_bar)
+        if (show_1D and trend_1D[1] and not trend_1D) or (show_1W and trend_1W[1] and not trend_1W) or (show_1M and trend_1M[1] and not trend_1M)
+            alert("Long-term downtrend detected", alert.freq_once_per_bar)
+    
+    // Crossover alerts
+    if alert_crossovers
+        if (show_3m and short_3m > long_3m and short_3m[1] <= long_3m[1]) or (show_7m and short_7m > long_7m and short_7m[1] <= long_7m[1])
+            alert("Short-term Kalman crossover (bullish)", alert.freq_once_per_bar)
+        if (show_3m and short_3m < long_3m and short_3m[1] >= long_3m[1]) or (show_7m and short_7m < long_7m and short_7m[1] >= long_7m[1])
+            alert("Short-term Kalman crossover (bearish)", alert.freq_once_per_bar)
+    
+    // Momentum alerts
+    if alert_momentum
+        if (show_3m and mom_3m > 2.0) or (show_7m and mom_7m > 2.0) or (show_21m and mom_21m > 2.0)
+            alert("High momentum detected", alert.freq_once_per_bar)
+        if (show_3m and mom_3m < -2.0) or (show_7m and mom_7m < -2.0) or (show_21m and mom_21m < -2.0)
+            alert("Low momentum detected", alert.freq_once_per_bar)
+
+// }
+
+// ＴＡＢＬＥ ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――{
+
+// Information table
+var table info_table = table.new(position.top_right, 2, 11, bgcolor=color.new(color.black, 80), border_width=1)
+
+if barstate.islast
+    table.cell(info_table, 0, 0, "Timeframe", text_color=color.white, text_size=size.small)
+    table.cell(info_table, 1, 0, "Trend", text_color=color.white, text_size=size.small)
+    
+    table.cell(info_table, 0, 1, "3m", text_color=color_3m, text_size=size.small)
+    table.cell(info_table, 1, 1, trend_3m ? "🡹" : "🢃", text_color=trend_3m ? color.green : color.red, text_size=size.small)
+    
+    table.cell(info_table, 0, 2, "7m", text_color=color_7m, text_size=size.small)
+    table.cell(info_table, 1, 2, trend_7m ? "🡹" : "🢃", text_color=trend_7m ? color.green : color.red, text_size=size.small)
+    
+    table.cell(info_table, 0, 3, "21m", text_color=color_21m, text_size=size.small)
+    table.cell(info_table, 1, 3, trend_21m ? "🡹" : "🢃", text_color=trend_21m ? color.green : color.red, text_size=size.small)
+    
+    table.cell(info_table, 0, 4, "45m", text_color=color_45m, text_size=size.small)
+    table.cell(info_table, 1, 4, trend_45m ? "🡹" : "🢃", text_color=trend_45m ? color.green : color.red, text_size=size.small)
+    
+    table.cell(info_table, 0, 5, "75m", text_color=color_75m, text_size=size.small)
+    table.cell(info_table, 1, 5, trend_75m ? "🡹" : "🢃", text_color=trend_75m ? color.green : color.red, text_size=size.small)
+    
+    table.cell(info_table, 0, 6, "4h", text_color=color_4h, text_size=size.small)
+    table.cell(info_table, 1, 6, trend_4h ? "🡹" : "🢃", text_color=trend_4h ? color.green : color.red, text_size=size.small)
+    
+    table.cell(info_table, 0, 7, "1D", text_color=color_1D, text_size=size.small)
+    table.cell(info_table, 1, 7, trend_1D ? "🡹" : "🢃", text_color=trend_1D ? color.green : color.red, text_size=size.small)
+    
+    table.cell(info_table, 0, 8, "1W", text_color=color_1W, text_size=size.small)
+    table.cell(info_table, 1, 8, trend_1W ? "🡹" : "🢃", text_color=trend_1W ? color.green : color.red, text_size=size.small)
+    
+    table.cell(info_table, 0, 9, "1M", text_color=color_1M, text_size=size.small)
+    table.cell(info_table, 1, 9, trend_1M ? "🡹" : "🢃", text_color=trend_1M ? color.green : color.red, text_size=size.small)
+    
+    table.cell(info_table, 0, 10, "3M", text_color=color_3M, text_size=size.small)
+    table.cell(info_table, 1, 10, trend_3M ? "🡹" : "🢃", text_color=trend_3M ? color.green : color.red, text_size=size.small)
+
+// } 
+
+bool showDashboard = input.bool(true, "Show MTF Dashboard")
+string dashboardPosition = input.string("Top Right", "Dashboard Position", options=["Top Left", "Top Right", "Bottom Left", "Bottom Right"])
+string dashboardType = input.string("Numeric", "Dashboard Type", options=["Numeric", "Symbolic"])
+string tf1 = input.string("3", "Timeframe 1")
+string tf2 = input.string("15", "Timeframe 2")
+string tf3 = input.string("60", "Timeframe 3")
+string tf4 = input.string("240", "Timeframe 4")
+string tf5 = input.string("D", "Timeframe 5")
+int adxLength = input.int(14, "ADX Length", minval=1)
+int rsiLength = input.int(14, "RSI Length", minval=1)
+float adxTrendThreshold = input.float(25.0, "ADX Trend Threshold", minval=10, maxval=50)
+float rsiOb = input.float(70, "RSI Overbought", minval=50, maxval=90)
+float rsiOs = input.float(30, "RSI Oversold", minval=10, maxval=50)
+
+// --- MLM (Impulse MACD) Settings ---
+int mlmLengthMA = input.int(34, "MLM Length MA", minval=1, group="MLM Settings")
+int mlmLengthSignal = input.int(9, "MLM Signal Length", minval=1, group="MLM Settings")
+bool showMLM = input.bool(true, "Show MLM in Dashboard", group="MLM Settings")
+
+get_trend_status(short_k, long_k) =>
+    short_k > long_k ? "Bullish" : short_k < long_k ? "Bearish" : "Neutral"
+
+get_momentum_status(mom, ob, os) =>
+    mom > ob ? "Overbought" : mom < os ? "Oversold" : "Neutral"
+
+get_adx_status(adx, threshold) =>
+    adx > threshold ? "Strong" : adx >= 20 ? "Weak" : "Ranging"
+
+get_trend_symbol(short_k, long_k) =>
+    short_k > long_k ? "🡹" : short_k < long_k ? "🢃" : "—"
+
+get_momentum_symbol(mom) =>
+    mom > 2.0 ? "+++" : mom > 1.0 ? "++" : mom > 0.5 ? "+" : mom < -2.0 ? "---" : mom < -1.0 ? "--" : mom < -0.5 ? "-" : "0"
+
+get_adx_symbol(adx, threshold) =>
+    adx > threshold ? "+++" : adx >= 20 ? "++" : "+"
+
+get_rsi_symbol(rsi, ob, os) =>
+    rsi > ob ? "+++" : rsi > ob - 10 ? "++" : rsi < os ? "---" : rsi < os + 10 ? "--" : "0"
+
+// --- MLM (Impulse MACD) Functions ---
+calc_smma(src, len) =>
+    var float smma = na
+    smma := na(smma) ? ta.sma(src, len) : (smma * (len - 1) + src) / len
+    smma
+
+calc_zlema(src, length) =>
+    ema1 = ta.ema(src, length)
+    ema2 = ta.ema(ema1, length)
+    d = ema1 - ema2
+    ema1 + d
+
+get_mlm_data(src, high, low, lengthMA, lengthSignal) =>
+    hi = calc_smma(high, lengthMA)
+    lo = calc_smma(low, lengthMA)
+    mi = calc_zlema(src, lengthMA)
+    md = (mi > hi) ? (mi - hi) : (mi < lo) ? (mi - lo) : 0
+    sb = ta.sma(md, lengthSignal)
+    sh = md - sb
+    mdc = src > mi ? src > hi ? color.lime : color.green : src < lo ? color.red : color.orange
+    [md, sb, sh, mdc]
+
+get_mlm_status(md, sb, sh) =>
+    md > 0 ? (md > sb ? "Strong Bull" : "Weak Bull") : (md < sb ? "Strong Bear" : "Weak Bear")
+
+get_mlm_symbol(md, sb) =>
+    md > 0 ? (md > sb ? "+++" : "++") : (md < sb ? "---" : "--")
+
+get_mtf_data(tf) =>
+    [short_k, long_k, trend, mom] = request.security(syminfo.tickerid, tf, get_kalman_data(close, short_len, long_len, kalman_R, kalman_Q))
+    [plusDI, minusDI, adx] = request.security(syminfo.tickerid, tf, ta.dmi(adxLength, adxLength))
+    rsi = request.security(syminfo.tickerid, tf, ta.rsi(close, rsiLength))
+    [md, sb, sh, mdc] = request.security(syminfo.tickerid, tf, get_mlm_data(hlc3, high, low, mlmLengthMA, mlmLengthSignal))
+    [get_trend_status(short_k, long_k), mom, adx, rsi, md, sb, sh, mdc]
+
+[trend1, mom1, adx1, rsi1, md1, sb1, sh1, mdc1] = get_mtf_data(tf1)
+[trend2, mom2, adx2, rsi2, md2, sb2, sh2, mdc2] = get_mtf_data(tf2)
+[trend3, mom3, adx3, rsi3, md3, sb3, sh3, mdc3] = get_mtf_data(tf3)
+[trend4, mom4, adx4, rsi4, md4, sb4, sh4, mdc4] = get_mtf_data(tf4)
+[trend5, mom5, adx5, rsi5, md5, sb5, sh5, mdc5] = get_mtf_data(tf5)
+
+var table mtfDashboard = na
+
+if showDashboard
+    if na(mtfDashboard)
+        mtfDashboard := table.new(dashboardPosition == "Top Left" ? position.top_left : dashboardPosition == "Top Right" ? position.top_right : dashboardPosition == "Bottom Left" ? position.bottom_left : position.bottom_right, showMLM ? 6 : 5, 6, bgcolor=color.new(color.black, 90), border_width=1, frame_color=color.new(color.white, 70))
+    if barstate.islast
+        // Header
+        table.cell(mtfDashboard, 0, 0, "TF", text_color=color.white, text_size=size.small)
+        table.cell(mtfDashboard, 1, 0, "Trend", text_color=color.white, text_size=size.small)
+        table.cell(mtfDashboard, 2, 0, "Momentum", text_color=color.white, text_size=size.small)
+        table.cell(mtfDashboard, 3, 0, "ADX", text_color=color.white, text_size=size.small)
+        table.cell(mtfDashboard, 4, 0, "RSI", text_color=color.white, text_size=size.small)
+        if showMLM
+            table.cell(mtfDashboard, 5, 0, "MLM", text_color=color.white, text_size=size.small)
+        
+        if dashboardType == "Numeric"
+            // Row 1
+            table.cell(mtfDashboard, 0, 1, tf1, text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 1, 1, trend1, text_color=trend1 == "Bullish" ? color.lime : trend1 == "Bearish" ? color.red : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 2, 1, str.tostring(mom1, "#.##"), text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 3, 1, str.tostring(adx1, "#.##"), text_color=adx1 > adxTrendThreshold ? color.lime : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 4, 1, str.tostring(rsi1, "#.##"), text_color=rsi1 > rsiOb ? color.red : rsi1 < rsiOs ? color.lime : color.white, text_size=size.small)
+            if showMLM
+                table.cell(mtfDashboard, 5, 1, str.tostring(md1, "#.##"), text_color=mdc1, text_size=size.small)
+            // Row 2
+            table.cell(mtfDashboard, 0, 2, tf2, text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 1, 2, trend2, text_color=trend2 == "Bullish" ? color.lime : trend2 == "Bearish" ? color.red : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 2, 2, str.tostring(mom2, "#.##"), text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 3, 2, str.tostring(adx2, "#.##"), text_color=adx2 > adxTrendThreshold ? color.lime : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 4, 2, str.tostring(rsi2, "#.##"), text_color=rsi2 > rsiOb ? color.red : rsi2 < rsiOs ? color.lime : color.white, text_size=size.small)
+            if showMLM
+                table.cell(mtfDashboard, 5, 2, str.tostring(md2, "#.##"), text_color=mdc2, text_size=size.small)
+            // Row 3
+            table.cell(mtfDashboard, 0, 3, tf3, text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 1, 3, trend3, text_color=trend3 == "Bullish" ? color.lime : trend3 == "Bearish" ? color.red : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 2, 3, str.tostring(mom3, "#.##"), text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 3, 3, str.tostring(adx3, "#.##"), text_color=adx3 > adxTrendThreshold ? color.lime : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 4, 3, str.tostring(rsi3, "#.##"), text_color=rsi3 > rsiOb ? color.red : rsi3 < rsiOs ? color.lime : color.white, text_size=size.small)
+            if showMLM
+                table.cell(mtfDashboard, 5, 3, str.tostring(md3, "#.##"), text_color=mdc3, text_size=size.small)
+            // Row 4
+            table.cell(mtfDashboard, 0, 4, tf4, text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 1, 4, trend4, text_color=trend4 == "Bullish" ? color.lime : trend4 == "Bearish" ? color.red : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 2, 4, str.tostring(mom4, "#.##"), text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 3, 4, str.tostring(adx4, "#.##"), text_color=adx4 > adxTrendThreshold ? color.lime : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 4, 4, str.tostring(rsi4, "#.##"), text_color=rsi4 > rsiOb ? color.red : rsi4 < rsiOs ? color.lime : color.white, text_size=size.small)
+            if showMLM
+                table.cell(mtfDashboard, 5, 4, str.tostring(md4, "#.##"), text_color=mdc4, text_size=size.small)
+            // Row 5
+            table.cell(mtfDashboard, 0, 5, tf5, text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 1, 5, trend5, text_color=trend5 == "Bullish" ? color.lime : trend5 == "Bearish" ? color.red : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 2, 5, str.tostring(mom5, "#.##"), text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 3, 5, str.tostring(adx5, "#.##"), text_color=adx5 > adxTrendThreshold ? color.lime : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 4, 5, str.tostring(rsi5, "#.##"), text_color=rsi5 > rsiOb ? color.red : rsi5 < rsiOs ? color.lime : color.white, text_size=size.small)
+            if showMLM
+                table.cell(mtfDashboard, 5, 5, str.tostring(md5, "#.##"), text_color=mdc5, text_size=size.small)
+        else
+            // Symbolic Dashboard
+            // Row 1
+            table.cell(mtfDashboard, 0, 1, tf1, text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 1, 1, get_trend_symbol(short_3m, long_3m), text_color=trend1 == "Bullish" ? color.lime : trend1 == "Bearish" ? color.red : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 2, 1, get_momentum_symbol(mom1), text_color=mom1 > 0 ? color.lime : mom1 < 0 ? color.red : color.white, text_size=size.small)
+            table.cell(mtfDashboard, 3, 1, get_adx_symbol(adx1, adxTrendThreshold), text_color=adx1 > adxTrendThreshold ? color.lime : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 4, 1, get_rsi_symbol(rsi1, rsiOb, rsiOs), text_color=rsi1 > rsiOb ? color.red : rsi1 < rsiOs ? color.lime : color.white, text_size=size.small)
+            if showMLM
+                table.cell(mtfDashboard, 5, 1, get_mlm_symbol(md1, sb1), text_color=mdc1, text_size=size.small)
+            // Row 2
+            table.cell(mtfDashboard, 0, 2, tf2, text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 1, 2, get_trend_symbol(short_7m, long_7m), text_color=trend2 == "Bullish" ? color.lime : trend2 == "Bearish" ? color.red : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 2, 2, get_momentum_symbol(mom2), text_color=mom2 > 0 ? color.lime : mom2 < 0 ? color.red : color.white, text_size=size.small)
+            table.cell(mtfDashboard, 3, 2, get_adx_symbol(adx2, adxTrendThreshold), text_color=adx2 > adxTrendThreshold ? color.lime : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 4, 2, get_rsi_symbol(rsi2, rsiOb, rsiOs), text_color=rsi2 > rsiOb ? color.red : rsi2 < rsiOs ? color.lime : color.white, text_size=size.small)
+            if showMLM
+                table.cell(mtfDashboard, 5, 2, get_mlm_symbol(md2, sb2), text_color=mdc2, text_size=size.small)
+            // Row 3
+            table.cell(mtfDashboard, 0, 3, tf3, text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 1, 3, get_trend_symbol(short_21m, long_21m), text_color=trend3 == "Bullish" ? color.lime : trend3 == "Bearish" ? color.red : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 2, 3, get_momentum_symbol(mom3), text_color=mom3 > 0 ? color.lime : mom3 < 0 ? color.red : color.white, text_size=size.small)
+            table.cell(mtfDashboard, 3, 3, get_adx_symbol(adx3, adxTrendThreshold), text_color=adx3 > adxTrendThreshold ? color.lime : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 4, 3, get_rsi_symbol(rsi3, rsiOb, rsiOs), text_color=rsi3 > rsiOb ? color.red : rsi3 < rsiOs ? color.lime : color.white, text_size=size.small)
+            if showMLM
+                table.cell(mtfDashboard, 5, 3, get_mlm_symbol(md3, sb3), text_color=mdc3, text_size=size.small)
+            // Row 4
+            table.cell(mtfDashboard, 0, 4, tf4, text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 1, 4, get_trend_symbol(short_45m, long_45m), text_color=trend4 == "Bullish" ? color.lime : trend4 == "Bearish" ? color.red : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 2, 4, get_momentum_symbol(mom4), text_color=mom4 > 0 ? color.lime : mom4 < 0 ? color.red : color.white, text_size=size.small)
+            table.cell(mtfDashboard, 3, 4, get_adx_symbol(adx4, adxTrendThreshold), text_color=adx4 > adxTrendThreshold ? color.lime : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 4, 4, get_rsi_symbol(rsi4, rsiOb, rsiOs), text_color=rsi4 > rsiOb ? color.red : rsi4 < rsiOs ? color.lime : color.white, text_size=size.small)
+            if showMLM
+                table.cell(mtfDashboard, 5, 4, get_mlm_symbol(md4, sb4), text_color=mdc4, text_size=size.small)
+            // Row 5
+            table.cell(mtfDashboard, 0, 5, tf5, text_color=color.white, text_size=size.small)
+            table.cell(mtfDashboard, 1, 5, get_trend_symbol(short_75m, long_75m), text_color=trend5 == "Bullish" ? color.lime : trend5 == "Bearish" ? color.red : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 2, 5, get_momentum_symbol(mom5), text_color=mom5 > 0 ? color.lime : mom5 < 0 ? color.red : color.white, text_size=size.small)
+            table.cell(mtfDashboard, 3, 5, get_adx_symbol(adx5, adxTrendThreshold), text_color=adx5 > adxTrendThreshold ? color.lime : color.gray, text_size=size.small)
+            table.cell(mtfDashboard, 4, 5, get_rsi_symbol(rsi5, rsiOb, rsiOs), text_color=rsi5 > rsiOb ? color.red : rsi5 < rsiOs ? color.lime : color.white, text_size=size.small)
+            if showMLM
+                table.cell(mtfDashboard, 5, 5, get_mlm_symbol(md5, sb5), text_color=mdc5, text_size=size.small)
+else
+    if not na(mtfDashboard)
+        table.delete(mtfDashboard)
+        mtfDashboard := na 

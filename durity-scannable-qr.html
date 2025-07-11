@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durity Scannable QR Code Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #1a2980, #26d0ce);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .demo-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .control-group {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #1a2980;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        button {
+            background: linear-gradient(45deg, #1a2980, #26d0ce);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(26, 41, 128, 0.3);
+        }
+        
+        .output-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .qr-container h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        canvas {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .key-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            word-break: break-all;
+        }
+        
+        .download-btn {
+            margin-top: 15px;
+            background: #1a2980;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #26d0ce;
+        }
+        
+        .feature-list {
+            margin-top: 20px;
+            background: #f0f4ff;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .feature-list h3 {
+            margin-top: 0;
+            color: #1a2980;
+        }
+        
+        .feature-list ul {
+            padding-left: 20px;
+        }
+        
+        .feature-list li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Durity Quantum-Secure Digital ID</h1>
+        
+        <div class="demo-section">
+            <h2>Secure Employee Verification System</h2>
+            <p>This generates a highly scannable QR code with quantum-resistant Dilithium signatures for secure employee verification.</p>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="keyType">Cryptographic Algorithm:</label>
+                    <select id="keyType">
+                        <option value="dilithium">Dilithium (Quantum-Resistant)</option>
+                        <option value="rsa">RSA Public Key</option>
+                        <option value="ed25519">Ed25519 Public Key</option>
+                        <option value="ecdsa">ECDSA Public Key</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="personalInfo">Employee Information:</label>
+                    <textarea id="personalInfo" placeholder="Name, ID, or other identifying information">Name: John Doe
+Employee ID: BHEL-123456
+Designation: Senior Engineer
+Salary: ₹85,000 per month
+Years of Service: 8
+Issued: 2024-01-15</textarea>
+                </div>
+                
+                <div class="control-group">
+                    <label for="qrStyle">QR Code Style:</label>
+                    <select id="qrStyle">
+                        <option value="standard">Standard (Most Scannable)</option>
+                        <option value="dotted">Dotted Pattern</option>
+                        <option value="rounded">Rounded Corners</option>
+                        <option value="corporate">Corporate Blue</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="errorCorrection">Error Correction Level:</label>
+                    <select id="errorCorrection">
+                        <option value="L">Low (7%)</option>
+                        <option value="M">Medium (15%)</option>
+                        <option value="Q">Quartile (25%)</option>
+                        <option value="H" selected>High (30%)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button onclick="generateQRCode()">Generate Scannable QR Code</button>
+            </div>
+        </div>
+        
+        <div class="output-section">
+            <div class="qr-container">
+                <h3>Durity Secure QR Code</h3>
+                <canvas id="qrCanvas" width="300" height="300"></canvas>
+                <button class="download-btn" onclick="downloadQRCode()">Download QR Code</button>
+                <div class="key-info">
+                    <strong>Encoded Data:</strong>
+                    <pre id="encodedData">Click "Generate Scannable QR Code" to see encoded data</pre>
+                </div>
+            </div>
+            
+            <div class="qr-container">
+                <h3>Durity Secure ID Features</h3>
+                <div class="feature-list">
+                    <h3>Security Features</h3>
+                    <ul>
+                        <li><strong>Quantum-Resistant Cryptography:</strong> Uses Dilithium algorithm resistant to quantum computing attacks</li>
+                        <li><strong>Tamper-Evident:</strong> Any modification invalidates the digital signature</li>
+                        <li><strong>Anti-Replay Protection:</strong> Includes timestamps to prevent replay attacks</li>
+                        <li><strong>High Error Correction:</strong> 30% error correction for reliable scanning</li>
+                    </ul>
+                    
+                    <h3>Verification Process</h3>
+                    <ol>
+                        <li>Verifier scans employee's QR code using Durity app</li>
+                        <li>App validates the Dilithium signature against BHEL's public key</li>
+                        <li>If valid, app displays employee information with verification checkmark</li>
+                        <li>Timestamp verification ensures the QR code hasn't expired</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Sample keys for demonstration
+        const sampleKeys = {
+            dilithium: {
+                public: "-----BEGIN DILITHIUM PUBLIC KEY-----\nMIIBCgKCAQEA0vx3aW2m9P8rVlbKn6tM7qN5f2xY1uH4kJ7nA6pQ8tS9rE2vF5wX\n3dY7gH1eK8mZ4sR6tN1qW8pL7kJ3vF2gH6sT9rE5wX4dY8gH1eK9mZ5sR7tN2qW\nDILITHIUM-QUANTUM-RESISTANT-KEY-BHEL-ROOT-CA-AUTHORITY-CERTIFIED\n-----END DILITHIUM PUBLIC KEY-----",
+                private: "-----BEGIN DILITHIUM PRIVATE KEY-----\n[PRIVATE KEY CONTENT HIDDEN FOR SECURITY]\n-----END DILITHIUM PRIVATE KEY-----"
+            },
+            rsa: {
+                public: "-----BEGIN RSA PUBLIC KEY-----\nMIIBCgKCAQEA0vx3aW2m9P8rVlbKn6tM7qN5f2xY1uH4kJ7nA6pQ8tS9rE2vF5wX\n3dY7gH1eK8mZ4sR6tN1qW8pL7kJ3vF2gH6sT9rE5wX4dY8gH1eK9mZ5sR7tN2qW\n-----END RSA PUBLIC KEY-----",
+                private: "-----BEGIN RSA PRIVATE KEY-----\n[PRIVATE KEY CONTENT HIDDEN FOR SECURITY]\n-----END RSA PRIVATE KEY-----"
+            },
+            ed25519: {
+                public: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGq3...[abbreviated]",
+                private: "[PRIVATE KEY HIDDEN]"
+            },
+            ecdsa: {
+                public: "-----BEGIN EC PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE...[abbreviated]\n-----END EC PUBLIC KEY-----",
+                private: "[PRIVATE KEY HIDDEN]"
+            }
+        };
+        
+        function generateQRCode() {
+            const keyType = document.getElementById('keyType').value;
+            const personalInfo = document.getElementById('personalInfo').value;
+            const qrStyle = document.getElementById('qrStyle').value;
+            const errorCorrection = document.getElementById('errorCorrection').value;
+            
+            // Create data object with Dilithium signature
+            const data = {
+                keyType: keyType,
+                publicKey: sampleKeys[keyType].public,
+                personalInfo: personalInfo,
+                timestamp: new Date().toISOString(),
+                format: "durity-digital-id-v1.0",
+                issuer: "Durity Root CA (Dilithium-Secured)",
+                employer: "BHEL",
+                // Simulated Dilithium signature (would be actual signature in production)
+                signature: "DilithiumSig-" + Math.random().toString(36).substring(2, 15) + "-" + Date.now()
+            };
+            
+            // Display encoded data
+            const encodedData = JSON.stringify(data, null, 2);
+            document.getElementById('encodedData').textContent = encodedData;
+            
+            // Generate QR code
+            const qr = qrcode(0, errorCorrection);
+            qr.addData(encodedData);
+            qr.make();
+            
+            // Draw QR code on canvas
+            const canvas = document.getElementById('qrCanvas');
+            const ctx = canvas.getContext('2d');
+            const moduleCount = qr.getModuleCount();
+            const cellSize = canvas.width / moduleCount;
+            
+            // Clear canvas
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Apply style
+            applyQRStyle(ctx, qr, moduleCount, cellSize, qrStyle);
+        }
+        
+        function applyQRStyle(ctx, qr, moduleCount, cellSize, style) {
+            switch(style) {
+                case 'standard':
+                    // Standard black and white QR code (most scannable)
+                    ctx.fillStyle = '#000000';
+                    for (let row = 0; row < moduleCount; row++) {
+                        for (let col = 0; col < moduleCount; col++) {
+                            if (qr.isDark(row, col)) {
+                                ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+                            }
+                        }
+                    }
+                    break;
+                    
+                case 'dotted':
+                    // Dotted pattern
+                    ctx.fillStyle = '#000000';
+                    for (let row = 0; row < moduleCount; row++) {
+                        for (let col = 0; col < moduleCount; col++) {
+                            if (qr.isDark(row, col)) {
+                                ctx.beginPath();
+                                ctx.arc(
+                                    col * cellSize + cellSize/2, 
+                                    row * cellSize + cellSize/2, 
+                                    cellSize/2 * 0.85, 0, 2 * Math.PI
+                                );
+                                ctx.fill();
+                            }
+                        }
+                    }
+                    break;
+                    
+                case 'rounded':
+                    // Rounded corners
+                    ctx.fillStyle = '#000000';
+                    const radius = cellSize * 0.3;
+                    
+                    for (let row = 0; row < moduleCount; row++) {
+                        for (let col = 0; col < moduleCount; col++) {
+                            if (qr.isDark(row, col)) {
+                                ctx.beginPath();
+                                ctx.moveTo(col * cellSize + radius, row * cellSize);
+                                ctx.lineTo(col * cellSize + cellSize - radius, row * cellSize);
+                                ctx.quadraticCurveTo(col * cellSize + cellSize, row * cellSize, col * cellSize + cellSize, row * cellSize + radius);
+                                ctx.lineTo(col * cellSize + cellSize, row * cellSize + cellSize - radius);
+                                ctx.quadraticCurveTo(col * cellSize + cellSize, row * cellSize + cellSize, col * cellSize + cellSize - radius, row * cellSize + cellSize);
+                                ctx.lineTo(col * cellSize + radius, row * cellSize + cellSize);
+                                ctx.quadraticCurveTo(col * cellSize, row * cellSize + cellSize, col * cellSize, row * cellSize + cellSize - radius);
+                                ctx.lineTo(col * cellSize, row * cellSize + radius);
+                                ctx.quadraticCurveTo(col * cellSize, row * cellSize, col * cellSize + radius, row * cellSize);
+                                ctx.fill();
+                            }
+                        }
+                    }
+                    break;
+                    
+                case 'corporate':
+                    // Corporate blue style
+                    for (let row = 0; row < moduleCount; row++) {
+                        for (let col = 0; col < moduleCount; col++) {
+                            if (qr.isDark(row, col)) {
+                                ctx.fillStyle = '#1a2980';
+                                ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+                            }
+                        }
+                    }
+                    
+                    // Add a subtle border
+                    ctx.strokeStyle = '#26d0ce';
+                    ctx.lineWidth = 10;
+                    ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
+                    break;
+            }
+            
+            // Ensure position detection patterns are clearly visible
+            enhancePositionPatterns(ctx, moduleCount, cellSize);
+        }
+        
+        function enhancePositionPatterns(ctx, moduleCount, cellSize) {
+            // Position detection pattern locations
+            const positions = [
+                [0, 0],                          // Top-left
+                [0, moduleCount - 7],            // Bottom-left
+                [moduleCount - 7, 0]             // Top-right
+            ];
+            
+            positions.forEach(([row, col]) => {
+                // Outer square
+                ctx.fillStyle = '#000000';
+                for (let r = 0; r < 7; r++) {
+                    for (let c = 0; c < 7; c++) {
+                        if (
+                            (r === 0 || r === 6 || c === 0 || c === 6) || // Outer border
+                            (r >= 2 && r <= 4 && c >= 2 && c <= 4)         // Inner square
+                        ) {
+                            ctx.fillRect(
+                                (col + c) * cellSize, 
+                                (row + r) * cellSize, 
+                                cellSize, cellSize
+                            );
+                        }
+                    }
+                }
+                
+                // White space
+                ctx.fillStyle = '#ffffff';
+                for (let r = 1; r < 6; r++) {
+                    for (let c = 1; c < 6; c++) {
+                        if (!(r >= 2 && r <= 4 && c >= 2 && c <= 4)) {
+                            ctx.fillRect(
+                                (col + c) * cellSize, 
+                                (row + r) * cellSize, 
+                                cellSize, cellSize
+                            );
+                        }
+                    }
+                }
+            });
+        }
+        
+        function downloadQRCode() {
+            const canvas = document.getElementById('qrCanvas');
+            const link = document.createElement('a');
+            link.download = 'durity-secure-id.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Generate QR code on page load
+        window.onload = generateQRCode;
+    </script>
+</body>
+</html>

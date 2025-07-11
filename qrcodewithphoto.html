@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized QR Code Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .demo-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .control-group {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .output-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .qr-container h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        canvas {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .sample-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #667eea;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        
+        .photo-upload {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+            margin-bottom: 20px;
+        }
+        
+        .photo-upload:hover, .photo-upload.dragover {
+            border-color: #764ba2;
+            background: #f0f4ff;
+            transform: scale(1.02);
+        }
+        
+        .photo-upload input[type="file"] {
+            display: none;
+        }
+        
+        .upload-text {
+            color: #667eea;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .upload-hint {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .key-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            word-break: break-all;
+        }
+        
+        .style-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .style-option {
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .style-option:hover, .style-option.active {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Personalized QR Code Generator</h1>
+        
+        <div class="demo-section">
+            <h2>Sample Demo Setup</h2>
+            <p>This demonstrates creating a QR code with public key data and visual personalization. In a real implementation, you would upload your actual passport photo and use your real public key.</p>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="keyType">Key Type:</label>
+                    <select id="keyType">
+                        <option value="rsa">RSA Public Key</option>
+                        <option value="ed25519">Ed25519 Public Key</option>
+                        <option value="ecdsa">ECDSA Public Key</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="personalInfo">Personal Information:</label>
+                    <textarea id="personalInfo" placeholder="Name, ID, or other identifying information">John Doe
+ID: 123456789
+Issued: 2024-01-15</textarea>
+                </div>
+                
+                <div class="control-group">
+                    <label for="visualStyle">Visual Style:</label>
+                    <select id="visualStyle">
+                        <option value="center_portrait">Center Portrait</option>
+                        <option value="background_blend">Background Blend</option>
+                        <option value="corner_portraits">Corner Portraits</option>
+                        <option value="photo_modules">Photo QR Modules</option>
+                        <option value="frame_portrait">Frame Portrait</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="qrSize">QR Code Size:</label>
+                    <select id="qrSize">
+                        <option value="256">256x256</option>
+                        <option value="512" selected>512x512</option>
+                        <option value="1024">1024x1024</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button onclick="generateSampleKeys()">Generate Sample Keys</button>
+                <button onclick="createPersonalizedQR()">Create Personalized QR</button>
+            </div>
+        </div>
+        
+        <div class="output-section">
+            <div class="qr-container">
+                <h3>Original QR Code</h3>
+                <canvas id="originalQR"></canvas>
+                <div class="key-info">
+                    <strong>Encoded Data:</strong>
+                    <div id="encodedData">Click "Generate Sample Keys" to see encoded data</div>
+                </div>
+            </div>
+            
+            <div class="qr-container">
+                <h3>Personalized QR Code</h3>
+                <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
+                    <div class="upload-text">📸 Upload Your Photo</div>
+                    <div class="upload-hint">Click here or drag & drop your passport photo</div>
+                    <input type="file" id="photoInput" accept="image/*">
+                </div>
+                <img class="sample-photo" id="samplePhoto" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9Ijc1IiBjeT0iNzUiIHI9Ijc1IiBmaWxsPSIjZjBmNGZmIiBzdHJva2U9IiM2NjdlZWEiIHN0cm9rZS13aWR0aD0iNCIvPgo8Y2lyY2xlIGN4PSI3NSIgY3k9IjUwIiByPSIyMCIgZmlsbD0iIzY2N2VlYSIvPgo8ZWxsaXBzZSBjeD0iNzUiIGN5PSIxMDAiIHJ4PSIzMCIgcnk9IjIwIiBmaWxsPSIjNjY3ZWVhIi8+CjwvZGVmcz4KPC9zdmc+" alt="Sample Avatar">
+                <canvas id="personalizedQR"></canvas>
+                <div class="key-info">
+                    <strong>Features:</strong>
+                    <div id="features">
+                        • Contains cryptographic public key<br>
+                        • Visually represents the person<br>
+                        • Maintains QR code functionality<br>
+                        • Can be scanned by standard QR readers
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let sampleKeys = {
+            rsa: {
+                public: "-----BEGIN RSA PUBLIC KEY-----\nMIIBCgKCAQEA0vx3aW2m9P8rVlbKn6tM7qN5f2xY1uH4kJ7nA6pQ8tS9rE2vF5wX\n3dY7gH1eK8mZ4sR6tN1qW8pL7kJ3vF2gH6sT9rE5wX4dY8gH1eK9mZ5sR7tN2qW\n-----END RSA PUBLIC KEY-----",
+                private: "-----BEGIN RSA PRIVATE KEY-----\n[PRIVATE KEY CONTENT HIDDEN FOR SECURITY]\n-----END RSA PRIVATE KEY-----"
+            },
+            ed25519: {
+                public: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGq3...[abbreviated]",
+                private: "[PRIVATE KEY HIDDEN]"
+            },
+            ecdsa: {
+                public: "-----BEGIN EC PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE...[abbreviated]\n-----END EC PUBLIC KEY-----",
+                private: "[PRIVATE KEY HIDDEN]"
+            }
+        };
+        
+        let uploadedPhoto = null;
+        let photoColors = null;
+        
+        // Photo upload and drag-drop functionality
+        const photoUpload = document.querySelector('.photo-upload');
+        const photoInput = document.getElementById('photoInput');
+        const samplePhoto = document.getElementById('samplePhoto');
+        
+        photoUpload.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            photoUpload.classList.add('dragover');
+        });
+        
+        photoUpload.addEventListener('dragleave', () => {
+            photoUpload.classList.remove('dragover');
+        });
+        
+        photoUpload.addEventListener('drop', (e) => {
+            e.preventDefault();
+            photoUpload.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handlePhotoUpload(files[0]);
+            }
+        });
+        
+        photoInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handlePhotoUpload(e.target.files[0]);
+            }
+        });
+        
+        function handlePhotoUpload(file) {
+            if (!file.type.startsWith('image/')) {
+                alert('Please upload an image file.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                uploadedPhoto = e.target.result;
+                samplePhoto.src = uploadedPhoto;
+                
+                // Extract colors from the image
+                extractColorsFromImage(uploadedPhoto);
+                
+                // Hide upload area and show photo
+                photoUpload.style.display = 'none';
+                samplePhoto.style.display = 'block';
+                
+                // Regenerate QR code with new photo data
+                createPersonalizedQR();
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function extractColorsFromImage(imageSrc) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                
+                ctx.drawImage(img, 0, 0);
+                
+                // Sample colors from the image
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+                
+                let r = 0, g = 0, b = 0;
+                const sampleSize = 1000; // Sample every 1000th pixel
+                let sampleCount = 0;
+                
+                for (let i = 0; i < data.length; i += sampleSize * 4) {
+                    r += data[i];
+                    g += data[i + 1];
+                    b += data[i + 2];
+                    sampleCount++;
+                }
+                
+                // Average colors
+                r = Math.floor(r / sampleCount);
+                g = Math.floor(g / sampleCount);
+                b = Math.floor(b / sampleCount);
+                
+                photoColors = {
+                    primary: `rgb(${r}, ${g}, ${b})`,
+                    dark: `rgb(${Math.floor(r * 0.7)}, ${Math.floor(g * 0.7)}, ${Math.floor(b * 0.7)})`,
+                    light: `rgb(${Math.min(255, r + 50)}, ${Math.min(255, g + 50)}, ${Math.min(255, b + 50)})`
+                };
+            };
+            img.src = imageSrc;
+        }
+        
+        function generateSampleKeys() {
+            const keyType = document.getElementById('keyType').value;
+            const personalInfo = document.getElementById('personalInfo').value;
+            
+            const data = {
+                keyType: keyType,
+                publicKey: sampleKeys[keyType].public,
+                personalInfo: personalInfo,
+                timestamp: new Date().toISOString(),
+                format: "digital-passport-qr-v1.0"
+            };
+            
+            const encodedData = JSON.stringify(data, null, 2);
+            document.getElementById('encodedData').textContent = encodedData;
+            
+            // Generate original QR code using qrcode-generator
+            const qr = qrcode(0, 'M');
+            qr.addData(encodedData);
+            qr.make();
+            
+            const canvas = document.getElementById('originalQR');
+            const ctx = canvas.getContext('2d');
+            const moduleCount = qr.getModuleCount();
+            const cellSize = 300 / moduleCount;
+            
+            canvas.width = 300;
+            canvas.height = 300;
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, 300, 300);
+            
+            ctx.fillStyle = '#000000';
+            for (let row = 0; row < moduleCount; row++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    if (qr.isDark(row, col)) {
+                        ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+        }
+        
+        function createPersonalizedQR() {
+            const keyType = document.getElementById('keyType').value;
+            const personalInfo = document.getElementById('personalInfo').value;
+            const visualStyle = document.getElementById('visualStyle').value;
+            
+            const data = {
+                keyType: keyType,
+                publicKey: sampleKeys[keyType].public,
+                personalInfo: personalInfo,
+                timestamp: new Date().toISOString(),
+                format: "digital-passport-qr-v1.0",
+                hasPhoto: uploadedPhoto !== null
+            };
+            
+            const encodedData = JSON.stringify(data, null, 2);
+            
+            // Generate QR code
+            const qr = qrcode(0, 'M');
+            qr.addData(encodedData);
+            qr.make();
+            
+            const canvas = document.getElementById('personalizedQR');
+            const ctx = canvas.getContext('2d');
+            const moduleCount = qr.getModuleCount();
+            const cellSize = 300 / moduleCount;
+            
+            canvas.width = 300;
+            canvas.height = 300;
+            
+            // Apply personalization based on style and photo
+            let colors = getColorsForStyle(visualStyle);
+            
+            ctx.fillStyle = colors.light;
+            ctx.fillRect(0, 0, 300, 300);
+            
+            ctx.fillStyle = colors.dark;
+            for (let row = 0; row < moduleCount; row++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    if (qr.isDark(row, col)) {
+                        ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+            
+            // Apply additional personalization effects
+            applyPersonalization(canvas, visualStyle);
+        }
+        
+        function getColorsForStyle(style) {
+            if (photoColors && uploadedPhoto) {
+                // Use colors extracted from the uploaded photo
+                return photoColors;
+            }
+            
+            // Default colors for different styles
+            const styleColors = {
+                'center_portrait': { dark: '#333333', light: '#ffffff' },
+                'background_blend': { dark: '#667eea', light: 'rgba(240, 244, 255, 0.8)' },
+                'corner_portraits': { dark: '#764ba2', light: '#f0f4ff' },
+                'photo_modules': { dark: '#667eea', light: '#ffffff' },
+                'frame_portrait': { dark: '#333333', light: '#f0f4ff' }
+            };
+            
+            return styleColors[style] || styleColors.center_portrait;
+        }
+        
+        function applyPersonalization(canvas, style) {
+            const ctx = canvas.getContext('2d');
+            
+            // If we have an uploaded photo, use it for more sophisticated personalization
+            if (uploadedPhoto) {
+                const img = new Image();
+                img.onload = function() {
+                    applyPhotoPersonalization(ctx, canvas, img, style);
+                };
+                img.src = uploadedPhoto;
+            } else {
+                applyDefaultPersonalization(ctx, canvas, style);
+            }
+        }
+        
+        function applyPhotoPersonalization(ctx, canvas, img, style) {
+            switch(style) {
+                case 'center_portrait':
+                    // Place a clear, visible portrait in the center
+                    ctx.save();
+                    const centerSize = 120;
+                    const centerX = (canvas.width - centerSize) / 2;
+                    const centerY = (canvas.height - centerSize) / 2;
+                    
+                    // Create a circular mask for the portrait
+                    ctx.beginPath();
+                    ctx.arc(canvas.width/2, canvas.height/2, centerSize/2, 0, 2 * Math.PI);
+                    ctx.clip();
+                    
+                    // Draw the portrait
+                    ctx.drawImage(img, centerX, centerY, centerSize, centerSize);
+                    
+                    // Add a border around the portrait
+                    ctx.restore();
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.arc(canvas.width/2, canvas.height/2, centerSize/2, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    
+                    // Add an outer border
+                    ctx.strokeStyle = photoColors ? photoColors.dark : '#333333';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(canvas.width/2, canvas.height/2, centerSize/2 + 3, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    break;
+                    
+                case 'background_blend':
+                    // Show the photo as a visible background
+                    ctx.save();
+                    ctx.globalAlpha = 0.6;
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    ctx.restore();
+                    
+                    // Add a subtle overlay to maintain QR readability
+                    ctx.save();
+                    ctx.globalAlpha = 0.3;
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.restore();
+                    break;
+                    
+                case 'corner_portraits':
+                    // Place visible portraits in all four corners
+                    ctx.save();
+                    const cornerSize = 60;
+                    const margin = 10;
+                    
+                    // Top-left
+                    ctx.beginPath();
+                    ctx.arc(margin + cornerSize/2, margin + cornerSize/2, cornerSize/2, 0, 2 * Math.PI);
+                    ctx.clip();
+                    ctx.drawImage(img, margin, margin, cornerSize, cornerSize);
+                    ctx.restore();
+                    
+                    // Top-right
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(canvas.width - margin - cornerSize/2, margin + cornerSize/2, cornerSize/2, 0, 2 * Math.PI);
+                    ctx.clip();
+                    ctx.drawImage(img, canvas.width - margin - cornerSize, margin, cornerSize, cornerSize);
+                    ctx.restore();
+                    
+                    // Bottom-left
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(margin + cornerSize/2, canvas.height - margin - cornerSize/2, cornerSize/2, 0, 2 * Math.PI);
+                    ctx.clip();
+                    ctx.drawImage(img, margin, canvas.height - margin - cornerSize, cornerSize, cornerSize);
+                    ctx.restore();
+                    
+                    // Bottom-right
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(canvas.width - margin - cornerSize/2, canvas.height - margin - cornerSize/2, cornerSize/2, 0, 2 * Math.PI);
+                    ctx.clip();
+                    ctx.drawImage(img, canvas.width - margin - cornerSize, canvas.height - margin - cornerSize, cornerSize, cornerSize);
+                    ctx.restore();
+                    
+                    // Add borders to corner portraits
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 2;
+                    [
+                        [margin + cornerSize/2, margin + cornerSize/2],
+                        [canvas.width - margin - cornerSize/2, margin + cornerSize/2],
+                        [margin + cornerSize/2, canvas.height - margin - cornerSize/2],
+                        [canvas.width - margin - cornerSize/2, canvas.height - margin - cornerSize/2]
+                    ].forEach(([x, y]) => {
+                        ctx.beginPath();
+                        ctx.arc(x, y, cornerSize/2, 0, 2 * Math.PI);
+                        ctx.stroke();
+                    });
+                    break;
+                    
+                case 'photo_modules':
+                    // Replace some QR modules with photo pixels
+                    ctx.save();
+                    const moduleSize = 300 / 25; // Approximate module size
+                    
+                    // Create a temporary canvas to get photo data
+                    const tempCanvas = document.createElement('canvas');
+                    const tempCtx = tempCanvas.getContext('2d');
+                    tempCanvas.width = 25;
+                    tempCanvas.height = 25;
+                    tempCtx.drawImage(img, 0, 0, 25, 25);
+                    
+                    const imageData = tempCtx.getImageData(0, 0, 25, 25);
+                    const data = imageData.data;
+                    
+                    // Replace some modules with photo pixels
+                    for (let x = 0; x < 25; x++) {
+                        for (let y = 0; y < 25; y++) {
+                            if (Math.random() > 0.7) { // Replace 30% of modules
+                                const pixelIndex = (y * 25 + x) * 4;
+                                const r = data[pixelIndex];
+                                const g = data[pixelIndex + 1];
+                                const b = data[pixelIndex + 2];
+                                
+                                ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+                                ctx.fillRect(x * moduleSize, y * moduleSize, moduleSize, moduleSize);
+                            }
+                        }
+                    }
+                    ctx.restore();
+                    break;
+                    
+                case 'frame_portrait':
+                    // Create a frame around the QR code with portrait strips
+                    ctx.save();
+                    const frameWidth = 40;
+                    
+                    // Top frame
+                    ctx.drawImage(img, 0, 0, canvas.width, frameWidth);
+                    // Bottom frame
+                    ctx.drawImage(img, 0, canvas.height - frameWidth, canvas.width, frameWidth);
+                    // Left frame
+                    ctx.drawImage(img, 0, 0, frameWidth, canvas.height);
+                    // Right frame
+                    ctx.drawImage(img, canvas.width - frameWidth, 0, frameWidth, canvas.height);
+                    
+                    // Add a portrait in the center-top of the frame
+                    const portraitSize = 80;
+                    const portraitX = (canvas.width - portraitSize) / 2;
+                    const portraitY = -portraitSize / 2;
+                    
+                    ctx.beginPath();
+                    ctx.arc(canvas.width/2, frameWidth/2, portraitSize/2, 0, 2 * Math.PI);
+                    ctx.clip();
+                    ctx.drawImage(img, portraitX, portraitY, portraitSize, portraitSize);
+                    
+                    ctx.restore();
+                    // Add border to portrait
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.arc(canvas.width/2, frameWidth/2, portraitSize/2, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    break;
+            }
+        }
+        
+        function applyDefaultPersonalization(ctx, canvas, style) {
+            // Apply default personalization effects (same as before)
+            switch(style) {
+                case 'overlay':
+                    ctx.save();
+                    ctx.globalAlpha = 0.1;
+                    ctx.fillStyle = '#667eea';
+                    ctx.beginPath();
+                    ctx.arc(canvas.width/2, canvas.height/2, 80, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.restore();
+                    break;
+                    
+                case 'mosaic':
+                    ctx.save();
+                    ctx.globalAlpha = 0.3;
+                    for(let i = 0; i < 20; i++) {
+                        ctx.fillStyle = `hsl(${240 + Math.random() * 40}, 70%, 70%)`;
+                        ctx.fillRect(
+                            Math.random() * canvas.width,
+                            Math.random() * canvas.height,
+                            5, 5
+                        );
+                    }
+                    ctx.restore();
+                    break;
+                    
+                case 'gradient':
+                    ctx.save();
+                    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                    gradient.addColorStop(0, '#667eea');
+                    gradient.addColorStop(1, '#764ba2');
+                    ctx.strokeStyle = gradient;
+                    ctx.lineWidth = 8;
+                    ctx.strokeRect(4, 4, canvas.width-8, canvas.height-8);
+                    ctx.restore();
+                    break;
+                    
+                case 'silhouette':
+                    ctx.save();
+                    ctx.fillStyle = '#667eea';
+                    // Corner decorations
+                    ctx.beginPath();
+                    ctx.arc(20, 20, 10, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(canvas.width-20, 20, 10, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(20, canvas.height-20, 10, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(canvas.width-20, canvas.height-20, 10, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.restore();
+                    break;
+            }
+        }
+        
+        // Generate initial sample
+        generateSampleKeys();
+        createPersonalizedQR();
+    </script>
+</body>
+</html>
