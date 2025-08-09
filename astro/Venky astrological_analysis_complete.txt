@@ -1,0 +1,692 @@
+
+Name: Venkatesh Mahalingam
+Date of Birth: 21-07-1975
+Time of Birth: 23:10:00 IST
+Place of Birth: Nellore, Andhra Pradesh, India
+Time Zone: +5.5
+Lagna: Pisces
+Rasi: Sagittarius
+Nakshatra: Purvashadha (Pada 2)
+Dasa Balance at Birth: Venus 13 Years 7 Months 25 Days
+
+Planetary Positions:
+ASC - Pisces 23°20'22" - Revati 3
+Sun - Cancer 04°49'34" - Pashyami 1
+Moon - Sagittarius 17°33'54" - Purvashadha 2
+Mars - Aries 20°48'03" - Bharani 3
+Mercury - Gemini 22°51'48" - Punarvasu 1
+Jupiter - Aries 00°14'15" - Ashvini 1
+Venus - Leo 14°06'14" - Purvaphalgini 1
+Saturn - Gemini 29°51'10" - Punarvasu 3
+Rahu - Scorpio (R) 04°23'27" - Anuradha 1
+Ketu - Taurus (R) 04°23'27" - Krittika 3
+
+Ashtakavarga Table (Total Points per Sign):
+1: 33 | 2: 30 | 3: 25 | 4: 19 | 5: 28 | 6: 23 | 7: 31 | 8: 25 | 9: 25 | 10: 34 | 11: 36 | 12: 28
+
+Vimshottari Dasha Sequence (Summary):
+VEN: 21-07-1975 to 16-03-1989
+SUN: 16-03-1989 to 16-03-1995
+MON: 16-03-1995 to 16-03-2005
+MAR: 16-03-2005 to 16-03-2012
+RAH: 16-03-2012 to 16-03-2030 (Current)
+JUP: 16-03-2030 to 16-03-2046
+SAT: 16-03-2046 to 16-03-2065
+MER: 16-03-2065 to 16-03-2082
+KET: 16-03-2082 to 16-03-2089
+
+Additional Info:
+- Lagna Lord: Jupiter
+- Rasi Lord: Jupiter
+- Sunrise: 05:50:31 | Sunset: 18:42:20
+- Tithi: Chaturdasi | Yoga: Vaidhrit | Karan: Vanij
+- Ayanamsa: 23°30'54" (Lahiri)
+- Julian Day: 2442615
+
+
+
+
+COMPREHENSIVE ASTROLOGICAL ANALYSIS - SOFTWARE INTERFACE DATA
+============================================================
+
+PLANETARY ABBREVIATIONS:
+Su = Sun, Mo = Moon, Ma = Mars, Me = Mercury, Ju = Jupiter, Ve = Venus, Sa = Saturn, Ra = Rahu, Ke = Ketu, As = Ascendant
+
+==================================================================================
+
+ADDITIONAL CHARTS FROM IMAGE
+============================
+Note: The following charts (Karakamsa and Swamsa) appear to be from a different astrological calculation or individual than the D1-D60 charts listed above, as their planetary placements do not align with the previously provided D9 (Navamsa) chart.
+
+KARAKAMSA CHART
+===============
+House Layout: North Indian Style (Fixed Houses)
+- House 1 (Top-Left Diamond): Sign 4 (Cancer) - Su, Ve
+- House 2 (Top-Right Triangle): Sign 5 (Leo) - Empty
+- House 3 (Right-Top Diamond): Sign 6 (Virgo) - Me, Sa
+- House 4 (Right-Middle Triangle): Sign 7 (Libra) - Ra
+- House 5 (Right-Bottom Diamond): Sign 8 (Scorpio) - Empty
+- House 6 (Bottom-Right Triangle): Sign 9 (Sagittarius) - Mo
+- House 7 (Bottom-Left Diamond): Sign 10 (Capricorn) - Empty
+- House 8 (Left-Bottom Triangle): Sign 11 (Aquarius) - Empty
+- House 9 (Left-Middle Diamond): Sign 12 (Pisces) - Empty
+- House 10 (Left-Top Triangle): Sign 1 (Aries) - Ma, Ju
+- House 11 (Center Top-Left Triangle): Sign 2 (Taurus) - Ke
+- House 12 (Center Bottom-Right Triangle): Sign 3 (Gemini) - Empty
+
+SWAMSA CHART (NAVAMSA)
+======================
+House Layout: North Indian Style (Fixed Houses)
+- House 1 (Top-Left Diamond): Sign 4 (Cancer) - Mo
+- House 2 (Top-Right Triangle): Sign 5 (Leo) - Su, Ve, Ra
+- House 3 (Right-Top Diamond): Sign 6 (Virgo) - Empty
+- House 4 (Right-Middle Triangle): Sign 7 (Libra) - Ma
+- House 5 (Right-Bottom Diamond): Sign 8 (Scorpio) - Empty
+- House 6 (Bottom-Right Triangle): Sign 9 (Sagittarius) - Sa
+- House 7 (Bottom-Left Diamond): Sign 10 (Capricorn) - Empty
+- House 8 (Left-Bottom Triangle): Sign 11 (Aquarius) - Ke
+- House 9 (Left-Middle Diamond): Sign 12 (Pisces) - Empty
+- House 10 (Left-Top Triangle): Sign 1 (Aries) - Empty
+- House 11 (Center Top-Left Triangle): Sign 2 (Taurus) - Me, Ju
+- House 12 (Center Bottom-Right Triangle): Sign 3 (Gemini) - Empty
+
+==================================================================================
+
+NAVAMSA CHART (D9) FROM CURRENT IMAGE
+=====================================
+Note: This Navamsa chart appears to be from a different astrological calculation or individual than the D1-D60 charts and the previously added Karakamsa/Swamsa charts, as its planetary placements do not align.
+
+CHART LAYOUT (North Indian Style - Fixed Houses)
+------------------------------------------------
+- House 1 (Top-Left Diamond): Sign 4 (Cancer) - Mo (Moon)
+- House 2 (Top-Right Triangle): Sign 2 (Taurus) - Sa (Saturn)
+- House 3 (Right-Top Diamond): Sign 1 (Aries) - Me (Mercury), Ju (Jupiter)
+- House 4 (Right-Middle Triangle): Sign 12 (Pisces) - Empty
+- House 5 (Right-Bottom Diamond): Sign 11 (Aquarius) - Ke (Ketu)
+- House 6 (Bottom-Right Triangle): Sign 10 (Capricorn) - Empty
+- House 7 (Bottom-Left Diamond): Sign 7 (Libra) - Ma (Mars)
+- House 8 (Bottom-Middle Triangle): Sign 8 (Scorpio) - Empty
+- House 9 (Left-Bottom Diamond): Sign 9 (Sagittarius) - Empty
+- House 10 (Left-Middle Triangle): Sign 6 (Virgo) - Empty
+- House 11 (Left-Top Diamond): Sign 5 (Leo) - Su (Sun), Ve (Venus), Ra (Rahu)
+- House 12 (Top-Middle Triangle): Sign 3 (Gemini) - Empty
+
+PLANETARY POSITIONS AND SPECIAL CONDITIONS (NAVAMSA)
+----------------------------------------------------
+| Planet  | Navamsa   | Rashi       | Pushkar Navamsa | Vargottama Navamsa |
+|---------|-----------|-------------|-----------------|--------------------|
+| Lagna   | Gemini    | Virgo       |                 |                    |
+| Sun     | Leo       | Cancer      |                 |                    |
+| Moon    | Cancer    | Sagittarius |                 |                    |
+| Mars    | Libra     | Aries       | Pushkar         |                    |
+| Mercury | Aries     | Gemini      |                 |                    |
+| Jupiter | Aries     | Aries       |                 | Vargottama         |
+| Venus   | Leo       | Leo         |                 | Vargottama         |
+| Saturn  | Gemini    | Gemini      |                 | Vargottama         |
+| Rahu    | Leo       | Scorpio     |                 |                    |
+| Ketu    | Aquarius  | Taurus      |                 |                    |
+
+==================================================================================
+
+
+Your Jaimini Astrology Prediction
+Karaka	Planet	Degree	Sign	Sign Lord	Status
+ATMAKARAKA	Saturn	29.78°	Gemini	mercury	
+ENEMY
+
+DARAKARAKA	Jupiter	0.25°	Aries	mars	
+FRIENDLY
+
+
+
+DIVISIONAL CHARTS (VARGA CHARTS)
+================================
+
+D1 - RASI (NATAL CHART - BODY)
+==============================
+House Layout: North Indian Style (Fixed Houses)
+- Ascendant (As) in top-left house
+- Jupiter (Ju) and Mars (Ma) in top-right house
+- Moon (Mo) and Rahu (Ra) in bottom-left house
+- Venus (Ve) in bottom-right house
+- Sun (Su) and Mercury (Me) also present
+- House labels: A1, A2, etc.
+- Additional abbreviations: Md, GL, Gk, SL, PP, BB, UL, AL, HL
+
+D9 - NAVAMSA (MARRIAGE & DHARMA)
+================================
+Purpose: Analyzing marriage, spouse, and spiritual path
+Planetary Placements:
+- Jupiter (Ju)
+- Mercury (Me)
+- Saturn (Sa)
+- Venus (Ve)
+- Sun (Su)
+- Rahu (Ra)
+- Mars (Ma)
+- Moon (Mo)
+- Ketu (Ke)
+- Ascendant (As)
+
+D30 - TRIMSAMSA (MISFORTUNES)
+=============================
+Purpose: Analyzing misfortunes and adversities
+Planetary Placements:
+- Ascendant (As)
+- Jupiter (Ju)
+- Rahu (Ra)
+- Sun (Su)
+- Ketu (Ke)
+- Mars (Ma)
+- Saturn (Sa)
+- Venus (Ve)
+- Moon (Mo)
+
+D3 - DREKKANA (SIBLINGS & COURAGE)
+==================================
+Purpose: Analyzing siblings and courage
+Planetary Placements:
+- Jupiter (Ju)
+- Moon (Mo)
+- Ketu (Ke)
+- Sun (Su)
+- Mercury (Me)
+- Saturn (Sa)
+- Venus (Ve)
+- Mars (Ma)
+- Rahu (Ra)
+- Ascendant (As)
+
+D10 - DASAMSA (CAREER & PROFESSION)
+===================================
+Purpose: Analyzing career and profession
+Planetary Placements:
+- Saturn (Sa)
+- Jupiter (Ju)
+- Sun (Su)
+- Moon (Mo)
+- Ascendant (As)
+- Ketu (Ke)
+- Mercury (Me)
+- Venus (Ve)
+- Mars (Ma)
+- Rahu (Ra)
+
+D60 - HASTYAMS (PAST LIFE KARMA)
+================================
+Purpose: Analyzing past life karma and general fortune
+Planetary Placements:
+- Mercury (Me)
+- Jupiter (Ju)
+- Sun (Su)
+- Saturn (Sa)
+- Rahu (Ra)
+- Ketu (Ke)
+- Ascendant (As)
+- Venus (Ve)
+- Moon (Mo)
+- Mars (Ma)
+
+==================================================================================
+
+PLANETARY STRENGTH METRICS (BAR GRAPHS)
+=======================================
+
+1. VIMSOPAKA BALA (DASA STRENGTH)
+==================================
+Purpose: Measures planetary strength for timing events and dasa periods
+Values:
+- Sun (Su): 11.5
+- Moon (Mo): 11.3
+- Mars (Ma): 11.0
+- Mercury (Me): 14.7 (STRONGEST)
+- Jupiter (Ju): 11.8
+- Venus (Ve): 8.7
+- Saturn (Sa): 12.5
+- Rahu (Ra): 6.8
+- Ketu (Ke): 12.0
+
+2. SHADBALA (OVERALL STRENGTH %)
+=================================
+Purpose: Most comprehensive strength calculation combining 6 types of strength
+Values:
+- Sun (Su): 135%
+- Moon (Mo): 125%
+- Mars (Ma): 140% (STRONGEST)
+- Mercury (Me): 112%
+- Jupiter (Ju): 111%
+- Venus (Ve): 117%
+- Saturn (Sa): 127%
+
+3. ISHTA PHALA (BENEFICIAL STRENGTH)
+====================================
+Purpose: Measures beneficial or positive strength of planets
+Values:
+- Sun (Su): 40.1 (HIGHEST)
+- Moon (Mo): 28.4
+- Mars (Ma): 29.5
+- Mercury (Me): 18.4
+- Jupiter (Ju): 27.5
+- Venus (Ve): 25.8
+- Saturn (Sa): 7.8
+
+4. PANCHA VARGEEYA BALA (5-DIVISIONAL STRENGTH)
+===============================================
+Purpose: Strength across 5 key divisional charts (D1, D2, D9, D10, D16)
+Values:
+- Sun (Su): 10.8
+- Moon (Mo): 7.5
+- Mars (Ma): 15.5 (STRONGEST)
+- Mercury (Me): 12.7
+- Jupiter (Ju): 11.7
+- Venus (Ve): 5.9
+- Saturn (Sa): 12.6
+
+5. DWADASA VARGEEYA BALA (12-DIVISIONAL STRENGTH)
+=================================================
+Purpose: Strength across 12 divisional charts
+Values:
+- Sun (Su): 7
+- Moon (Mo): 8
+- Mars (Ma): 6
+- Mercury (Me): 7
+- Jupiter (Ju): 7
+- Venus (Ve): 4
+- Saturn (Sa): 7
+
+6. HARSHA BALA (JOY STRENGTH)
+=============================
+Purpose: Measures happiness potential and mental satisfaction
+Values:
+- Sun (Su): 5
+- Moon (Mo): 5
+- Mars (Ma): 5
+- Mercury (Me): 10 (HIGHEST)
+- Jupiter (Ju): 0
+- Venus (Ve): 5
+- Saturn (Sa): 5
+
+7. VAISESHIKAMSA (SPECIAL STRENGTH)
+===================================
+Purpose: Special strength calculations for timing
+Values:
+- Sun (Su): 4
+- Moon (Mo): 2
+- Mars (Ma): 1
+- Mercury (Me): 3
+- Jupiter (Ju): 0
+- Venus (Ve): 1
+- Saturn (Sa): 2
+- Rahu (Ra): 1
+- Ketu (Ke): 1
+
+8. ASHTAKAVARGA BALA (POINT-BASED STRENGTH)
+===========================================
+Purpose: Point-based strength system where planets give points to houses
+Values:
+- Ascendant (As): 3
+- Sun (Su): 4
+- Moon (Mo): 5
+- Mars (Ma): 4
+- Mercury (Me): 5
+- Jupiter (Ju): 7 (HIGHEST)
+- Venus (Ve): 5
+- Saturn (Sa): 3
+
+==================================================================================
+
+KEY INSIGHTS & INTERPRETATION
+=============================
+
+STRONGEST PLANETS BY METRIC:
+1. Vimsopaka Bala: Mercury (14.7) - Excellent for intellectual pursuits
+2. Shadbala: Mars (140%) - High physical energy and courage
+3. Ishta Phala: Sun (40.1) - Very beneficial overall
+4. Pancha Vargeeya: Mars (15.5) - Strong across 5 key charts
+5. Harsha Bala: Mercury (10) - Brings mental joy and satisfaction
+6. Ashtakavarga: Jupiter (7) - Maximum beneficial points
+
+OVERALL ASSESSMENT:
+- Mercury: Strongest in timing and mental abilities
+- Mars: Highest overall strength, excellent for action and courage
+- Jupiter: Best point-based strength, strong for wisdom and spirituality
+- Saturn: Good timing strength, brings discipline and patience
+- Sun: Very beneficial overall, strong leadership potential
+
+LIFE AREAS STRENGTH:
+- Intellectual pursuits: Very strong (Mercury)
+- Physical activities: Excellent (Mars)
+- Spiritual growth: Strong (Jupiter)
+- Career discipline: Good (Saturn)
+- Leadership: Strong (Sun)
+
+RECOMMENDATIONS:
+- Mercury periods will be excellent for education, business, communication
+- Mars periods will bring success in sports, military, engineering
+- Jupiter periods will be very beneficial for wisdom and spirituality
+- Saturn periods will bring career stability and maturity
+- Overall chart shows good balance and strength across multiple areas
+
+==================================================================================
+
+NOTES:
+- All strength calculations are based on traditional Vedic astrology methods
+- Higher values generally indicate stronger and more beneficial planetary influences
+- These metrics help determine timing for important life events
+- Combined analysis provides comprehensive understanding of planetary strengths 
+
+
+
+COMPLETE DIVISIONAL CHARTS (D1-D60) - TEXT FORMAT
+==================================================
+
+PLANETARY ABBREVIATIONS:
+Su = Sun, Mo = Moon, Ma = Mars, Me = Mercury, Ju = Jupiter, Ve = Venus, Sa = Saturn, Ra = Rahu, Ke = Ketu, Asc = Ascendant
+
+ZODIAC SIGNS:
+1 = Aries, 2 = Taurus, 3 = Gemini, 4 = Cancer, 5 = Leo, 6 = Virgo, 7 = Libra, 8 = Scorpio, 9 = Sagittarius, 10 = Capricorn, 11 = Aquarius, 12 = Pisces
+
+==================================================================================
+
+D1 - RASI (BODY)
+================
+House 1 (Top): Sign 12 (Pisces) - Asc
+House 2 (Top-Right): Sign 1 (Aries) - Ma, Ju
+House 3 (Right-Top): Sign 10 (Capricorn) - Empty
+House 4 (Right-Middle): Sign 9 (Sagittarius) - Mo
+House 5 (Right-Bottom): Sign 8 (Scorpio) - Ra
+House 6 (Bottom-Right): Sign 7 (Libra) - Empty
+House 7 (Bottom): Sign 6 (Virgo) - Empty
+House 8 (Bottom-Left): Sign 5 (Leo) - Ve
+House 9 (Left-Bottom): Sign 4 (Cancer) - Su
+House 10 (Left-Middle): Sign 3 (Gemini) - Me, Sa
+House 11 (Left-Top): Sign 2 (Taurus) - Ke
+House 12 (Top-Left): Sign 11 (Aquarius) - Empty
+
+==================================================================================
+
+D2 - HORA (WEALTH)
+==================
+House 1 (Top): Sign 5 (Leo) - Ve, Ju, Asc
+House 2 (Top-Right): Sign 6 (Virgo) - Empty
+House 3 (Right-Top): Sign 3 (Gemini) - Su, Sa, Mo, Ra, Me, Ke, Ma
+House 4 (Right-Middle): Sign 4 (Cancer) - Empty
+House 5 (Right-Bottom): Sign 1 (Aries) - Empty
+House 6 (Bottom-Right): Sign 12 (Pisces) - Empty
+House 7 (Bottom): Sign 11 (Aquarius) - Empty
+House 8 (Bottom-Left): Sign 10 (Capricorn) - Empty
+House 9 (Left-Bottom): Sign 9 (Sagittarius) - Empty
+House 10 (Left-Middle): Sign 8 (Scorpio) - Empty
+House 11 (Left-Top): Sign 7 (Libra) - Empty
+House 12 (Top-Left): Sign 2 (Taurus) - Empty
+
+==================================================================================
+
+D3 - DREKKANA (SIBLINGS)
+========================
+House 1 (Top): Sign 8 (Scorpio) - Asc, Ra
+House 2 (Top-Right): Sign 9 (Sagittarius) - Ve, Ma
+House 3 (Right-Top): Sign 10 (Capricorn) - Empty
+House 4 (Right-Middle): Sign 11 (Aquarius) - Me, Sa
+House 5 (Right-Bottom): Sign 12 (Pisces) - Empty
+House 6 (Bottom-Right): Sign 1 (Aries) - Mo, Ju
+House 7 (Bottom): Sign 2 (Taurus) - Ke
+House 8 (Bottom-Left): Sign 3 (Gemini) - Empty
+House 9 (Left-Bottom): Sign 4 (Cancer) - Su
+House 10 (Left-Middle): Sign 5 (Leo) - Empty
+House 11 (Left-Top): Sign 6 (Virgo) - Empty
+House 12 (Top-Left): Sign 7 (Libra) - Empty
+
+==================================================================================
+
+D4 - CHATURTHAMSA (LUCK)
+========================
+House 1 (Top): Sign 9 (Sagittarius) - Asc
+House 2 (Top-Right): Sign 10 (Capricorn) - Empty
+House 3 (Right-Top): Sign 11 (Aquarius) - Me, Sa
+House 4 (Right-Middle): Sign 12 (Pisces) - Empty
+House 5 (Right-Bottom): Sign 1 (Aries) - Ju
+House 6 (Bottom-Right): Sign 2 (Taurus) - Ke
+House 7 (Bottom): Sign 3 (Gemini) - Mo
+House 8 (Bottom-Left): Sign 4 (Cancer) - Empty
+House 9 (Left-Bottom): Sign 5 (Leo) - Su
+House 10 (Left-Middle): Sign 6 (Virgo) - Empty
+House 11 (Left-Top): Sign 7 (Libra) - Ma
+House 12 (Top-Left): Sign 8 (Scorpio) - Ve, Ra
+
+==================================================================================
+
+D7 - SAPTAMSA (PROGENY)
+=======================
+House 1 (Top): Sign 11 (Aquarius) - Su, Asc
+House 2 (Top-Right): Sign 12 (Pisces) - Sa, Ke
+House 3 (Right-Top): Sign 1 (Aries) - Me, Ve
+House 4 (Right-Middle): Sign 2 (Taurus) - Empty
+House 5 (Right-Bottom): Sign 3 (Gemini) - Ma
+House 6 (Bottom-Right): Sign 4 (Cancer) - Ra
+House 7 (Bottom): Sign 5 (Leo) - Mo, Ju
+House 8 (Bottom-Left): Sign 6 (Virgo) - Empty
+House 9 (Top-Left Inner): Sign 7 (Libra) - Empty
+House 10 (Top-Right Inner): Sign 8 (Scorpio) - Empty
+House 11 (Bottom-Right Inner): Sign 9 (Sagittarius) - Empty
+House 12 (Bottom-Left Inner): Sign 10 (Capricorn) - Empty
+
+==================================================================================
+
+D9 - NAVAMSA (SPOUSE)
+=====================
+House 1 (Top): Sign 11 (Aquarius) - Asc, Ke
+House 2 (Top-Right): Sign 12 (Pisces) - Empty
+House 3 (Right-Top): Sign 1 (Aries) - Ma
+House 4 (Right-Middle): Sign 2 (Taurus) - Mo
+House 5 (Right-Bottom): Sign 3 (Gemini) - Su, Ve, Ra
+House 6 (Bottom-Right): Sign 4 (Cancer) - Sa
+House 7 (Bottom): Sign 5 (Leo) - Me, Ju
+House 8 (Bottom-Left): Sign 6 (Virgo) - Empty
+House 9 (Top-Left Inner): Sign 7 (Libra) - Empty
+House 10 (Top-Right Inner): Sign 8 (Scorpio) - Empty
+House 11 (Bottom-Right Inner): Sign 9 (Sagittarius) - Empty
+House 12 (Bottom-Left Inner): Sign 10 (Capricorn) - Empty
+
+==================================================================================
+
+D10 - DASAMSA (PROFESSION)
+==========================
+House 1 (Top): Sign 3 (Gemini) - Asc
+House 2 (Top-Right): Sign 1 (Aries) - Su, Ju
+House 3 (Right-Top): Sign 2 (Taurus) - Empty
+House 4 (Right-Middle): Sign 11 (Aquarius) - Sa
+House 5 (Right-Bottom): Sign 12 (Pisces) - Empty
+House 6 (Bottom-Right): Sign 10 (Capricorn) - Ke
+House 7 (Bottom): Sign 9 (Sagittarius) - Me
+House 8 (Bottom-Left): Sign 7 (Libra) - Ma
+House 9 (Left-Bottom): Sign 8 (Scorpio) - Empty
+House 10 (Left-Middle): Sign 5 (Leo) - Ra
+House 11 (Left-Top): Sign 6 (Virgo) - Empty
+House 12 (Top-Left): Sign 4 (Cancer) - Mo
+
+==================================================================================
+
+D12 - DWADASAMSA (PARENTS)
+==========================
+House 1 (Top): Sign 9 (Sagittarius) - Ma, Asc, Ra
+House 2 (Top-Right): Sign 8 (Scorpio) - Empty
+House 3 (Right-Top): Sign 7 (Libra) - Empty
+House 4 (Right-Middle): Sign 5 (Leo) - Su
+House 5 (Right-Bottom): Sign 4 (Cancer) - Empty
+House 6 (Bottom-Right): Sign 3 (Gemini) - Mo
+House 7 (Bottom): Sign 3 (Gemini) - Ke
+House 8 (Bottom-Left): Sign 2 (Taurus) - Empty
+House 9 (Left-Bottom): Sign 1 (Aries) - Sa
+House 10 (Left-Middle): Sign 11 (Aquarius) - Ju
+House 11 (Left-Top): Sign 10 (Capricorn) - Empty
+House 12 (Top-Left): Sign 12 (Pisces) - Ve
+
+==================================================================================
+
+D16 - SHODASAMSA (VEHICLES)
+===========================
+House 1 (Top): Sign 9 (Sagittarius) - Me, Asc
+House 2 (Top-Right): Sign 10 (Capricorn) - Empty
+House 3 (Right-Top): Sign 11 (Aquarius) - Empty
+House 4 (Right-Middle): Sign 12 (Pisces) - Ve, Ma, Sa
+House 5 (Right-Bottom): Sign 1 (Aries) - Ju
+House 6 (Bottom-Right): Sign 2 (Taurus) - Empty
+House 7 (Bottom): Sign 3 (Gemini) - Su
+House 8 (Bottom-Left): Sign 4 (Cancer) - Empty
+House 9 (Left-Bottom): Sign 5 (Leo) - Empty
+House 10 (Left-Middle): Sign 6 (Virgo) - Mo
+House 11 (Left-Top): Sign 7 (Libra) - Ra, Ke
+House 12 (Top-Left): Sign 8 (Scorpio) - Empty
+
+==================================================================================
+
+D20 - VIMSAMSA (RELIGIOUS INCLINATIONS)
+======================================
+House 1 (Top): Sign 8 (Scorpio) - Me, Asc
+House 2 (Top-Right): Sign 9 (Sagittarius) - Empty
+House 3 (Right-Top): Sign 10 (Capricorn) - Empty
+House 4 (Right-Middle): Sign 11 (Aquarius) - Ra, Ke
+House 5 (Right-Bottom): Sign 12 (Pisces) - Sa
+House 6 (Bottom-Right): Sign 1 (Aries) - Ju
+House 7 (Bottom): Sign 2 (Taurus) - Empty
+House 8 (Bottom-Left): Sign 3 (Gemini) - Ma
+House 9 (Left-Bottom): Sign 4 (Cancer) - Su, Mo
+House 10 (Left-Middle): Sign 5 (Leo) - Empty
+House 11 (Left-Top): Sign 6 (Virgo) - Ve
+House 12 (Top-Left): Sign 7 (Libra) - Empty
+
+==================================================================================
+
+D24 - CHATURVIMSAMSA (EDUCATION)
+================================
+House 1 (Top): Sign 10 (Capricorn) - Asc
+House 2 (Top-Right): Sign 11 (Aquarius) - Me
+House 3 (Right-Top): Sign 12 (Pisces) - Empty
+House 4 (Right-Middle): Sign 1 (Aries) - Empty
+House 5 (Right-Bottom): Sign 2 (Taurus) - Empty
+House 6 (Bottom-Right): Sign 3 (Gemini) - Empty
+House 7 (Bottom): Sign 4 (Cancer) - Ve, Sa
+House 8 (Bottom-Left): Sign 5 (Leo) - Ju
+House 9 (Left-Bottom): Sign 6 (Virgo) - Empty
+House 10 (Left-Middle): Sign 7 (Libra) - Su, Ra, Mo, Ke
+House 11 (Left-Top): Sign 8 (Scorpio) - Ma
+House 12 (Top-Left): Sign 9 (Sagittarius) - Empty
+
+==================================================================================
+
+D27 - SAPTAVIMSAMSA (STRENGTH)
+==============================
+House 1 (Top): Sign 7 (Libra) - Ma, Asc, Ke
+House 2 (Top-Right): Sign 8 (Scorpio) - Sa
+House 3 (Right-Top): Sign 9 (Sagittarius) - Empty
+House 4 (Right-Middle): Sign 10 (Capricorn) - Empty
+House 5 (Right-Bottom): Sign 11 (Aquarius) - Empty
+House 6 (Bottom-Right): Sign 12 (Pisces) - Empty
+House 7 (Bottom): Sign 1 (Aries) - Empty
+House 8 (Bottom-Left): Sign 2 (Taurus) - Su
+House 9 (Left-Bottom): Sign 3 (Gemini) - Me
+House 10 (Left-Middle): Sign 4 (Cancer) - Mo
+House 11 (Left-Top): Sign 5 (Leo) - Empty
+House 12 (Top-Left): Sign 6 (Virgo) - Ve, Ju, Ra
+
+==================================================================================
+
+D30 - TRIMSAMSA (MISFORTUNE)
+============================
+House 1 (Top): Sign 10 (Capricorn) - Asc
+House 2 (Top-Right): Sign 9 (Sagittarius) - Mo, Ve
+House 3 (Right-Top): Sign 8 (Scorpio) - Sa
+House 4 (Right-Middle): Sign 6 (Virgo) - Empty
+House 5 (Right-Bottom): Sign 5 (Leo) - Empty
+House 6 (Bottom-Right): Sign 3 (Gemini) - Me, Ma
+House 7 (Bottom): Sign 2 (Taurus) - Su, Ra, Ke
+House 8 (Bottom-Left): Sign 11 (Aquarius) - Empty
+House 9 (Left-Bottom): Sign 12 (Pisces) - Empty
+House 10 (Left-Middle): Sign 1 (Aries) - Ju
+House 11 (Left-Top): Sign 7 (Libra) - Empty
+House 12 (Top-Left): Sign 4 (Cancer) - Empty
+
+==================================================================================
+
+D40 - KHAVEDAMSA (AUSPICIOUS RESULTS)
+====================================
+House 1 (Top): Sign 2 (Taurus) - Asc
+House 2 (Top-Right): Sign 1 (Aries) - Su, Ju
+House 3 (Right-Top): Sign 12 (Pisces) - Mo, Ra, Ke
+House 4 (Right-Middle): Sign 10 (Capricorn) - Empty
+House 5 (Right-Bottom): Sign 9 (Sagittarius) - Empty
+House 6 (Bottom-Right): Sign 7 (Libra) - Me, Ve
+House 7 (Bottom): Sign 4 (Cancer) - Ma, Sa
+House 8 (Bottom-Left): Sign 3 (Gemini) - Empty
+House 9 (Left-Bottom): Sign 5 (Leo) - Empty
+House 10 (Left-Middle): Sign 11 (Aquarius) - Empty
+House 11 (Left-Top): Sign 8 (Scorpio) - Empty
+House 12 (Top-Left): Sign 6 (Virgo) - Empty
+
+==================================================================================
+
+D45 - AKSHAVEDAMSA (GENERAL WELL BEING)
+======================================
+House 1 (Bottom Center): Sign - Ju
+House 2 (Center Bottom Right): Sign - Empty
+House 3 (Center Bottom Left): Sign - Ve
+House 4 (Bottom Right): Sign - Empty
+House 5 (Center Top Right): Sign - Sa
+House 6 (Right Center): Sign - Empty
+House 7 (Top Right): Sign - Me
+House 8 (Top Center): Sign - Su, Ma, Asc
+House 9 (Top Left): Sign - Empty
+House 10 (Left Center): Sign - Empty
+House 11 (Center Top Left): Sign - Mo, Ra, Ke
+House 12 (Bottom Left): Sign - Empty
+
+==================================================================================
+
+D60 - SHASHTYAMSA (GENERAL WELL BEING)
+======================================
+House 1 (Bottom Center): Sign - Su, Ju
+House 2 (Bottom Left): Sign - Sa
+House 3 (Center Bottom Left): Sign - Empty
+House 4 (Center Top Left): Sign - Ra
+House 5 (Center Bottom Right): Sign - Empty
+House 6 (Bottom Right): Sign - Ma
+House 7 (Center Top Right): Sign - Empty
+House 8 (Right Center): Sign - Mo
+House 9 (Top Right): Sign - Ve
+House 10 (Top Center): Sign - Asc, Ke
+House 11 (Top Left): Sign - Me
+House 12 (Left Center): Sign - Empty
+
+==================================================================================
+
+SHODASHAVARGA TABLE SUMMARY
+===========================
+Divisional Chart | Ascendant | Sun | Moon | Mercury | Venus | Mars | Jupiter | Saturn | Rahu | Ketu
+----------------|-----------|-----|------|---------|-------|------|---------|--------|------|------
+Rasi (D1) | Jupiter | Moon | Jupiter | Mercury | Sun | Mars | Mars | Mercury | Mars | Venus
+Hora (D2) | Sun | Moon | Moon | Moon | Sun | Moon | Sun | Moon | Moon | Moon
+Drekkana (D3) | Mars | Moon | Mars | Saturn | Jupiter | Jupiter | Mars | Saturn | Mars | Venus
+Chaturthamsa (D4) | Jupiter | Moon | Mercury | Jupiter | Mars | Venus | Mars | Jupiter | Mars | Venus
+Saptamsa (D7) | Saturn | Saturn | Mars | Mars | Mars | Sun | Mars | Jupiter | Mercury | Jupiter
+Navamsa (D9) | Saturn | Sun | Mercury | Mars | Sun | Venus | Mars | Mercury | Sun | Saturn
+Dasamsa (D10) | Mercury | Mars | Venus | Saturn | Jupiter | Venus | Mars | Jupiter | Sun | Saturn
+Dwadasamsa (D12) | Jupiter | Sun | Moon | Jupiter | Saturn | Jupiter | Mars | Venus | Jupiter | Mercury
+Shodasamsa (D16) | Jupiter | Mercury | Mercury | Jupiter | Jupiter | Jupiter | Mars | Jupiter | Venus | Venus
+Vimsamsa (D20) | Mars | Moon | Moon | Mars | Mercury | Venus | Mars | Jupiter | Saturn | Saturn
+Chaturvimsamsa (D24) | Saturn | Venus | Venus | Saturn | Moon | Jupiter | Sun | Moon | Venus | Venus
+Saptavimsamsa (D27) | Venus | Venus | Moon | Mercury | Mars | Venus | Mars | Jupiter | Mars | Venus
+Trimsamsa (D30) | Saturn | Venus | Jupiter | Mercury | Jupiter | Mercury | Mars | Venus | Venus | Venus
+Khavedamsa (D40) | Venus | Mars | Jupiter | Venus | Venus | Moon | Mars | Moon | Jupiter | Jupiter
+Akshavedamsa (D45) | Mars | Mars | Saturn | Venus | Venus | Mars | Mars | Sun | Saturn | Saturn
+Shashtyamsa (D60) | Saturn | Mars | Mars | Jupiter | Jupiter | Mercury | Mars | Venus | Moon | Saturn
+
+==================================================================================
+
+NOTES:
+- All charts are in North Indian style (fixed houses)
+- House 1 is always the top diamond/center position
+- Houses are numbered clockwise from the top
+- Numbers in houses represent zodiac signs (1-12)
+- Planetary abbreviations are standard Vedic astrology notation
+- Empty houses contain no planets or significant points 

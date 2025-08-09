@@ -1,0 +1,162 @@
+{
+  "Ascendant": {
+    "calculated": {
+      "sign": "Pisces",
+      "degree": "23°20'",
+      "nakshatra": "Revati",
+      "pada": 3
+    },
+    "correct": {
+      "sign": "Pisces",
+      "degree": "23°20'22\"",
+      "nakshatra": "Revati",
+      "pada": 3
+    },
+    "sign_match": true,
+    "nakshatra_match": true
+  },
+  "Sun": {
+    "calculated": {
+      "sign": "Capricorn",
+      "degree": "5°2'",
+      "nakshatra": "Uttara Ashadha",
+      "pada": 3
+    },
+    "correct": {
+      "sign": "Cancer",
+      "degree": "04°49'34\"",
+      "nakshatra": "Pushya",
+      "pada": 1
+    },
+    "sign_match": false,
+    "nakshatra_match": false
+  },
+  "Moon": {
+    "calculated": {
+      "sign": "Sagittarius",
+      "degree": "20°27'",
+      "nakshatra": "Purva Ashadha",
+      "pada": 3
+    },
+    "correct": {
+      "sign": "Sagittarius",
+      "degree": "17°33'54\"",
+      "nakshatra": "Purva Ashadha",
+      "pada": 2
+    },
+    "sign_match": true,
+    "nakshatra_match": true
+  },
+  "Mars": {
+    "calculated": {
+      "sign": "Pisces",
+      "degree": "6°21'",
+      "nakshatra": "Uttara Bhadrapada",
+      "pada": 1
+    },
+    "correct": {
+      "sign": "Aries",
+      "degree": "20°48'03\"",
+      "nakshatra": "Bharani",
+      "pada": 3
+    },
+    "sign_match": false,
+    "nakshatra_match": false
+  },
+  "Mercury": {
+    "calculated": {
+      "sign": "Taurus",
+      "degree": "11°18'",
+      "nakshatra": "Rohini",
+      "pada": 1
+    },
+    "correct": {
+      "sign": "Gemini",
+      "degree": "22°51'48\"",
+      "nakshatra": "Punarvasu",
+      "pada": 1
+    },
+    "sign_match": false,
+    "nakshatra_match": false
+  },
+  "Jupiter": {
+    "calculated": {
+      "sign": "Pisces",
+      "degree": "18°28'",
+      "nakshatra": "Revati",
+      "pada": 1
+    },
+    "correct": {
+      "sign": "Aries",
+      "degree": "00°14'15\"",
+      "nakshatra": "Ashwini",
+      "pada": 1
+    },
+    "sign_match": false,
+    "nakshatra_match": false
+  },
+  "Venus": {
+    "calculated": {
+      "sign": "Sagittarius",
+      "degree": "12°15'",
+      "nakshatra": "Mula",
+      "pada": 4
+    },
+    "correct": {
+      "sign": "Leo",
+      "degree": "14°06'14\"",
+      "nakshatra": "Purva Phalguni",
+      "pada": 1
+    },
+    "sign_match": false,
+    "nakshatra_match": false
+  },
+  "Saturn": {
+    "calculated": {
+      "sign": "Gemini",
+      "degree": "29°13'",
+      "nakshatra": "Punarvasu",
+      "pada": 3
+    },
+    "correct": {
+      "sign": "Gemini",
+      "degree": "29°51'10\"",
+      "nakshatra": "Punarvasu",
+      "pada": 3
+    },
+    "sign_match": true,
+    "nakshatra_match": true
+  },
+  "Rahu": {
+    "calculated": {
+      "sign": "Sagittarius",
+      "degree": "4°23'",
+      "nakshatra": "Mula",
+      "pada": 2
+    },
+    "correct": {
+      "sign": "Scorpio",
+      "degree": "04°23'27\"",
+      "nakshatra": "Anuradha",
+      "pada": 1
+    },
+    "sign_match": false,
+    "nakshatra_match": false
+  },
+  "Ketu": {
+    "calculated": {
+      "sign": "Gemini",
+      "degree": "4°23'",
+      "nakshatra": "Mrigashira",
+      "pada": 4
+    },
+    "correct": {
+      "sign": "Taurus",
+      "degree": "04°23'27\"",
+      "nakshatra": "Krittika",
+      "pada": 3
+    },
+    "sign_match": false,
+    "nakshatra_match": false
+  }
+}

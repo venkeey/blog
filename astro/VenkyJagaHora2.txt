@@ -1,0 +1,383 @@
+
+Venky Jaghora Chart Data
+The provided document contains several charts and tables. Here is the information converted to a machine-readable text format, organized by section.
+
+Birth Details:
+
+
+Name: Venky 
+
+
+Date: July 21, 1975 
+
+
+Time: 23:10:00 (5:30 East of GMT) 
+
+
+Location: 79 E 58' 00", 14 N 26' 00" (Nellore, India) 
+
+
+Lunar Day: Rakshasa Ashadha Sukla Chaturdasi (43.83% left) 
+
+
+Nakshatra: Poorvashadha (68.13% left) 
+
+
+Day: Monday 
+
+Planet Positions (Lagna, Longitude, Nakshatra, Pada, Rasi, Navamsa):
+
+
+Lagna: 23 Pi 22' 08.86", Reva, 3, Pi, Aq 
+
+
+Sun - GK: 4 Cn 50' 34.83", Push, 1, Cn, Le 
+
+
+Moon - PiK: 17 Sg 34' 60.00", PSha, 2, Sg, Vi 
+
+
+Mars - MK: 20 Ar 49' 02.68", Bhar, 3, Ar, Li 
+
+
+Mercury - BK: 22 Ge 52' 54.31", Puna, 1, Ge, Ar 
+
+
+Jupiter - DK: 0 Ar 15' 50.06", Aswi, 1, Ar, Ar 
+
+
+Venus - PK: 14 Le 07' 27.34", PPha, 1, Le, Le 
+
+
+Saturn - AK: 29 Ge 47' 57.52", Puna, 3, Ge, Ge 
+
+
+Rahu - AmK: 4 Sc 24' 32.88", Anu, 1, Sc, Le 
+
+
+Ketu: 4 Ta 24' 32.88", Krit, 3, Ta, Aq 
+
+
+Maandi: 9 Aq 23' 54.51", Sata, 1, Aq, Sg 
+
+
+Gulika: 27 Cp 14' 39.24", Dhan, 2, Cp, Vi 
+
+
+Bhava Lagna: 23 Pi 05' 58.15", Reval, 2, Pi, Cp 
+
+
+Hora Lagna: 12 Sg 02' 32.15", Mool, 4, Sg, Cn 
+
+
+Ghati Lagna: 8 Aq 52' 14.12", Sata, 1, Aq, Sg 
+
+
+Vighati Lagna: 23 Sc 00' 43.99", Jye, 2, Sc, Cp 
+
+
+Varnada Lagna: 23 Le 22' 08.86", PPha, 4, Le, Ta 
+
+
+Sree Lagna: 18 Cn 07' 08.75", Asre, 1, Cn, Sg 
+
+Vimsottari Dasa:
+
+
+Ven: Ven 1969-03-04, Sun 1972-07-05, Moon 1973-07-05, Mars 1975-03-04, Rah 1976-05-03, Jup 1979-05-04, Sat 1982-01-04, Merc 1985-03-04, Ket 1988-01-04 
+
+
+Sun: Sun 1989-03-04, Moon 1989-06-23, Mars 1989-12-23, Rah 1990-04-28, Jup 1991-03-22, Sat 1992-01-10, Merc 1992-12-23, Ket 1993-10-31, Ven 1994-03-04 
+
+
+Moon: Moon 1995-03-04, Mars 1996-01-04, Rah 1996-08-06, Jup 1998-02-02, Sat 1999-06-04, Merc 2001-01-04, Ket 2002-06-04, Ven 2003-01-04, Sun 2004-09-06 
+
+
+Mars: Mars 2005-03-04, Rah 2005-08-03, Jup 2006-08-22, Sat 2007-07-28, Merc 2008-09-06, Ket 2009-09-03, Ven 2010-01-28, Sun 2011-03-29, Moon 2011-08-06 
+
+
+Rah: Rah 2012-03-04, Jup 2014-11-18, Sat 2017-04-09, Merc 2020-02-15, Ket 2022-09-06, Ven 2023-09-25, Sun 2026-09-25, Moon 2027-08-19, Mars 2029-02-14 
+
+
+Jup: Jup 2030-03-04, Sat 2032-04-21, Merc 2034-11-06, Ket 2037-02-08, Ven 2038-01-16, Sun 2040-09-18, Moon 2041-07-06, Mars 2042-11-06, Rah 2043-10-13 
+
+
+Sat: Sat 2046-03-04, Merc 2049-03-07, Ket 2051-11-19, Ven 2052-12-26, Sun 2056-02-24, Moon 2057-02-06, Mars 2058-09-10, Rah 2059-10-20, Jup 2062-08-25 
+
+
+Merc: Merc 2065-03-04, Ket 2067-08-04, Ven 2068-07-31, Sun 2071-05-30, Moon 2072-04-03, Mars 2073-09-06, Rah 2074-09-04, Jup 2077-03-19, Sat 2079-06-27 
+
+
+Ket: Ket 2082-03-05, Ven 2082-08-03, Sun 2083-10-05, Moon 2084-02-06, Mars 2084-09-09, Rah 2085-02-03, Jup 2086-02-21, Sat 2087-01-28, Merc 2088-03-07 
+
+Ashtakavarga of Rasi Chart (Planet, Sodhya Pinda, Rasi Pinda, Graha Pinda):
+
+
+Lagna: 92, 46, 46 
+
+
+Sun: 62, 52, 10 
+
+
+Moon: 33, 33, 0 
+
+
+Mars: 76, 35, 41 
+
+
+Mercury: 127, 71, 56 
+
+
+Jupiter: 222, 98, 124 
+
+
+Venus: 97, 72, 25 
+
+
+Saturn: 194, 130, 64 
+
+Shadbala (Planet, Shadbala In rupas, % Strength, IshtaPhala, Kashta Phala):
+
+
+Sun: 405.76, 6.76, 135.25, 40.11, 16.20 
+
+
+Moon: 451.34, 7.52, 125.37, 28.39, 16.12 
+
+
+Mars: 418.90, 6.98, 139.63, 29.49, 30.25 
+
+
+Mercury: 471.31, 7.86, 112.22, 18.39, 36.86 
+
+
+Jupiter: 430.96, 7.18, 110.50, 27.47, 32.50 
+
+
+Venus: 384.57, 6.41, 116.54, 25.82, 24.70 
+
+
+Saturn: 381.25, 6.35, 127.08, 7.84, 45.90 
+
+Vimsopaka Dasa Varga (10), Shodasa Varga (16), Sapta Varga (7), Shad Varga (6):
+
+
+Sun: 11.50 (57.50%), 12.00 (60.00%), 14.20 (71.00%), 14.85 (74.25%) 
+
+
+Moon: 11.25 (56.25%), 11.95 (59.75%), 10.60 (53.00%), 9.35 (46.75%) 
+
+
+Mars: 11.00 (55.00%), 12.25 (61.25%), 12.32 (61.63%) 
+
+
+Mercury: 14.70 (73.50%), 13.45 (67.25%) 
+
+
+Jupiter: 11.80 (59.00%), 12.20 (61.00%), 15.05 (75.25%), 11.60 (58.00%) 
+
+
+Venus: 8.73 (43.63%), 9.50 (47.50%) 
+
+
+Saturn: 12.48 (62.38%), 12.70 (63.50%) 
+
+
+Rahu: 6.80 (34.00%), 7.50 (37.50%), 8.57 (42.88%), 13.15 (65.75%) 
+
+
+Ketu: 11.95 (59.75%), 12.17 (60.87%), 12.98 (64.88%), 12.90 (64.50%) 
+
+Avasthas (Planet, Activity, Age, Alertness, Mood):
+
+
+Sun: Aagama (returning), Mrita (dead), Swapna (dreaming), Duhkhita (distressed) 
+
+
+Moon: Prakasana (glowing), Yuva (young), Swapna (dreaming), Swastha (comfortable), Khala (mischievous), Garvita (proud) 
+
+
+Mars: NrityaLipsa (desirous of dancing), Vriddha (old), Jaagrita (awake), Swastha (comfortable) 
+
+
+Mercury: Aagama (returning), Vriddha (old), Jaagrita (awake), Deena (sad), Khala (mischievous) 
+
+
+Jupiter: Bhojana (eating), Baala (infant), Swapna (dreaming), Deena (sad), Khala (mischievous) 
+
+
+Venus: NrityaLipsa (desirous of dancing), Yuva (young), Sushupta (asleep), Deena (sad), Kopita (angry) 
+
+
+Saturn: Sayana (lying down), Mrita (dead), Swapna (dreaming), Duhkhita (distressed), Khala (mischievous) 
+
+
+Rahu: Nidra (sleeping), Mrita (dead), Sushupta (asleep), Mudita (delighted) 
+
+
+Ketu: NrityaLipsa (desirous of dancing), Mrita (dead), Swapna (dreaming), Mudita (delighted) 
+
+Moola Dasa (Dasa, Antardasa, Start, End):
+
+
+Merc: Merc 1975-07-21, Sat 1977-12-11, Moon 1979-10-29, Mars 1980-09-04, Jup 1981-07-12, Sun 1982-11-24, Rah 1983-10-02, Ven 1986-04-21, Ket 1989-05-18 
+
+
+Sat: Sat 1989-07-21, Moon 1991-01-10, Mars 1991-09-14, Jup 1992-05-13, Sun 1993-06-10, Rah 1994-02-09, Ven 1996-02-14, Ket 1998-07-17, Merc 1998-09-05 
+
+
+Moon: Moon 2000-07-21, Mars 2000-11-10, Jup 2001-02-26, Sun 2001-08-27, Rah 2001-12-15, Ven 2002-11-15, Ket 2003-12-20, Merc 2004-01-11, Sat 2004-11-19 
+
+
+Mars: Mars 2005-07-21, Jup 2005-11-11, Sun 2006-05-04, Rah 2006-08-27, Ven 2007-07-26, Ket 2008-08-31, Merc 2008-09-23, Sat 2009-07-30, Moon 2010-03-30 
+
+
+Jup: Jup 2010-07-21, Sun 2011-04-30, Rah 2011-10-29, Ven 2013-04-12, Ket 2015-01-15, Merc 2015-02-18, Sat 2016-07-03, Moon 2017-07-30, Mars 2018-01-23 
+
+
+Sun: Sun 2018-07-21, Rah 2018-11-11, Ven 2019-10-11, Ket 2020-11-15, Merc 2020-12-06, Sat 2021-10-15, Moon 2022-06-15, Mars 2022-10-07, Jup 2023-01-23 
+
+
+Rah: Rah 2023-07-22, Ven 2026-04-17, Ket 2029-08-04, Merc 2029-10-11, Sat 2032-04-30, Moon 2034-05-05, Mars 2035-04-03, Jup 2036-03-03, Sun 2037-08-22 
+
+
+Ven: Ven 2038-07-22, Ket 2042-07-03, Merc 2042-09-23, Sat 2045-10-20, Moon 2048-03-16, Mars 2049-04-21, Jup 2050-05-28, Sun 2052-02-28, Rah 2053-04-03 
+
+
+Ket: Ket 2056-07-21, Merc 2056-07-26, Sat 2056-09-27, Moon 2056-11-15, Mars 2056-12-07, Jup 2056-12-28, Sun 2057-02-01, Rah 2057-02-22, Ven 2057-04-30 
+
+Narayana Dasa of D-1 chart (fructification of yogas):
+
+
+Vi: Ge 1975-07-21, Cn 1975-10-22, Le 1976-01-19, Vi 1976-04-18, Li 1976-07-21, Sc 1976-10-21 
+
+
+Sg: Sg 1977-01-18, Cp 1977-04-18, Aq 1977-07-21, Pi 1977-10-22, Ar 1978-01-19, Ta 1978-04-19 
+
+
+Cp: Sg 1978-07-21, Cp 1979-02-17, Aq 1979-09-22, Pi 1980-04-18, Ar 1980-11-20, Ta 1981-06-20 
+
+
+Ar: Cn 1982-01-19, Ge 1982-08-22, Le 1983-03-19, Vi 1983-10-22, Li 1984-05-19, Sc 1984-12-20 
+
+
+Ta: Ta 1985-07-21, Ge 1986-01-19, Cn 1986-04-19, Le 1986-07-21, Vi 1986-10-22, Li 1987-01-19 
+
+
+Li: Sc 1987-04-19, Sg 1987-07-22, Cp 1987-10-22, Aq 1988-01-19, Pi 1988-04-18, Ar 1988-07-21 
+
+
+Ge: Cn 1989-07-21, Le 1990-07-21, Vi 1991-07-22, Li 1992-07-21, Sc 1993-07-21, Sg 1994-07-21, Cp 1995-07-22, Aq 1996-07-21, Pi 1997-07-21, Ar 1998-07-21 
+
+
+Li: Ta 1999-07-22, Ge 2000-07-21, Cn 2001-05-19, Le 2002-03-19, Vi 2003-01-19, Li 2003-11-21, Sc 2004-09-21, Sg 2005-07-21, Cp 2006-05-20, Aq 2007-03-20, Pi 2008-01-19, Ar 2008-11-20 
+
+
+Aq: Pi 2009-09-21, Cn 2010-07-21, Ge 2011-03-20, Ta 2011-11-21, Ar 2012-07-21, Pi 2013-03-19, Aq 2013-11-21, Vi 2015-03-20, Sg 2015-11-21, Sc 2016-07-21, Li 2017-03-19, Le 2017-11-21 
+
+
+Pi: Cn 2018-07-21, Ge 2019-06-20, Le 2020-05-19, Vi 2021-04-19, Li 2022-03-19, Sc 2023-02-18, Sg 2024-01-19, Cp 2024-12-20, Aq 2025-11-21, Pi 2026-10-22, Ar 2027-09-22, Ta 2028-08-21 
+
+
+Cn: Cp 2029-07-21, Aq 2030-02-17, Pi 2030-09-22, Ar 2031-04-19, Ta 2031-11-21, Sg 2032-06-20 
+
+
+Ge: Ge 2033-01-19, Cn 2033-08-22, Le 2034-03-19, Vi 2034-10-22, Li 2035-05-20, Sc 2035-12-21 
+
+
+Sc: Ta 2036-07-21, Ge 2036-12-20, Cn 2037-05-20, Le 2037-10-22, Vi 2038-03-19, Ar 2038-08-22 
+
+
+Li: Li 2039-01-19, Sc 2039-06-20, Sg 2039-11-21, Cp 2040-04-18, Aq 2040-09-21, Pi 2041-02-17 
+
+
+Sg: Cn 2041-07-21, Le 2041-11-21, Vi 2042-03-19, Li 2042-07-22, Sc 2042-11-21, Sg 2043-03-20 
+
+
+Ar: Cp 2043-07-22, Aq 2043-11-21, Pi 2044-03-19, Ar 2044-07-21, Ta 2044-11-21 
+
+
+Ar: Ta 2045-07-21, Ge 2046-07-22, Cn 2047-07-22, Le 2048-07-21, Vi 2049-07-21, Ar 2050-07-22 
+
+
+Li: Sc 2051-07-22, Sg 2052-07-21, Cp 2053-07-21, Aq 2054-07-22, Pi 2055-07-22, Li 2056-07-21 
+
+
+Le: Ge 2057-07-21, Ta 2057-08-22, Ar 2057-09-22, Pi 2057-10-22, Aq 2057-11-21 
+
+Sudasa (phalita dasa showing Lakshmi's blessings):
+
+
+Ar: Ar 1975-07-21, Ta 1975-12-13, Ge 1976-05-04, Cn 1976-09-29, Le 1977-02-17, Vi 1977-07-13 
+
+
+Li: Li 1977-12-06, Sc 1978-04-27, Sg 1978-09-22, Cp 1979-02-11, Aq 1979-07-07, Pi 1979-11-29 
+
+
+Cp: Cn 1980-04-19, Ge 1980-11-21, Ta 1981-06-20, Ar 1982-01-19, Pi 1982-08-22, Aq 1983-03-20 
+
+
+Cp: Sg 1983-10-23, Sc 1984-05-20, Li 1984-12-21, Vi 1985-07-22, Le 1986-02-18, Cp 1986-09-22 
+
+
+Li: Ta 1987-04-20, Ge 1988-02-19, Cn 1988-12-21, Le 1989-10-23, Vi 1990-08-22, Ar 1991-06-21 
+
+
+Cn: Sc 1992-04-19, Sg 1993-02-18, Cp 1993-12-21, Aq 1994-10-23, Pi 1995-08-23, Li 1996-06-20 
+
+
+Cn: Cn 1997-04-19, Ge 1997-11-22, Ta 1998-06-21, Ar 1999-01-20, Pi 1999-08-23, Aq 2000-03-20 
+
+
+Cp: Cp 2000-10-22, Sg 2001-05-20, Sc 2001-12-21, Li 2002-07-22, Vi 2003-02-18, Le 2003-09-23 
+
+
+Sc: Sc 2004-04-19, Li 2004-09-22, Vi 2005-02-18, Le 2005-07-22, Cn 2005-12-21, Ge 2006-05-21 
+
+
+Ar: Ar 2006-10-23, Pi 2007-03-20, Aq 2007-08-23, Cp 2008-01-20, Sg 2008-06-20, Sc 2008-11-21 
+
+
+Le: Le 2009-04-19, Vi 2009-05-20, Li 2009-06-21, Sg 2009-07-22, Cp 2009-08-22, Sc 2009-09-22 
+
+
+Ta: Pi 2009-10-23, Ar 2009-11-22, Ta 2009-12-21, Ge 2010-01-20, Cn 2010-02-18, Aq 2010-03-20 
+
+
+Ta: Li 2010-04-20, Vi 2010-07-22, Le 2010-10-23, Cn 2011-01-20, Ge 2011-04-20, Sc 2011-07-23 
+
+
+Aq: Ta 2011-10-23, Ar 2012-01-20, Pi 2012-04-19, Aq 2012-07-22, Cp 2012-10-22, Sg 2013-01-19 
+
+
+Aq: Vi 2013-04-19, Li 2013-12-21, Sc 2014-08-23, Sg 2015-04-20, Cp 2015-12-22, Aq 2016-08-22 
+
+
+Ge: Pi 2017-04-19, Ar 2017-12-21, Ta 2018-08-23, Ge 2019-04-20, Cn 2019-12-22, Le 2020-08-22 
+
+
+Ge: Ge 2021-04-19, Cn 2022-04-20, Le 2023-04-20, Vi 2024-04-19, Li 2025-04-19, Sc 2026-04-20 
+
+
+Pi: Sg 2027-04-20, Cp 2028-04-19, Aq 2029-04-19, Pi 2030-04-20, Ar 2031-04-20, Ta 2032-04-19 
+
+
+Pi: Pi 2033-04-19, Cn 2034-03-20, Ge 2035-02-19, Ta 2036-01-20, Ar 2036-12-21, Le 2037-11-22 
+
+
+Aq: Pi 2038-10-23, Aq 2039-09-23, Cp 2040-08-22, Sg 2041-07-22, Sc 2042-06-21, Li 2043-05-21 
+
+
+Sg: Cn 2044-04-19, Ge 2044-08-22, Le 2044-12-21, Vi 2045-04-20, Li 2045-08-23, Sc 2045-12-21 
+
+
+Ta: Sg 2046-04-20, Cp 2046-08-23, Aq 2046-12-22, Pi 2047-04-20, Ar 2047-08-23, Ta 2047-12-22 
+
+
+Vi: Vi 2048-04-19, Le 2048-07-22, Cn 2048-10-23, Ge 2049-01-20, Ta 2049-04-20, Ar 2049-07-22 
+
+
+Ar: Pi 2049-10-23, Aq 2050-01-20, Cp 2050-04-20, Sg 2050-07-23, Sc 2050-10-23, Li 2051-01-20 
+
+
+Lagna Kendradi Rasi Dasa of D-1 (fructification of yogas): The document also contains information under this heading, but the text is a repetition of the Sudasa table.venky

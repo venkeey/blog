@@ -1,0 +1,19 @@
+| **Category**                       | **Setting**                              | ✅ Default Value                                                               |
+| ---------------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------- |
+| 🔢 **Zodiac Type**                 | Zodiac used in calculations              | `Sidereal (Nirayana)`                                                         |
+| 🧭 **Ayanamsa**                    | Sidereal offset system                   | `Lahiri (Chitrapaksha)`                                                       |
+| 🏠 **House System**                | Division of houses                       | `Whole Sign Houses`                                                           |
+| 📈 **Chart Style**                 | Layout format                            | `North Indian` or `South Indian` (choose one)                                 |
+| 🕰️ **Time Zone**                  | Based on place of birth                  | `Auto-detected from location`                                                 |
+| 🕓 **DST Adjustment**              | Daylight Saving Time                     | `Automatic or manually verified (for old dates)`                              |
+| 🌙 **Dasha System**                | Planetary timing system                  | `Vimshottari Dasha`                                                           |
+| 🌗 **Dasha Start Calculation**     | Based on birth Nakshatra                 | `Balance from Moon's Nakshatra`                                               |
+| 🌌 **Nakshatra Division**          | Lunar mansion calculation                | `27 Nakshatras`                                                               |
+| 🪷 **Pada Division**               | Each Nakshatra divided into              | `4 Padas (each 3°20')`                                                        |
+| 🪐 **Planet Set**                  | Planets considered                       | `Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn, Rahu, Ketu`                |
+| 🧮 **Ephemeris Source**            | Astronomical data used                   | `Swiss Ephemeris` or `NASA JPL`                                               |
+| 📊 **Strength Metrics**            | Planetary evaluation methods             | `Shadbala, Ishta/Kashta Phala, Vimsopaka, Ashtakavarga, Pancha Vargeeya Bala` |
+| 🔬 **Divisional Charts (Vargas)**  | Used for fine-grained analysis           | `D1 to D60 (especially D1, D9, D10, D12, D7, D30)`                            |
+| 🧭 **Ascendant Placement**         | Orientation of the chart                 | `Lagna always in 1st house`                                                   |
+| 📚 **Calculation Software**        | Tool used for generating the chart       | e.g., `JHora v8.0.5`, `Parashara's Light v9.0`                                |
+| 🪙 **Ayanamsa Offset (if custom)** | Custom offset in degrees (if not Lahiri) | `0° if Lahiri used`                                                           |

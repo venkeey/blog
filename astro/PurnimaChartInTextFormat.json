@@ -1,0 +1,360 @@
+{
+  "birthDetails": {
+    "name": "Pratap Venkatesh",
+    "dateOfBirth": "9 January 2007",
+    "timeOfBirth": "19:51:00",
+    "placeOfBirth": "Suwanee",
+    "timeZone": -5.0,
+    "latitude": "34°03' N",
+    "longitude": "84°04' W",
+    "lagna": "Cancer",
+    "rasi": "Virgo",
+    "nakshatraPada": "Uttaraphalguni 4",
+    "nakshatraLord": "Sun",
+    "rasiLord": "Mercury",
+    "lagnaLord": "Moon",
+    "sunSignIndian": "Sagittarius",
+    "sunSignWestern": "Capricorn"
+  },
+  "planetaryPositions": [
+    {
+      "planet": "Ascendant",
+      "sign": "Cancer",
+      "degree": "22°32′07″",
+      "nakshatra": "Ashlesha",
+      "pada": 2
+    },
+    {
+      "planet": "Sun",
+      "sign": "Sagittarius",
+      "degree": "25°26′07″",
+      "nakshatra": "Purvashadha",
+      "pada": 4
+    },
+    {
+      "planet": "Moon",
+      "sign": "Virgo",
+      "degree": "09°17′05″",
+      "nakshatra": "Uttaraphalguni",
+      "pada": 4
+    },
+    {
+      "planet": "Mars",
+      "sign": "Sagittarius",
+      "degree": "01°03′57″",
+      "nakshatra": "Mula",
+      "pada": 1
+    },
+    {
+      "planet": "Mercury",
+      "sign": "Sagittarius",
+      "degree": "27°09′07″",
+      "nakshatra": "Uttarashadha",
+      "pada": 1
+    },
+    {
+      "planet": "Jupiter",
+      "sign": "Scorpio",
+      "degree": "16°05′24″",
+      "nakshatra": "Anuradha",
+      "pada": 4
+    },
+    {
+      "planet": "Venus",
+      "sign": "Capricorn",
+      "degree": "13°25′59″",
+      "nakshatra": "Sravana",
+      "pada": 2
+    },
+    {
+      "planet": "Saturn",
+      "sign": "Cancer (R)",
+      "degree": "29°59′32″",
+      "nakshatra": "Ashlesha",
+      "pada": 4
+    },
+    {
+      "planet": "Rahu",
+      "sign": "Aquarius (R)",
+      "degree": "25°13′49″",
+      "nakshatra": "Purvabhadra",
+      "pada": 2
+    },
+    {
+      "planet": "Ketu",
+      "sign": "Leo (R)",
+      "degree": "25°13′49″",
+      "nakshatra": "Purvaphalguni",
+      "pada": 4
+    },
+    {
+      "planet": "Uranus",
+      "sign": "Aquarius",
+      "degree": "18°02′11″",
+      "nakshatra": "Shatabhisha",
+      "pada": 4
+    },
+    {
+      "planet": "Neptune",
+      "sign": "Capricorn",
+      "degree": "24°24′35″",
+      "nakshatra": "Dhanishta",
+      "pada": 1
+    },
+    {
+      "planet": "Pluto",
+      "sign": "Sagittarius",
+      "degree": "03°18′22″",
+      "nakshatra": "Mula",
+      "pada": 1
+    }
+  ],
+  "lagnaChartD1": {
+    "title": "Lagna Chart (D1 - Rasi)",
+    "houses": [
+      { "house": 1, "sign": 4, "planets": "Asc" },
+      { "house": 2, "sign": 5, "planets": "Sa, Ke" },
+      { "house": 3, "sign": 6, "planets": "Mo" },
+      { "house": 4, "sign": 7, "planets": null },
+      { "house": 5, "sign": 8, "planets": "Ju" },
+      { "house": 6, "sign": 9, "planets": "Su, Me, Ma" },
+      { "house": 7, "sign": 10, "planets": "Ve" },
+      { "house": 8, "sign": 11, "planets": "Ra" },
+      { "house": 9, "sign": 12, "planets": null },
+      { "house": 10, "sign": 1, "planets": null },
+      { "house": 11, "sign": 2, "planets": null },
+      { "house": 12, "sign": 3, "planets": null }
+    ]
+  },
+  "horaChartD2": {
+    "title": "Hora Chart (D2 - Wealth)",
+    "houses": [
+      { "house": 1, "sign": 4, "planets": "Su, Ve, Mo, Ra, Me, Ke" },
+      { "house": 2, "sign": 5, "planets": "Ma, Sa, Ju, Asc" },
+      { "house": 3, "sign": 6, "planets": null },
+      { "house": 4, "sign": 7, "planets": null },
+      { "house": 5, "sign": 8, "planets": null },
+      { "house": 6, "sign": 9, "planets": null },
+      { "house": 7, "sign": 10, "planets": null },
+      { "house": 8, "sign": 11, "planets": null },
+      { "house": 9, "sign": 12, "planets": null },
+      { "house": 10, "sign": 1, "planets": null },
+      { "house": 11, "sign": 2, "planets": null },
+      { "house": 12, "sign": 3, "planets": null }
+    ]
+  },
+  "drekkanaChartD3": {
+    "title": "Drekkana Chart (D3 - Siblings)",
+    "houses": [
+      { "house": 1, "sign": 1, "planets": "Ke" },
+      { "house": 2, "sign": 2, "planets": "Ve" },
+      { "house": 3, "sign": 3, "planets": null },
+      { "house": 4, "sign": 4, "planets": null },
+      { "house": 5, "sign": 5, "planets": "Su, Me, Sa" },
+      { "house": 6, "sign": 6, "planets": null },
+      { "house": 7, "sign": 7, "planets": null },
+      { "house": 8, "sign": 8, "planets": "Ra" },
+      { "house": 9, "sign": 9, "planets": null },
+      { "house": 10, "sign": 10, "planets": "Ma" },
+      { "house": 11, "sign": 11, "planets": null },
+      { "house": 12, "sign": 12, "planets": "Ju, Asc" }
+    ]
+  },
+  "chaturthamsaChartD4": {
+    "title": "Chaturthamsa Chart (D4 - Luck)",
+    "houses": [
+      { "house": 1, "sign": 1, "planets": "Ve, Asc" },
+      { "house": 2, "sign": 2, "planets": "Ju, Ke" },
+      { "house": 3, "sign": 3, "planets": null },
+      { "house": 4, "sign": 4, "planets": null },
+      { "house": 5, "sign": 5, "planets": "Sa" },
+      { "house": 6, "sign": 6, "planets": "Su, Me" },
+      { "house": 7, "sign": 7, "planets": null },
+      { "house": 8, "sign": 8, "planets": "Ra" },
+      { "house": 9, "sign": 9, "planets": "Mo, Ma" },
+      { "house": 10, "sign": 10, "planets": null },
+      { "house": 11, "sign": 11, "planets": null },
+      { "house": 12, "sign": 12, "planets": null }
+    ]
+  },
+  "saptamsaChartD7": {
+    "title": "Saptamsa Chart (D7 - Progeny)",
+    "houses": [
+      { "house": 1, "sign": 3, "planets": "Me, Asc" },
+      { "house": 2, "sign": 4, "planets": null },
+      { "house": 3, "sign": 9, "planets": "Ma" },
+      { "house": 4, "sign": 10, "planets": null },
+      { "house": 5, "sign": 2, "planets": "Su, Mo" },
+      { "house": 6, "sign": 6, "planets": null },
+      { "house": 7, "sign": 11, "planets": "Ke" },
+      { "house": 8, "sign": 8, "planets": null },
+      { "house": 9, "sign": 7, "planets": "Ve" },
+      { "house": 10, "sign": 1, "planets": null },
+      { "house": 11, "sign": 5, "planets": "Ju, Sa" },
+      { "house": 12, "sign": 4, "planets": "Ra" }
+    ]
+  },
+  "navamsaChartD9": {
+    "title": "Navamsa Chart (D9 - Spouse)",
+    "houses": [
+      { "house": 1, "sign": 1, "planets": "Asc" },
+      { "house": 2, "sign": 2, "planets": null },
+      { "house": 3, "sign": 3, "planets": null },
+      { "house": 4, "sign": 10, "planets": "Ma, Sa" },
+      { "house": 5, "sign": 9, "planets": "Me" },
+      { "house": 6, "sign": 8, "planets": "Su, Ju, Ke" },
+      { "house": 7, "sign": 7, "planets": null },
+      { "house": 8, "sign": 8, "planets": null },
+      { "house": 9, "sign": 2, "planets": "Ve, Ra" },
+      { "house": 10, "sign": 10, "planets": null },
+      { "house": 11, "sign": 11, "planets": null },
+      { "house": 12, "sign": 12, "planets": "Mo" }
+    ]
+  },
+  "dasamsaChartD10": {
+    "title": "Dasamsa Chart (D10 - Profession)",
+    "houses": [
+      { "house": 1, "sign": 7, "planets": "Asc, Ra" },
+      { "house": 2, "sign": 8, "planets": null },
+      { "house": 3, "sign": 9, "planets": "Ma, Ju" },
+      { "house": 4, "sign": 10, "planets": null },
+      { "house": 5, "sign": 11, "planets": "Ve" },
+      { "house": 6, "sign": 12, "planets": null },
+      { "house": 7, "sign": 1, "planets": "Ke" },
+      { "house": 8, "sign": 2, "planets": null },
+      { "house": 9, "sign": 3, "planets": null },
+      { "house": 10, "sign": 4, "planets": "Me" },
+      { "house": 11, "sign": 5, "planets": null },
+      { "house": 12, "sign": 6, "planets": "Su, Mo, Sa" }
+    ]
+  },
+  "dwadasamsaChartD12": {
+    "title": "Dwadasamsa Chart (D12 - Parents)",
+    "houses": [
+      { "house": 1, "sign": 1, "planets": "Asc" },
+      { "house": 2, "sign": 2, "planets": null },
+      { "house": 3, "sign": 3, "planets": "Ju" },
+      { "house": 4, "sign": 4, "planets": "Ve, Ke" },
+      { "house": 5, "sign": 5, "planets": "Sa" },
+      { "house": 6, "sign": 6, "planets": null },
+      { "house": 7, "sign": 7, "planets": "Su, Me" },
+      { "house": 8, "sign": 8, "planets": null },
+      { "house": 9, "sign": 9, "planets": "Mo, Ma, Ra" },
+      { "house": 10, "sign": 10, "planets": null },
+      { "house": 11, "sign": 11, "planets": null },
+      { "house": 12, "sign": 12, "planets": null }
+    ]
+  },
+  "shodasamsaChartD16": {
+    "title": "Shodasamsa Chart (D16 - Vehicles)",
+    "houses": [
+      { "house": 1, "sign": 1, "planets": "Mo, Ju, Asc" },
+      { "house": 2, "sign": 2, "planets": null },
+      { "house": 3, "sign": 3, "planets": null },
+      { "house": 4, "sign": 4, "planets": "Su" },
+      { "house": 5, "sign": 5, "planets": "Sa" },
+      { "house": 6, "sign": 6, "planets": "Ra, Ke" },
+      { "house": 7, "sign": 7, "planets": null },
+      { "house": 8, "sign": 8, "planets": "Ve" },
+      { "house": 9, "sign": 9, "planets": "Ma" },
+      { "house": 10, "sign": 10, "planets": null },
+      { "house": 11, "sign": 11, "planets": "Me" },
+      { "house": 12, "sign": 12, "planets": null }
+    ]
+  },
+
+  {
+  "dasha": {
+    "vimshottari": [
+      { "period": "Rahu", "start": "2012-04-02", "end": "2030-04-02" },
+      { "period": "Jupiter", "start": "2030-04-02", "end": "2046-04-02" },
+      { "period": "Saturn", "start": "2046-04-02", "end": "2065-04-02" },
+      { "period": "Mercury", "start": "2065-04-02", "end": "2082-04-02" }
+    ]
+  },
+  "ashtakavarga": {
+    "planetaryBindus": {
+      "Sun": 27,
+      "Moon": 25,
+      "Mars": 34,
+      "Mercury": 34,
+      "Jupiter": 30,
+      "Venus": 34,
+      "Saturn": 33
+    },
+    "houseBindus": {
+      "1": 25,
+      "2": 29,
+      "3": 23,
+      "4": 24,
+      "5": 26,
+      "6": 30,
+      "7": 29,
+      "8": 27,
+      "9": 26,
+      "10": 34,
+      "11": 36,
+      "12": 27
+    }
+  },
+  "divisionalCharts": {
+    "d24Chaturvimshamsha": {
+      "title": "Chaturvimshamsha Chart (D24 - Education & Learning)",
+      "ascendant": "Libra",
+      "houses": [
+        { "house": 1, "sign": "Libra", "planets": ["Asc"] },
+        { "house": 4, "sign": "Cancer", "planets": ["Sun"] }
+      ],
+      "planets": {
+        "Sun": "Cancer", "Moon": "Aquarius", "Mars": "Leo",
+        "Mercury": "Gemini", "Jupiter": "Capricorn (R)", "Venus": "Cancer",
+        "Saturn": "Leo (R)", "Rahu": "Libra", "Ketu": "Aries"
+      }
+    },
+    "d27Bhamsha": {
+      "title": "Bhamsha Chart (D27 - Strength)",
+      "ascendant": "Aries",
+      "planets": {
+        "Sun": "Leo", "Moon": "Pisces", "Mars": "Capricorn", "Mercury": "Gemini",
+        "Jupiter": "Scorpio", "Venus": "Leo", "Saturn": "Virgo",
+        "Rahu": "Scorpio", "Ketu": "Taurus"
+      }
+    },
+    "d30Trimsamsa": {
+      "title": "Trimsamsa Chart (D30 - Misfortune / Karma)",
+      "ascendant": "Taurus",
+      "planets": {
+        "Sun": "Gemini", "Moon": "Sagittarius", "Mars": "Aquarius",
+        "Mercury": "Cancer", "Jupiter": "Gemini", "Venus": "Leo",
+        "Saturn": "Pisces", "Rahu": "Scorpio", "Ketu": "Taurus"
+      }
+    },
+    "d40Khavedamsa": {
+      "title": "Khavedamsa Chart (D40 - Mother Line Spirituality)",
+      "ascendant": "Scorpio",
+      "planets": {
+        "Sun": "Gemini", "Moon": "Aquarius", "Mars": "Pisces",
+        "Mercury": "Cancer", "Jupiter": "Leo", "Venus": "Cancer",
+        "Saturn": "Pisces", "Rahu": "Scorpio", "Ketu": "Taurus"
+      }
+    },
+    "d45Akshavedamsa": {
+      "title": "Akshavedamsa Chart (D45 - Father Line Spirituality)",
+      "ascendant": "Libra",
+      "planets": {
+        "Sun": "Gemini", "Moon": "Capricorn", "Mars": "Aquarius",
+        "Mercury": "Gemini", "Jupiter": "Pisces", "Venus": "Leo",
+        "Saturn": "Virgo", "Rahu": "Scorpio", "Ketu": "Taurus"
+      }
+    },
+    "d60Shashtiamsa": {
+      "title": "Shashtiamsa Chart (D60 - Past Life Karma)",
+      "ascendant": "Sagittarius",
+      "planets": {
+        "Sun": "Cancer", "Moon": "Aries", "Mars": "Cancer",
+        "Mercury": "Gemini", "Jupiter": "Scorpio", "Venus": "Cancer",
+        "Saturn": "Cancer", "Rahu": "Scorpio", "Ketu": "Taurus"
+      }
+    }
+  }
+}

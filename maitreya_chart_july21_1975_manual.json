@@ -1,0 +1,42 @@
+{
+  "personal_info": {
+    "name": "User Chart - Nellore",
+    "birth_date": "21/07/1975",
+    "birth_time": "23:10",
+    "birth_place": "Nellore, India",
+    "latitude": 14.4426,
+    "longitude": 79.9865,
+    "timezone": "UTC+5.5",
+    "julian_day": 2442978.3194
+  },
+  "calculation_info": {
+    "ayanamsa_type": "Lahiri",
+    "ayanamsa_value": 23.35,
+    "house_system": "Placidus",
+    "ephemeris": "Swiss Ephemeris",
+    "calculator": "Maitreya Algorithm Implementation"
+  },
+  "planets": {
+    "Sun": {
+      "tropical_longitude": 120.5,
+      "sidereal_longitude": 97.15,
+      "sign": "Cancer",
+      "degree": 27.15,
+      "retrograde": false
+    },
+    "Moon": {
+      "tropical_longitude": 285.2,
+      "sidereal_longitude": 261.85,
+      "sign": "Sagittarius",
+      "degree": 21.85,
+      "retrograde": false
+    }
+  },
+  "chart_summary": {
+    "ascendant_sign": "Pisces",
+    "moon_sign": "Sagittarius",
+    "sun_sign": "Cancer",
+    "birth_nakshatra": "Uttara Ashadha"
+  },
+  "note": "This is a basic chart structure. For precise calculations, Swiss Ephemeris libraries are needed."
+}

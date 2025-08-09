@@ -1,0 +1,696 @@
+{
+  "birthDetails": {
+    "name": "Venky",
+    "date": "21 July 1975",
+    "time": "23:10:00",
+    "place": "Nellore, India",
+    "latitude": 14.4493717,
+    "longitude": 79.9873763,
+    "timezone": 5.5,
+    "ayanamsa": "Lahiri (Chitrapaksha)",
+    "house_system": "Whole Sign Houses",
+    "zodiac_type": "Sidereal (Nirayana)",
+    "lagna": "Aquarius",
+    "rasi": "Sagittarius",
+    "nakshatraPada": "Purva Ashadha 3",
+    "nakshatraLord": "Jupiter",
+    "rasiLord": "Jupiter",
+    "lagnaLord": "Saturn",
+    "sunSignIndian": "Capricorn",
+    "sunSignWestern": "Capricorn"
+  },
+  "charts": {
+    "Rasi (D1)": {
+      "House_1": [],
+      "House_2": [
+        "Mars",
+        "Jupiter"
+      ],
+      "House_3": [],
+      "House_4": [
+        "Mercury"
+      ],
+      "House_5": [
+        "Saturn",
+        "Rahu"
+      ],
+      "House_6": [],
+      "House_7": [],
+      "House_8": [],
+      "House_9": [],
+      "House_10": [],
+      "House_11": [
+        "Moon",
+        "Venus",
+        "Ketu"
+      ],
+      "House_12": [
+        "Sun"
+      ]
+    },
+    "Hora (D2)": {
+      "House_1": [
+        "Mars"
+      ],
+      "House_2": [
+        "Jupiter"
+      ],
+      "House_3": [],
+      "House_4": [],
+      "House_5": [
+        "Mercury"
+      ],
+      "House_6": [],
+      "House_7": [
+        "Venus"
+      ],
+      "House_8": [
+        "Moon",
+        "Saturn",
+        "Rahu",
+        "Ketu"
+      ],
+      "House_9": [
+        "Sun"
+      ],
+      "House_10": [],
+      "House_11": [],
+      "House_12": []
+    },
+    "Drekkana (D3)": {
+      "House_1": [
+        "Jupiter"
+      ],
+      "House_2": [],
+      "House_3": [],
+      "House_4": [
+        "Venus"
+      ],
+      "House_5": [
+        "Moon",
+        "Ketu"
+      ],
+      "House_6": [
+        "Sun"
+      ],
+      "House_7": [
+        "Mercury"
+      ],
+      "House_8": [],
+      "House_9": [],
+      "House_10": [],
+      "House_11": [
+        "Saturn",
+        "Rahu"
+      ],
+      "House_12": [
+        "Mars"
+      ]
+    },
+    "Chaturthamsa (D4)": {
+      "House_1": [
+        "Moon",
+        "Jupiter",
+        "Rahu",
+        "Ketu"
+      ],
+      "House_2": [
+        "Saturn"
+      ],
+      "House_3": [
+        "Sun"
+      ],
+      "House_4": [],
+      "House_5": [],
+      "House_6": [],
+      "House_7": [],
+      "House_8": [
+        "Mercury"
+      ],
+      "House_9": [],
+      "House_10": [],
+      "House_11": [
+        "Mars"
+      ],
+      "House_12": [
+        "Venus"
+      ]
+    },
+    "Panchamsa (D5)": {
+      "House_1": [
+        "Jupiter"
+      ],
+      "House_2": [],
+      "House_3": [],
+      "House_4": [
+        "Rahu"
+      ],
+      "House_5": [
+        "Saturn"
+      ],
+      "House_6": [],
+      "House_7": [],
+      "House_8": [
+        "Venus"
+      ],
+      "House_9": [
+        "Mercury"
+      ],
+      "House_10": [
+        "Moon",
+        "Mars",
+        "Ketu"
+      ],
+      "House_11": [],
+      "House_12": [
+        "Sun"
+      ]
+    },
+    "Shashthamsa (D6)": {
+      "House_1": [],
+      "House_2": [],
+      "House_3": [],
+      "House_4": [],
+      "House_5": [
+        "Venus"
+      ],
+      "House_6": [],
+      "House_7": [
+        "Moon",
+        "Rahu",
+        "Ketu"
+      ],
+      "House_8": [
+        "Saturn"
+      ],
+      "House_9": [
+        "Sun"
+      ],
+      "House_10": [
+        "Mars"
+      ],
+      "House_11": [
+        "Mercury"
+      ],
+      "House_12": [
+        "Jupiter"
+      ]
+    },
+    "Saptamsa (D7)": {
+      "House_1": [
+        "Venus"
+      ],
+      "House_2": [],
+      "House_3": [
+        "Moon",
+        "Ketu"
+      ],
+      "House_4": [],
+      "House_5": [],
+      "House_6": [],
+      "House_7": [
+        "Sun"
+      ],
+      "House_8": [],
+      "House_9": [
+        "Mars",
+        "Rahu"
+      ],
+      "House_10": [],
+      "House_11": [
+        "Saturn"
+      ],
+      "House_12": [
+        "Mercury",
+        "Jupiter"
+      ]
+    },
+    "Ashtamsa (D8)": {
+      "House_1": [
+        "Mercury"
+      ],
+      "House_2": [
+        "Saturn"
+      ],
+      "House_3": [],
+      "House_4": [
+        "Sun"
+      ],
+      "House_5": [],
+      "House_6": [],
+      "House_7": [],
+      "House_8": [
+        "Mars"
+      ],
+      "House_9": [],
+      "House_10": [
+        "Venus"
+      ],
+      "House_11": [
+        "Jupiter"
+      ],
+      "House_12": [
+        "Moon",
+        "Rahu",
+        "Ketu"
+      ]
+    },
+    "Navamsa (D9)": {
+      "House_1": [
+        "Sun"
+      ],
+      "House_2": [],
+      "House_3": [
+        "Mercury",
+        "Rahu"
+      ],
+      "House_4": [],
+      "House_5": [
+        "Saturn"
+      ],
+      "House_6": [
+        "Venus"
+      ],
+      "House_7": [
+        "Mars"
+      ],
+      "House_8": [],
+      "House_9": [
+        "Moon",
+        "Ketu"
+      ],
+      "House_10": [],
+      "House_11": [
+        "Jupiter"
+      ],
+      "House_12": []
+    },
+    "Dashamsa (D10)": {
+      "House_1": [],
+      "House_2": [
+        "Venus"
+      ],
+      "House_3": [],
+      "House_4": [
+        "Mercury"
+      ],
+      "House_5": [
+        "Moon",
+        "Rahu",
+        "Ketu"
+      ],
+      "House_6": [
+        "Mars"
+      ],
+      "House_7": [],
+      "House_8": [
+        "Saturn"
+      ],
+      "House_9": [],
+      "House_10": [
+        "Sun"
+      ],
+      "House_11": [
+        "Jupiter"
+      ],
+      "House_12": []
+    },
+    "Rudramsa (D11)": {
+      "House_1": [],
+      "House_2": [
+        "Moon",
+        "Ketu"
+      ],
+      "House_3": [],
+      "House_4": [],
+      "House_5": [],
+      "House_6": [
+        "Mars",
+        "Mercury"
+      ],
+      "House_7": [
+        "Sun"
+      ],
+      "House_8": [
+        "Rahu"
+      ],
+      "House_9": [],
+      "House_10": [
+        "Jupiter"
+      ],
+      "House_11": [
+        "Venus",
+        "Saturn"
+      ],
+      "House_12": []
+    },
+    "Dwadashamsa (D12)": {
+      "House_1": [],
+      "House_2": [
+        "Saturn"
+      ],
+      "House_3": [],
+      "House_4": [
+        "Sun"
+      ],
+      "House_5": [
+        "Mars"
+      ],
+      "House_6": [],
+      "House_7": [
+        "Mercury",
+        "Venus"
+      ],
+      "House_8": [],
+      "House_9": [],
+      "House_10": [
+        "Jupiter"
+      ],
+      "House_11": [
+        "Moon",
+        "Rahu",
+        "Ketu"
+      ],
+      "House_12": []
+    },
+    "Shodashamsa (D16)": {
+      "House_1": [],
+      "House_2": [
+        "Mars",
+        "Saturn"
+      ],
+      "House_3": [],
+      "House_4": [],
+      "House_5": [
+        "Sun",
+        "Venus"
+      ],
+      "House_6": [],
+      "House_7": [],
+      "House_8": [
+        "Jupiter"
+      ],
+      "House_9": [
+        "Moon",
+        "Rahu",
+        "Ketu"
+      ],
+      "House_10": [],
+      "House_11": [],
+      "House_12": [
+        "Mercury"
+      ]
+    },
+    "Vimshamsa (D20)": {
+      "House_1": [],
+      "House_2": [
+        "Venus",
+        "Saturn"
+      ],
+      "House_3": [],
+      "House_4": [],
+      "House_5": [],
+      "House_6": [
+        "Sun",
+        "Mercury"
+      ],
+      "House_7": [
+        "Jupiter"
+      ],
+      "House_8": [
+        "Moon",
+        "Rahu",
+        "Ketu"
+      ],
+      "House_9": [],
+      "House_10": [
+        "Mars"
+      ],
+      "House_11": [],
+      "House_12": []
+    },
+    "Chaturvimshamsa (D24)": {
+      "House_1": [],
+      "House_2": [
+        "Saturn"
+      ],
+      "House_3": [],
+      "House_4": [],
+      "House_5": [
+        "Jupiter"
+      ],
+      "House_6": [
+        "Sun"
+      ],
+      "House_7": [
+        "Moon",
+        "Mars",
+        "Rahu",
+        "Ketu"
+      ],
+      "House_8": [],
+      "House_9": [],
+      "House_10": [],
+      "House_11": [
+        "Mercury"
+      ],
+      "House_12": [
+        "Venus"
+      ]
+    },
+    "Saptavimshamsa (D27)": {
+      "House_1": [
+        "Venus"
+      ],
+      "House_2": [],
+      "House_3": [
+        "Mercury",
+        "Rahu"
+      ],
+      "House_4": [
+        "Jupiter"
+      ],
+      "House_5": [
+        "Mars"
+      ],
+      "House_6": [],
+      "House_7": [],
+      "House_8": [],
+      "House_9": [
+        "Moon",
+        "Ketu"
+      ],
+      "House_10": [
+        "Sun",
+        "Saturn"
+      ],
+      "House_11": [],
+      "House_12": []
+    },
+    "Trimshamsa (D30)": {
+      "House_1": [
+        "Sun"
+      ],
+      "House_2": [
+        "Mars",
+        "Venus"
+      ],
+      "House_3": [
+        "Jupiter"
+      ],
+      "House_4": [],
+      "House_5": [],
+      "House_6": [],
+      "House_7": [
+        "Mercury",
+        "Saturn"
+      ],
+      "House_8": [],
+      "House_9": [],
+      "House_10": [],
+      "House_11": [
+        "Moon",
+        "Rahu",
+        "Ketu"
+      ],
+      "House_12": []
+    },
+    "Khavedamsa (D40)": {
+      "House_1": [
+        "Moon",
+        "Saturn",
+        "Rahu",
+        "Ketu"
+      ],
+      "House_2": [
+        "Venus"
+      ],
+      "House_3": [],
+      "House_4": [],
+      "House_5": [],
+      "House_6": [
+        "Mars"
+      ],
+      "House_7": [],
+      "House_8": [],
+      "House_9": [
+        "Sun",
+        "Mercury"
+      ],
+      "House_10": [],
+      "House_11": [
+        "Jupiter"
+      ],
+      "House_12": []
+    },
+    "Akshavedamsa (D45)": {
+      "House_1": [],
+      "House_2": [
+        "Mars"
+      ],
+      "House_3": [
+        "Rahu"
+      ],
+      "House_4": [
+        "Mercury",
+        "Saturn"
+      ],
+      "House_5": [],
+      "House_6": [
+        "Sun"
+      ],
+      "House_7": [],
+      "House_8": [
+        "Venus"
+      ],
+      "House_9": [
+        "Moon",
+        "Jupiter",
+        "Ketu"
+      ],
+      "House_10": [],
+      "House_11": [],
+      "House_12": []
+    },
+    "Shastiamsha (D60)": {
+      "House_1": [],
+      "House_2": [
+        "Mars",
+        "Venus"
+      ],
+      "House_3": [
+        "Jupiter"
+      ],
+      "House_4": [],
+      "House_5": [],
+      "House_6": [],
+      "House_7": [
+        "Moon",
+        "Rahu",
+        "Ketu"
+      ],
+      "House_8": [],
+      "House_9": [],
+      "House_10": [],
+      "House_11": [],
+      "House_12": [
+        "Sun",
+        "Mercury",
+        "Saturn"
+      ]
+    }
+  },
+  "tables": {},
+  "planetaryPositions": [
+    {
+      "planet": "Ascendant",
+      "sign": "Aquarius",
+      "degree": "7°44′59″",
+      "nakshatra": "Purva Bhadrapada",
+      "pada": 1,
+      "house": 1,
+      "is_retrograde": false
+    },
+    {
+      "planet": "Sun",
+      "sign": "Capricorn",
+      "degree": "4°39′42″",
+      "nakshatra": "Uttara Ashadha",
+      "pada": 3,
+      "house": 12,
+      "is_retrograde": false
+    },
+    {
+      "planet": "Moon",
+      "sign": "Sagittarius",
+      "degree": "20°4′38″",
+      "nakshatra": "Purva Ashadha",
+      "pada": 3,
+      "house": 11,
+      "is_retrograde": false
+    },
+    {
+      "planet": "Mars",
+      "sign": "Pisces",
+      "degree": "5°57′59″",
+      "nakshatra": "Uttara Bhadrapada",
+      "pada": 1,
+      "house": 2,
+      "is_retrograde": false
+    },
+    {
+      "planet": "Mercury",
+      "sign": "Taurus",
+      "degree": "10°55′22″",
+      "nakshatra": "Rohini",
+      "pada": 1,
+      "house": 4,
+      "is_retrograde": false
+    },
+    {
+      "planet": "Jupiter",
+      "sign": "Pisces",
+      "degree": "18°4′55″",
+      "nakshatra": "Revati",
+      "pada": 1,
+      "house": 2,
+      "is_retrograde": false
+    },
+    {
+      "planet": "Venus",
+      "sign": "Sagittarius",
+      "degree": "11°52′49″",
+      "nakshatra": "Mula",
+      "pada": 4,
+      "house": 11,
+      "is_retrograde": false
+    },
+    {
+      "planet": "Saturn",
+      "sign": "Gemini",
+      "degree": "28°50′32″",
+      "nakshatra": "Punarvasu",
+      "pada": 3,
+      "house": 5,
+      "is_retrograde": false
+    },
+    {
+      "planet": "Rahu",
+      "sign": "Gemini",
+      "degree": "20°4′38″",
+      "nakshatra": "Punarvasu",
+      "pada": 1,
+      "house": 5,
+      "is_retrograde": true
+    },
+    {
+      "planet": "Ketu",
+      "sign": "Sagittarius",
+      "degree": "20°4′38″",
+      "nakshatra": "Purva Ashadha",
+      "pada": 3,
+      "house": 11,
+      "is_retrograde": true
+    }
+  ]
+}
